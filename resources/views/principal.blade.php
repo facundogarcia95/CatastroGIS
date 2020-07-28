@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Sistema Compras-Ventas con Laravel y Vue Js- webtraining-it.com">
-    <meta name="keyword" content="Sistema Compras-Ventas con Laravel y Vue Js">
-    <title>Proyecto</title>
+    <meta name="description" content="Sistema Compras-Ventas">
+    <meta name="keyword" content="Sistema Compras-Ventas">
+    <title>Sistema COVE</title>
     <!-- Icons -->
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/simple-line-icons.min.css')}}" rel="stylesheet">
@@ -31,7 +31,7 @@
         </button>
         <ul class="nav navbar-nav d-md-down-none">
             <li class="nav-item px-3">
-                <a class="nav-link" href="#">Dashbord</a>
+                <a class="nav-link" href="#">Menu</a>
             </li>
            
         </ul>
@@ -62,11 +62,11 @@
         
        @if(Auth::check())
             @if (Auth::user()->idrol == 1)
-                @include('plantilla.sidebaradministrador')
+                @include('navbar.sidebaradministrador')
             @elseif (Auth::user()->idrol == 2)
-                @include('plantilla.sidebarvendedor')
+                @include('navbar.sidebarvendedor')
             @elseif (Auth::user()->idrol == 3)
-                @include('plantilla.sidebarcomprador')
+                @include('navbar.sidebarcomprador')
             @else
 
             @endif
