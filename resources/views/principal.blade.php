@@ -73,6 +73,7 @@
 
         @endif
       
+        
         <!-- Contenido Principal -->
            
            @yield('contenido')
