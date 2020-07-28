@@ -53,7 +53,7 @@ CREATE TABLE `clientes` (
 
 /*Data for the table `clientes` */
 
-insert  into `clientes`(`id`,`nombre`,`tipo_documento`,`num_documento`,`direccion`,`telefono`,`email`,`created_at`,`updated_at`) values (0,'CLIENTE EVENTUAL','DNI','0',NULL,NULL,NULL,'2020-07-24 13:57:23',NULL),(1,'pedro','CEDULA','123456','av carlota','123456','pedro@gmail.com',NULL,NULL),(2,'daniel','CEDULA','123','av alemania','4569','daniel@gmail.com','2019-04-29 23:57:23','2019-04-30 00:23:09');
+insert  into `clientes`(`id`,`nombre`,`tipo_documento`,`num_documento`,`direccion`,`telefono`,`email`,`created_at`,`updated_at`) values (0,'CLIENTE EVENTUAL','DNI','0','SIN ESPECIFICAR','SIN ESPECIFICAR','SIN ESPECIFICAR','2020-07-24 13:57:23',NULL),(1,'pedro','CEDULA','123456','av carlota','123456','pedro@gmail.com',NULL,NULL),(2,'daniel','CEDULA','123','av alemania','4569','daniel@gmail.com','2019-04-29 23:57:23','2019-04-30 00:23:09');
 
 /*Table structure for table `compras` */
 
@@ -264,7 +264,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`nombre`,`tipo_documento`,`num_documento`,`direccion`,`telefono`,`email`,`usuario`,`password`,`condicion`,`idrol`,`imagen`,`remember_token`,`created_at`,`updated_at`) values (1,'Admin','CEDULA','123456','av carlota','123456','eyter@gmail.com','administrador','$2y$10$TCHZklk8q2lT33oAbIG3xerU.0xxEUTf.9LjQyHCftXDDQWEW.TVC',1,1,'1556657502.jpeg',NULL,NULL,'2020-07-26 21:59:49'),(2,'carlos','DNI','12345','av san jose','789456','carlos@gmail.com','carlos','$2y$10$OHor.ElINIQ25xI6.zI3X.niVN6eojKZ5NX1vPJA5v5fVyGJFj2F2',1,2,'1556656697.jpeg',NULL,'2019-04-30 23:38:17','2019-05-03 02:22:03'),(3,'Alberto','CEDULA','12369','av italia','459666','alberto@gmail.com','alberto','$2y$10$xpHHqRaUPSKeUDAz9Ynkdes4vX09/lPzKdEgDaHgN7VLliXPxqPl2',1,3,'1556839376.png',NULL,'2019-05-03 02:22:56','2019-05-03 02:22:56');
+insert  into `users`(`id`,`nombre`,`tipo_documento`,`num_documento`,`direccion`,`telefono`,`email`,`usuario`,`password`,`condicion`,`idrol`,`imagen`,`remember_token`,`created_at`,`updated_at`) values (1,'Admin','CEDULA','123456','av carlota','123456','eyter@gmail.com','administrador','$2y$10$TCHZklk8q2lT33oAbIG3xerU.0xxEUTf.9LjQyHCftXDDQWEW.TVC',1,1,'1556657502.jpeg',NULL,NULL,'2020-07-26 21:59:49'),(2,'carlos','DNI','12345','av san jose','789456','carlos@gmail.com','vendedor','$2y$10$cB397wtaqhLk/GJioOIV1uvLCoIRihjB0nfLcF03PpdQDaZBNd7q6',1,2,'1556656697.jpeg',NULL,'2019-04-30 23:38:17','2020-07-28 21:20:03'),(3,'Alberto','CEDULA','12369','av italia','459666','alberto@gmail.com','alberto','$2y$10$xpHHqRaUPSKeUDAz9Ynkdes4vX09/lPzKdEgDaHgN7VLliXPxqPl2',1,3,'1556839376.png',NULL,'2019-05-03 02:22:56','2019-05-03 02:22:56');
 
 /*Table structure for table `ventas` */
 
