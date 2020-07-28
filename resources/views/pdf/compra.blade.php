@@ -41,6 +41,7 @@
         margin-right: 2%;
         font-size: 20px;
         background:#33AFFF;
+        border-radius: 10px;  
         }
  
         section{
@@ -128,8 +129,8 @@
             </div>
             
             <div id="fact">
-                <p>{{$v->tipo_identificacion}} COMPRA<br/>
-                  {{$v->num_compra}}</p>
+                <p>&nbsp;{{$v->tipo_identificacion}} COMPRA &nbsp;<br/>
+                    &nbsp;N° Compra: {{$v->num_compra}}&nbsp;</p>
             </div>
         </header>
         <br>
@@ -162,9 +163,9 @@
                         <tr id="fa">
                             <th>CANTIDAD</th>
                             <th>PRODUCTO</th>
-                            <th>PRECIO COMPRA (USD$)</th>
+                            <th>PRECIO COMPRA ($)</th>
                             <!--<th>CANTIDAD*PRECIO</th>-->
-                            <th>SUBTOTAL (USD$)</th>
+                            <th>SUBTOTAL ($)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -203,7 +204,7 @@
              <!--puedes poner un mensaje aqui-->
              <div id="datos">
                 <p id="encabezado">
-                    <b>webtraining-it.com</b><br>Eyter Higuera<br>Telefono:(+00)123456799<br>Email:webdeveloperphpwordpress@gmail.com
+                    <b>nuestraempresa.com</b><br>Nombre de la empresa<br>Telefono:(+00)123456789<br>Email:nuestraempresa@gmail.com
                 </p>
             </div>
         </footer>

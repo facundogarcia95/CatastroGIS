@@ -2,7 +2,7 @@
             <nav class="sidebar-nav">
                 <ul class="nav">
                     <li class="nav-item">
-                    <a class="nav-link" href="{{url('home')}}" onclick="event.preventDefault(); document.getElementById('home-form').submit();"><i class="fa fa-list"></i> Dashbord</a>
+                    <a class="nav-link" href="{{url('home')}}" onclick="event.preventDefault(); document.getElementById('home-form').submit();"><i class="fa fa-bar-chart"></i> Dashbord</a>
                             
                             <form id="home-form" action="{{url('home')}}" method="GET" style="display: none;">
                             {{csrf_field()}} 
@@ -15,7 +15,7 @@
                    
                     <li class="nav-item">
 
-                           <a class="nav-link" href="{{url('categoria')}}" onclick="event.preventDefault(); document.getElementById('categoria-form').submit();"><i class="fa fa-list"></i> Categorías</a>
+                           <a class="nav-link" href="{{url('categoria')}}" onclick="event.preventDefault(); document.getElementById('categoria-form').submit();"><i class="fa fa-list-ul"></i> Categorías</a>
                             
                             <form id="categoria-form" action="{{url('categoria')}}" method="GET" style="display: none;">
                             {{csrf_field()}} 
@@ -23,7 +23,7 @@
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('producto')}}" onclick="event.preventDefault(); document.getElementById('producto-form').submit();"><i class="fa fa-list"></i> Productos</a>
+                        <a class="nav-link" href="{{url('producto')}}" onclick="event.preventDefault(); document.getElementById('producto-form').submit();"><i class="fa fa-product-hunt"></i> Productos</a>
                             
                             <form id="producto-form" action="{{url('producto')}}" method="GET" style="display: none;">
                             {{csrf_field()}} 

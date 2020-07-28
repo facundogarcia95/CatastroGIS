@@ -170,7 +170,7 @@ class VentaController extends Controller
              $venta = Venta::join('clientes','ventas.idcliente','=','clientes.id')
              ->join('users','ventas.idusuario','=','users.id')
              ->join('detalle_ventas','ventas.id','=','detalle_ventas.idventa')
-             ->select('ventas.id','ventas.tipo_identificacion',
+             ->select('ventas.id','ventas.impuesto','ventas.tipo_identificacion',
              'ventas.num_venta','ventas.created_at','ventas.impuesto',
              'ventas.estado',DB::raw('sum(detalle_ventas.cantidad*precio - detalle_ventas.cantidad*precio*descuento/100) as total'),'clientes.nombre','clientes.tipo_documento','clientes.num_documento',
              'clientes.direccion','clientes.email','clientes.telefono','users.usuario')
@@ -188,10 +188,9 @@ class VentaController extends Controller
              ->where('detalle_ventas.idventa','=',$id)
              ->orderBy('detalle_ventas.id', 'desc')->get();
  
-             $numventa=Venta::select('num_venta')->where('id',$id)->get();
              
              $pdf= \PDF::loadView('pdf.venta',['venta'=>$venta,'detalles'=>$detalles]);
-             return $pdf->download('venta-'.$numventa[0]->num_venta.'.pdf');
+             return $pdf->download('venta-'.$id.'.pdf');
          }
  
      
