@@ -41,6 +41,7 @@
         margin-right: 2%;
         font-size: 20px;
         background:#33AFFF;
+        border-radius: 10px;  
         }
  
         section{
@@ -128,8 +129,8 @@
             </div>
             
             <div id="fact">
-                <p>{{$v->tipo_identificacion}} COMPRA<br/>
-                  {{$v->num_compra}}</p>
+                <p>&nbsp;{{$v->tipo_identificacion}} COMPRA &nbsp;<br/>
+                    &nbsp;N° Compra: {{$v->num_compra}}&nbsp;</p>
             </div>
         </header>
         <br>
