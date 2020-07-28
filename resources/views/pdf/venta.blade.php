@@ -36,11 +36,9 @@
         #fact{
         /*position: relative;*/
         float: right;
-        margin-top: 2%;
-        margin-left: 2%;
-        margin-right: 2%;
         font-size: 20px;
         background:#D2691E;
+        border-radius: 10px;  
         }
  
         section{
@@ -95,7 +93,8 @@
         padding: 20px;
         background: #D2691E;
         text-align: center;
-        border-bottom: 1px solid #FFFFFF;  
+        border-bottom: 1px solid #FFFFFF;
+      
         }
  
        
@@ -118,7 +117,8 @@
                     <tbody>
                         <tr>
                             <th><p id="proveedor">Nombre: {{$v->nombre}}<br>
-                            {{$v->tipo_identificacion}}-VENTA: {{$v->num_venta}}<br>
+                            Tipo: {{$v->tipo_identificacion}}<br/>
+                            N° Venta: {{$v->num_venta}}<br>
                             Dirección: {{$v->direccion}}<br>
                             Teléfono: {{$v->telefono}}<br>
                             Email: {{$v->email}}</</p></th>
@@ -128,8 +128,8 @@
             </div>
             
             <div id="fact">
-                <p>{{$v->tipo_identificacion}}-VENTA<br>
-                  {{$v->num_venta}}</p>
+                <p>&nbsp;{{$v->tipo_identificacion}}-VENTA &nbsp;<br>
+                    &nbsp;N° Venta: {{$v->num_venta}}&nbsp;</p>
             </div>
         </header>
         <br>
@@ -144,9 +144,9 @@
                         <tr id="fa">
                             <th>CANTIDAD</th>
                             <th>PRODUCTO</th>
-                            <th>PRECIO VENTA (USD$)</th>
+                            <th>PRECIO VENTA ($)</th>
                             <th>DESCUENTO (%)</th>
-                            <th>SUBTOTAL (USD$)</th>
+                            <th>SUBTOTAL ($)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -168,13 +168,13 @@
                         </tr>
 
                         <tr>
-                            <th colspan="4"><p align="right">TOTAL IMPUESTO (20%):</p></th>
-                            <td><p align="right">${{number_format($v->total*20/100,2)}}</p></td>
+                            <th colspan="4"><p align="right">TOTAL IMPUESTO ({{$v->impuesto}}%):</p></th>
+                            <td><p align="right">${{number_format($v->total*($v->impuesto)/100,2)}}</p></td>
                         </tr>
 
                         <tr>
                             <th  colspan="4"><p align="right">TOTAL PAGAR:</p></th>
-                            <td><p align="right">${{number_format($v->total+($v->total*20/100),2)}}</p></td>
+                            <td><p align="right">${{number_format($v->total+($v->total*($v->impuesto)/100),2)}}</p></td>
                         </tr>
 
                         @endforeach
@@ -188,7 +188,7 @@
             <!--puedes poner un mensaje aqui-->
             <div id="datos">
                 <p id="encabezado">
-                    <b>webtraining-it.com</b><br>Eyter Higuera<br>Telefono:(+00)123456799<br>Email:webdeveloperphpwordpress@gmail.com
+                    <b>nuestraempresa.com</b><br>Nombre de la empresa<br>Telefono:(+00)123456789<br>Email:nuestraempresa@gmail.com
                 </p>
             </div>
         </footer>
