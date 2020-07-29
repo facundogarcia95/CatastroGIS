@@ -42,12 +42,28 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         //
-        $categoria= new Categoria();
-        $categoria->nombre= $request->nombre;
-        $categoria->descripcion= $request->descripcion;
-        $categoria->condicion= '1';
-        $categoria->save();
-        return Redirect::to("categoria");
+
+        $existencia = DB::table('categorias')
+        ->select('nombre')
+        ->where("nombre","=", strtoupper($request->nombre))
+        ->get();
+
+
+        if (!isset($existencia[0])){
+
+            $categoria= new Categoria();
+            $categoria->nombre= strtoupper($request->nombre);
+            $categoria->descripcion= $request->descripcion;
+            $categoria->condicion= '1';
+            $categoria->save();
+
+            return Redirect::to("categoria")->with('mensaje', 'Categoria Agregada!');
+
+        }else{
+
+            return Redirect::to("categoria")->with('error', 'El nombre de Categoria ya existe!');
+
+        }
     }
 
 
@@ -61,12 +77,27 @@ class CategoriaController extends Controller
     public function update(Request $request)
     {
         //
-        $categoria= Categoria::findOrFail($request->id_categoria);
-        $categoria->nombre= $request->nombre;
-        $categoria->descripcion= $request->descripcion;
-        $categoria->condicion= '1';
-        $categoria->save();
-        return Redirect::to("categoria");
+        $existencia = DB::table('categorias')
+        ->select('nombre')
+        ->where("nombre","=",strtoupper($request->nombre))
+        ->get();
+
+
+        if (!isset($existencia[0])){
+
+            $categoria= Categoria::findOrFail($request->id_categoria);
+            $categoria->nombre= strtoupper($request->nombre);
+            $categoria->descripcion= $request->descripcion;
+            $categoria->condicion= '1';
+            $categoria->save();
+
+             return Redirect::to("categoria")->with('mensaje', 'Categoria Modificada!');
+
+        }else{
+
+            return Redirect::to("categoria")->with('error', 'El nombre de Categoria ya existe!');
+
+        }
     }
 
     /**

@@ -7,22 +7,39 @@
                 <div class="card">
                     <div class="card-header">
 
-                       <h2>Listado de Productos</h2><br/>
+                        <div class="col-sm-12">
+                            <h2>Listado de Productos</h2><br/>
                       
-                        <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#abrirmodal">
-                            <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Producto
-                        </button>
-                        
-                        <a href="{{url('listarProductoPdf')}}" target="_blank">
-                            <button type="button" class="btn btn-success btn-lg">
-                                <i class="fa fa-file fa-2x"></i>&nbsp;&nbsp;Reporte PDF
-                                
+                            <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#abrirmodal">
+                                <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Producto
                             </button>
-
-                        </a>
-
-
+                            
+                            <a href="{{url('listarProductoPdf')}}" target="_blank">
+                                <button type="button" class="btn btn-success btn-lg">
+                                    <i class="fa fa-file fa-2x"></i>&nbsp;&nbsp;Reporte PDF
+                                    
+                                </button>
+                            </a>
+                        </div>
+                        <div class="col-sm-12 mt-4">
+                            @if ( session('mensaje') )
+                                <div class="alert alert-success" role="alert">{{ session('mensaje') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                </div>
+                            @endif
+                            @if ( session('error') )
+                                <div class="alert alert-danger" role="alert">{{ session('error') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                </div>
+                            @endif
+                        </div>
+                        
                     </div>
+
                     <div class="card-body">
                         <div class="form-group row">
                             <div class="col-md-6">

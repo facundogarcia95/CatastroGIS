@@ -53,44 +53,59 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $producto= new Producto();
-        $producto->idcategoria = $request->id;
-        $producto->codigo = $request->codigo;
-        $producto->nombre = $request->nombre;
-        $producto->precio_venta = $request->precio_venta;
-        $producto->stock = $request->stock;
-        $producto->condicion = '1';
-
-        //Handle File Upload
-        if($request->hasFile('imagen')){
-
-        //Get filename with the extension
-        $filenamewithExt = $request->file('imagen')->getClientOriginalName();
         
-        //Get just filename
-        $filename = pathinfo($filenamewithExt,PATHINFO_FILENAME);
-        
-        //Get just ext
-        $extension = $request->file('imagen')->guessClientExtension();
-        
-        //FileName to store
-        $fileNameToStore = time().'.'.$extension;
-        
-        //Upload Image
-        $path = $request->file('imagen')->storeAs('public/img/producto',$fileNameToStore);
+        $existencia = DB::table('productos')
+        ->select('codigo')
+        ->where("codigo","=",$request->codigo)
+        ->get();
 
-       
-        } else{
 
-            $fileNameToStore="noimagen.jpg";
+        if (!isset($existencia[0])){
+
+                $producto= new Producto();
+                $producto->idcategoria = $request->id;
+                $producto->codigo = $request->codigo;
+                $producto->nombre = $request->nombre;
+                $producto->precio_venta = $request->precio_venta;
+                $producto->stock = $request->stock;
+                $producto->condicion = '1';
+
+                //Handle File Upload
+                if($request->hasFile('imagen')){
+
+                //Get filename with the extension
+                $filenamewithExt = $request->file('imagen')->getClientOriginalName();
+                
+                //Get just filename
+                $filename = pathinfo($filenamewithExt,PATHINFO_FILENAME);
+                
+                //Get just ext
+                $extension = $request->file('imagen')->guessClientExtension();
+                
+                //FileName to store
+                $fileNameToStore = time().'.'.$extension;
+                
+                //Upload Image
+                $path = $request->file('imagen')->storeAs('public/img/producto',$fileNameToStore);
+
+            
+                } else{
+
+                    $fileNameToStore="noimagen.jpg";
+                }
+                
+                $producto->imagen=$fileNameToStore;
+
+
+                $producto->save();
+                
+                return Redirect::to("producto")->with('mensaje', 'Producto Agregado!');
+
+        }else{
+
+                return Redirect::to("producto")->with('error', 'El código de producto ingresado ya existe!');
+
         }
-        
-        $producto->imagen=$fileNameToStore;
-
-
-        $producto->save();
-        return Redirect::to("producto");
     }
 
 
@@ -104,52 +119,68 @@ class ProductoController extends Controller
     public function update(Request $request)
     {
         //
-        $producto= Producto::findOrFail($request->id_producto);
-        $producto->idcategoria = $request->id;
-        $producto->codigo = $request->codigo;
-        $producto->nombre = $request->nombre;
-        $producto->precio_venta = $request->precio_venta;
-        $producto->stock = $request->stock;;
-        $producto->condicion = '1';
 
-        //Handle File Upload
-       
-        if($request->hasFile('imagen')){
+        $existencia = DB::table('productos')
+        ->select('codigo')
+        ->where("codigo","=",$request->codigo)
+        ->get();
 
-            /*si la imagen que subes es distinta a la que está por defecto 
-            entonces eliminaría la imagen anterior, eso es para evitar 
-            acumular imagenes en el servidor*/ 
-          if($producto->imagen != 'noimagen.jpg'){ 
-            Storage::delete('public/img/producto/'.$producto->imagen);
-          }
 
-         
-            //Get filename with the extension
-          $filenamewithExt = $request->file('imagen')->getClientOriginalName();
-          
-          //Get just filename
-          $filename = pathinfo($filenamewithExt,PATHINFO_FILENAME);
-          
-          //Get just ext
-          $extension = $request->file('imagen')->guessClientExtension();
-          
-          //FileName to store
-          $fileNameToStore = time().'.'.$extension;
-          
-          //Upload Image
-          $path = $request->file('imagen')->storeAs('public/img/producto',$fileNameToStore);
-          
-           
-           
-        } else {
+        if (!isset($existencia[0])){
+                    
+                $producto= Producto::findOrFail($request->id_producto);
+                $producto->idcategoria = $request->id;
+                $producto->codigo = $request->codigo;
+                $producto->nombre = $request->nombre;
+                $producto->precio_venta = $request->precio_venta;
+                $producto->stock = $request->stock;;
+                $producto->condicion = '1';
+
+                //Handle File Upload
             
-            $fileNameToStore = $producto->imagen; 
-        }
+                if($request->hasFile('imagen')){
 
-         $producto->imagen=$fileNameToStore;
- 
-        $producto->save();
-        return Redirect::to("producto");
+                    /*si la imagen que subes es distinta a la que está por defecto 
+                    entonces eliminaría la imagen anterior, eso es para evitar 
+                    acumular imagenes en el servidor*/ 
+                if($producto->imagen != 'noimagen.jpg'){ 
+                    Storage::delete('public/img/producto/'.$producto->imagen);
+                }
+
+                
+                    //Get filename with the extension
+                $filenamewithExt = $request->file('imagen')->getClientOriginalName();
+                
+                //Get just filename
+                $filename = pathinfo($filenamewithExt,PATHINFO_FILENAME);
+                
+                //Get just ext
+                $extension = $request->file('imagen')->guessClientExtension();
+                
+                //FileName to store
+                $fileNameToStore = time().'.'.$extension;
+                
+                //Upload Image
+                $path = $request->file('imagen')->storeAs('public/img/producto',$fileNameToStore);
+                
+                
+                
+                } else {
+                    
+                    $fileNameToStore = $producto->imagen; 
+                }
+
+                $producto->imagen=$fileNameToStore;
+        
+                $producto->save();
+
+                return Redirect::to("producto")->with('mensaje', 'Producto Modificado!');
+
+        }else{
+
+                return Redirect::to("producto")->with('error', 'El código de producto ingresado ya existe!');
+
+        }
     }
 
     /**

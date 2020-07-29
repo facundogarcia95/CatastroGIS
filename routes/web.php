@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['guest']], function () {
      
-    Route::get('/','Auth\LoginController@showLoginForm');
+    Route::get('/','Auth\LoginController@showLoginForm')->name('fromLogin');
     Route::post('auth.login', 'Auth\LoginController@login')->name('login');
 
 });

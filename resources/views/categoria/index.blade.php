@@ -6,12 +6,29 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-
-                       <h2>Listado de Categorías</h2><br/>
-                      
-                        <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#abrirmodal">
-                            <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Categoría
-                        </button>
+                        <div class="col-sm-12 mt-4">
+                            <h2>Listado de Categorías</h2><br/>
+                        
+                            <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#abrirmodal">
+                                <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Categoría
+                            </button>
+                        </div>
+                        <div class="col-sm-12 mt-4">
+                            @if ( session('mensaje') )
+                                <div class="alert alert-success" role="alert">{{ session('mensaje') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                </div>
+                            @endif
+                            @if ( session('error') )
+                                <div class="alert alert-danger" role="alert">{{ session('error') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
