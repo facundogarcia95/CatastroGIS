@@ -22,9 +22,23 @@ class CreateNegociosTable extends Migration
             $table->float('impuesto');
             $table->string('direccion');
             $table->string('telefono');
-            $table->string('descripcion');
+            $table->string('logo');
             //$table->timestamps();
         });
+        
+        
+        $negocio = [
+                'razon_social' => 'Nombre negocio',
+                'cuil' => '20-12345678-7',
+                'email' => 'negocio@gmail.com', 
+                'impuesto' => '21', 
+                'direccion' => 'calle 234 - Mendoza', 
+                'telefono' => '2612678891', 
+                'logo' => '123456.png'
+            ];
+
+        $db = DB::table('negocio')->insert($negocio);
+        
     }
 
     /**

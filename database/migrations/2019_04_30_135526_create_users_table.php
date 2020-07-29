@@ -35,7 +35,11 @@ class CreateUsersTable extends Migration
             });
 
 
-            $user = ['nombre' => 'Administrador','email' => 'administrador@gmail.com', 'usuario' => 'administrador', 'password' => bcrypt('administrador2315'), 'condicion' => 1, 'idrol' => 1, 'imagen' => ''];
+            $user = [
+                    ['nombre' => 'Administrador','email' => 'administrador@gmail.com', 'usuario' => 'administrador', 'password' => bcrypt('administrador2315'), 'condicion' => 1, 'idrol' => 1, 'imagen' => '123456.png'],
+                    ['nombre' => 'Vendedor','email' => 'vendedor@gmail.com', 'usuario' => 'vendedor', 'password' => bcrypt('vendedor2315'), 'condicion' => 1, 'idrol' => 2, 'imagen' => '123456.png'],
+                    ['nombre' => 'Comprador','email' => 'comprador@gmail.com', 'usuario' => 'comprador', 'password' => bcrypt('comprador2315'), 'condicion' => 1, 'idrol' => 3, 'imagen' => '123456.png']
+                    ];
 		    $db = DB::table('users')->insert($user);
         
     }
