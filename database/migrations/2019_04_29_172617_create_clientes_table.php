@@ -24,6 +24,13 @@ class CreateClientesTable extends Migration
             $table->string('email',50)->nullable();
             $table->timestamps();
         });
+
+        $cliente = [
+            ['nombre' => 'SIN DEFINIR', 'tipo_documento' => 'DNI', 'num_documento' => '00000000', 'direccion' => 'SIN DEFINIR', 'telefono' => 'SIN DEFINIR','email' => 'SIN DEFINIR', 'created_at' => now()]
+        ];
+
+        $db = DB::table('clientes')->insert($cliente);
+
     }
 
     /**

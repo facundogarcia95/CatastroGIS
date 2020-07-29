@@ -25,7 +25,11 @@ class CreateProveedoresTable extends Migration
             $table->timestamps();
         });
 
-        
+        $proveedor = [
+            ['nombre' => 'Proveedor 1', 'tipo_documento' => 'DNI', 'num_documento' => '12345567', 'direccion' => 'SIN CALLE', 'telefono' => '2612288191','email' => 'administrador@gmail.com', 'created_at' => now()]
+        ];
+
+        $db = DB::table('proveedores')->insert($proveedor);
     }
 
     /**

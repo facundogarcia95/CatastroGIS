@@ -36,9 +36,9 @@ class CreateUsersTable extends Migration
 
 
             $user = [
-                    ['nombre' => 'Administrador', 'tipo_documento' => 'DNI', 'num_documento' => '12345567', 'direccion' => 'SIN CALLE', 'telefono' => '2612288191','email' => 'administrador@gmail.com', 'usuario' => 'administrador', 'password' => bcrypt('administrador2315'), 'condicion' => 1, 'idrol' => 1, 'imagen' => '123456.png'],
-                    ['nombre' => 'Vendedor', 'tipo_documento' => 'DNI', 'num_documento' => '12345567', 'direccion' => 'SIN CALLE', 'telefono' => '2612288191','email' => 'vendedor@gmail.com', 'usuario' => 'vendedor', 'password' => bcrypt('vendedor2315'), 'condicion' => 1, 'idrol' => 2, 'imagen' => '123456.png'],
-                    ['nombre' => 'Comprador', 'tipo_documento' => 'DNI', 'num_documento' => '12345567', 'direccion' => 'SIN CALLE', 'telefono' => '2612288191','email' => 'comprador@gmail.com', 'usuario' => 'comprador', 'password' => bcrypt('comprador2315'), 'condicion' => 1, 'idrol' => 3, 'imagen' => '123456.png']
+                    ['nombre' => 'Administrador', 'tipo_documento' => 'DNI', 'num_documento' => '12345567', 'direccion' => 'SIN CALLE', 'telefono' => '2612288191','email' => 'administrador@gmail.com', 'usuario' => 'administrador', 'password' => bcrypt('administrador2315'), 'condicion' => 1, 'idrol' => 1, 'imagen' => '1556656697.jpeg'],
+                    ['nombre' => 'Vendedor', 'tipo_documento' => 'DNI', 'num_documento' => '12345567', 'direccion' => 'SIN CALLE', 'telefono' => '2612288191','email' => 'vendedor@gmail.com', 'usuario' => 'vendedor', 'password' => bcrypt('vendedor2315'), 'condicion' => 1, 'idrol' => 2, 'imagen' => '1556656697.jpeg'],
+                    ['nombre' => 'Comprador', 'tipo_documento' => 'DNI', 'num_documento' => '12345567', 'direccion' => 'SIN CALLE', 'telefono' => '2612288191','email' => 'comprador@gmail.com', 'usuario' => 'comprador', 'password' => bcrypt('comprador2315'), 'condicion' => 1, 'idrol' => 3, 'imagen' => '1556656697.jpeg']
                     ];
 		    $db = DB::table('users')->insert($user);
         
