@@ -20,8 +20,8 @@ class CreateProductosTable extends Migration
             $table->integer('idcategoria')->unsigned();
             $table->string('codigo',50)->nullable();
             $table->string('nombre',100)->unique();
-            $table->decimal('precio_venta',11,2);
-            $table->integer('stock');
+            $table->decimal('precio_venta',11,2)->default(0);
+            $table->integer('stock')->default(0);
             $table->boolean('condicion')->default(1);
             $table->integer('tipo_producto')->unsigned()->default(1);
             $table->string('imagen')->default('noImagen.jpg');

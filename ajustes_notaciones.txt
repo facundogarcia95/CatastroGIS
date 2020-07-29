@@ -1,8 +1,6 @@
 Ajustes a implementar
 
 - Diseño 
-- Alta de producto codigo debe ser unico
-- stock no se tiene que poder editar bajo ningun aspecto
 - armar modulo de faltantes de mercaderia
 - eliminar stock al crear un producto (siempre tiene que arrancar en cero)
 - modulo productos agregar busqueda por categoria y boton de limpiar busqueda

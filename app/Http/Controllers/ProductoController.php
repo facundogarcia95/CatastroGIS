@@ -25,7 +25,8 @@ class ProductoController extends Controller
             $sql=trim($request->get('buscarTexto'));
             $productos=DB::table('productos as p')
             ->join('categorias as c','p.idcategoria','=','c.id')
-            ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion','c.nombre as categoria')
+            ->join('tipo_productos as t','p.tipo_producto','=','t.id')
+            ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion','c.nombre as categoria', 't.nombre as tipoProducto')
             ->where('p.nombre','LIKE','%'.$sql.'%')
             ->orwhere('p.codigo','LIKE','%'.$sql.'%')
             ->orderBy('p.id','desc')
@@ -36,7 +37,12 @@ class ProductoController extends Controller
             ->select('id','nombre','descripcion')
             ->where('condicion','=','1')->get(); 
  
-            return view('producto.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql]);
+
+            /*Listar tipo de productos */
+            $tipoProductos = DB::table('tipo_productos')
+            ->get();
+
+            return view('producto.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql,"tipoProductos"=>$tipoProductos]);
      
             //return $productos;
         }
@@ -63,11 +69,11 @@ class ProductoController extends Controller
         if (!isset($existencia[0])){
 
                 $producto= new Producto();
-                $producto->idcategoria = $request->id;
+                $producto->idcategoria = $request->idCategoria;
                 $producto->codigo = $request->codigo;
                 $producto->nombre = $request->nombre;
-                $producto->precio_venta = $request->precio_venta;
-                $producto->stock = $request->stock;
+                $producto->precio_venta = $request->precio_venta??0;
+                $producto->tipo_producto = $request->idTipoProductos;
                 $producto->condicion = '1';
 
                 //Handle File Upload
@@ -120,20 +126,28 @@ class ProductoController extends Controller
     {
         //
 
-        $existencia = DB::table('productos')
+        $validar = DB::table('productos')
         ->select('codigo')
-        ->where("codigo","=",$request->codigo)
+        ->where("id","=",$request->id_producto)
         ->get();
 
 
-        if (!isset($existencia[0])){
+        if ($validar[0]->codigo != $request->codigo){
+
+            $existencia = DB::table('productos')
+            ->where("codigo","=",$request->codigo)
+            ->get();
+            
+        }
+
+        if(!isset($existencia[0]->codigo)){
                     
                 $producto= Producto::findOrFail($request->id_producto);
                 $producto->idcategoria = $request->id;
                 $producto->codigo = $request->codigo;
                 $producto->nombre = $request->nombre;
-                $producto->precio_venta = $request->precio_venta;
-                $producto->stock = $request->stock;;
+                $producto->precio_venta = $request->precio_venta??0;
+                $producto->tipo_producto = $request->idTipoProductos;
                 $producto->condicion = '1';
 
                 //Handle File Upload

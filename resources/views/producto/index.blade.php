@@ -59,10 +59,11 @@
                                     <th>Categoria</th>
                                     <th>Producto</th>
                                     <th>Codigo</th>
-                                    <th>Precio Venta ($)
+                                    <th>Precio Venta ($)</th>
                                     <th>Stock</th>
+                                    <th>Tipo</th>
                                     <th>Imagen</th>
-                                    <th>Estado</th>
+                      
                                     <th>Editar</th>
                                     <th>Cambiar Estado</th>
                                 </tr>
@@ -76,36 +77,25 @@
                                    <td>{{$prod->categoria}}</td>
                                     <td>{{$prod->nombre}}</td>
                                     <td>{{$prod->codigo}}</td>
-                                    <td>{{$prod->precio_venta}}</td>
+                                    <td>
+                                        @if ($prod->precio_venta == 0)
+                                            SIN PRECIO
+                                        @else
+                                            {{$prod->precio_venta}}
+                                        @endif
+                                       
+                                    </td>
                                     <td>{{$prod->stock}}</td>
+                                    <td><b>{{$prod->tipoProducto}}</b></td>
 
                                     <td>
                                          <img src="{{asset('storage/img/producto/'.$prod->imagen)}}" id="imagen1" alt="{{$prod->nombre}}" class="img-responsive" width="100px" height="100px">
                                     </td>
             
-
-                                    <td>
-                                      
-                                      @if($prod->condicion=="1")
-                                        <button type="button" class="btn btn-success btn-md">
-                                    
-                                          <i class="fa fa-check fa-2x"></i> Activo
-                                        </button>
-
-                                      @else
-
-                                        <button type="button" class="btn btn-danger btn-md">
-                                    
-                                          <i class="fa fa-check fa-2x"></i> Desactivado
-                                        </button>
-
-                                       @endif
-                                       
-                                    </td>
                             
                                     <td>
-                                        <button type="button" class="btn btn-info btn-md" data-id_producto="{{$prod->id}}" data-id_categoria="{{$prod->idcategoria}}" data-codigo="{{$prod->codigo}}" data-stock="{{$prod->stock}}" data-nombre="{{$prod->nombre}}" data-precio_venta="{{$prod->precio_venta}}"  data-toggle="modal" data-target="#abrirmodalEditar">
-                                          <i class="fa fa-edit fa-2x"></i> Editar
+                                        <button type="button" class="btn btn-info rounded btn-md" data-id_producto="{{$prod->id}}" data-id_categoria="{{$prod->idcategoria}}" data-codigo="{{$prod->codigo}}" data-stock="{{$prod->stock}}" data-nombre="{{$prod->nombre}}" data-precio_venta="{{$prod->precio_venta}}"  data-toggle="modal" data-target="#abrirmodalEditar">
+                                          <i class="fa fa-edit fa-2x"></i> EDITAR
                                         </button> &nbsp;
                                     </td>
 
@@ -114,14 +104,14 @@
 
                                        @if($prod->condicion)
 
-                                        <button type="button" class="btn btn-danger btn-sm" data-id_producto="{{$prod->id}}" data-toggle="modal" data-target="#cambiarEstado">
-                                            <i class="fa fa-times fa-2x"></i> Desactivar
+                                        <button type="button" class="btn btn-danger rounded btn-sm" data-id_producto="{{$prod->id}}" data-toggle="modal" data-target="#cambiarEstado">
+                                            <i class="fa fa-times fa-2x"></i> DESACTIVAR
                                         </button>
 
                                         @else
 
-                                         <button type="button" class="btn btn-success btn-sm" data-id_producto="{{$prod->id}}" data-toggle="modal" data-target="#cambiarEstado">
-                                            <i class="fa fa-lock fa-2x"></i> Activar
+                                         <button type="button" class="btn btn-warning btn-sm" data-id_producto="{{$prod->id}}" data-toggle="modal" data-target="#cambiarEstado">
+                                            <i class="fa fa-check fa-2x "></i> ACTIVAR
                                         </button>
 
                                         @endif
@@ -230,8 +220,8 @@
         
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times fa-2x"></i>Cerrar</button>
-                                    <button type="submit" class="btn btn-success"><i class="fa fa-lock fa-2x"></i>Aceptar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-success">Aceptar</button>
                                 </div>
 
 
@@ -249,5 +239,21 @@
            
             
         </main>
+@push('scripts')
+    <script>
+        function tipoProducto(tipo) {
 
+            if(tipo.value == "1"){
+                $("#precio_venta").prop('required',true);
+                $("#collapsePrecioVenta").collapse('show');
+               
+            }else{
+                $("#precio_venta").removeAttr('required');
+                $("#collapsePrecioVenta").collapse('hide');
+                
+            }
+
+          }
+    </script>
+@endpush
 @endsection

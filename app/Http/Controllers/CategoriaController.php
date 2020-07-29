@@ -77,11 +77,20 @@ class CategoriaController extends Controller
     public function update(Request $request)
     {
         //
-        $existencia = DB::table('categorias')
+
+        $validar = DB::table('categorias')
         ->select('nombre')
-        ->where("nombre","=",strtoupper($request->nombre))
+        ->where("id","=",$request->id_categoria)
         ->get();
 
+
+        if ($validar[0]->nombre != strtoupper($request->nombre)){
+
+            $existencia = DB::table('categorias')
+            ->where("nombre","=",strtoupper($request->nombre))
+            ->get();
+            
+        }
 
         if (!isset($existencia[0])){
 

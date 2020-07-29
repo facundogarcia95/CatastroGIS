@@ -4,7 +4,7 @@
             
             <div class="col-md-9">
             
-                <select class="form-control" name="id" id="id" required>
+                <select class="form-control" name="idCategoria" id="idCategoria" required>
                                                 
                 <option value="">Seleccionar</option>
                 
@@ -19,6 +19,27 @@
             </div>
                                        
     </div>
+
+    <div class="form-group row">
+        <label class="col-md-3 form-control-label" for="titulo">Tipo de Producto</label>
+        
+        <div class="col-md-9" >
+        
+            <select class="form-control" name="idTipoProductos" onchange="tipoProducto(this)" required>
+                                            
+            <option value="">Seleccionar</option>
+            
+            @foreach($tipoProductos as $tipo)
+              
+               <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
+                    
+            @endforeach
+
+            </select>
+
+        </div>
+                                   
+</div>
     
     
     <div class="form-group row">
@@ -28,13 +49,6 @@
                    
                 </div>
     </div>
-    
-    <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="stock">Stock</label>
-                <div class="col-md-9">
-                    <input type="text" id="stock" name="stock" class="form-control" placeholder="Ingrese el stock">
-                </div>
-    </div>
 
      <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="nombre">Nombre</label>
@@ -42,12 +56,14 @@
                     <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingrese la nombre" required pattern="^[a-zA-Z0-9_áéíóúñ\s]{0,100}$">
                 </div>
     </div>
-
-     <div class="form-group row">
+    
+    <div class="collapse" id="collapsePrecioVenta">
+        <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="nombre">Precio Venta</label>
                 <div class="col-md-9">
-                    <input type="number" id="precio_venta" name="precio_venta" class="form-control" placeholder="Ingrese el precio venta" required pattern="^[a-zA-Z_áéíóúñ\s]{0,100}$">
+                    <input type="number" id="precio_venta" name="precio_venta" class="form-control" placeholder="Ingrese el precio venta" pattern="^{0,100}$">
                 </div>
+        </div>
     </div>
 
     <div class="form-group row">
@@ -65,3 +81,5 @@
         <button type="submit" class="btn btn-success"><i class="fa fa-save fa-2x"></i> Guardar</button>
         
     </div>
+
+   
