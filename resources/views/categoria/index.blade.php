@@ -48,16 +48,16 @@
 
                                       @if($cat->condicion=="1")
 
-                                        <button type="button" class="btn btn-success btn-md">
+                                        <label class="text-success">
                                     
                                           <i class="fa fa-check fa-2x"></i> Activo
-                                        </button>
+                                        </label>
 
                                       @else
-                                         <button type="button" class="btn btn-danger btn-md">
+                                         <label class="text-danger">
                                     
-                                         <i class="fa fa-check fa-2x"></i> Desactivado
-                                         </button>
+                                         <i class="fa fa-times fa-2x"></i> Desactivado
+                                         </label>
 
                                       @endif
                                         
@@ -192,8 +192,8 @@
         
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times fa-2x"></i>Cerrar</button>
-                                    <button type="submit" class="btn btn-success"><i class="fa fa-lock fa-2x"></i>Aceptar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-success">Aceptar</button>
                                 </div>
 
 

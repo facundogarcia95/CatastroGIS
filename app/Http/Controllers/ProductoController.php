@@ -29,7 +29,7 @@ class ProductoController extends Controller
             ->where('p.nombre','LIKE','%'.$sql.'%')
             ->orwhere('p.codigo','LIKE','%'.$sql.'%')
             ->orderBy('p.id','desc')
-            ->paginate(3);
+            ->paginate(10);
            
             /*listar las categorias en ventana modal*/
             $categorias=DB::table('categorias')
@@ -182,7 +182,8 @@ class ProductoController extends Controller
 
 
             $productos = Producto::join('categorias','productos.idcategoria','=','categorias.id')
-            ->select('productos.id','productos.idcategoria','productos.codigo','productos.nombre','categorias.nombre as nombre_categoria','productos.stock','productos.condicion')
+            ->select('productos.id','productos.idcategoria','productos.codigo','productos.nombre','categorias.nombre as nombre_categoria','productos.stock','productos.condicion', 'productos.condicion', 'productos.precio_venta')
+            ->where('productos.condicion', '=', '1')
             ->orderBy('productos.nombre', 'desc')->get(); 
 
 

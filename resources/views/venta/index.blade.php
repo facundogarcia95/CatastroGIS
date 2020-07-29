@@ -74,17 +74,15 @@
                                     <td>
                                       
                                       @if($vent->estado=="Registrado")
-                                        <button type="button" class="btn btn-success btn-md">
-                                    
-                                          <i class="fa fa-check fa-2x"></i> Registrado
-                                        </button>
+                                     
+                                         <label class="text-success"> <i class="fa fa-check fa-2x"></i> Registrado </label>
+                       
 
                                       @else
 
-                                        <button type="button" class="btn btn-danger btn-md">
-                                    
-                                          <i class="fa fa-check fa-2x"></i> Anulado
-                                        </button>
+                                      <label class="text-danger"> 
+                                          <i class="fa fa-times fa-2x"></i> Anulado
+                                          </label>
 
                                        @endif
                                        
@@ -101,9 +99,9 @@
 
                                         @else
 
-                                         <button type="button" class="btn btn-success btn-sm">
-                                            <i class="fa fa-lock fa-2x"></i> Anulado
-                                        </button>
+                                      <label class="text-dark">
+                                            <i class="fa fa-lock fa-2x "></i> Anulado
+                                        </label>
 
                                         @endif
                                        

@@ -13,6 +13,7 @@ class CreateNegociosTable extends Migration
      */
     public function up()
     {
+       
         Schema::create('negocio', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('razon_social');
@@ -21,6 +22,7 @@ class CreateNegociosTable extends Migration
             $table->float('impuesto');
             $table->string('direccion');
             $table->string('telefono');
+            $table->string('descripcion');
             //$table->timestamps();
         });
     }

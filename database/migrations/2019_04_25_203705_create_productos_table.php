@@ -13,6 +13,8 @@ class CreateProductosTable extends Migration
      */
     public function up()
     {
+       
+
         Schema::create('productos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idcategoria')->unsigned();
@@ -21,10 +23,15 @@ class CreateProductosTable extends Migration
             $table->decimal('precio_venta',11,2);
             $table->integer('stock');
             $table->boolean('condicion')->default(1);
+            $table->integer('tipo_producto')->unsigned()->default(1);
+
             $table->timestamps();
 
             $table->foreign('idcategoria')->references('id')->on('categorias');
+            $table->foreign('tipo_producto')->references('id')->on('tipo_productos');
         });
+
+        
     }
 
     /**

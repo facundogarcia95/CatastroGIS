@@ -13,6 +13,7 @@ class CreateProveedoresTable extends Migration
      */
     public function up()
     {
+
         Schema::create('proveedores', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre',100)->unique();
@@ -23,6 +24,8 @@ class CreateProveedoresTable extends Migration
             $table->string('email',50)->nullable();
             $table->timestamps();
         });
+
+        
     }
 
     /**

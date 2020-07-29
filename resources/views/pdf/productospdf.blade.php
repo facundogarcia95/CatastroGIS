@@ -92,6 +92,7 @@
                     <th>Producto</th>
                     <th>Código</th>
                     <th>Stock</th>
+                    <th>Precio Venta</th>
                     
                 </tr>
             </thead>
@@ -102,6 +103,7 @@
                     <td>{{$a->nombre}}</td>
                     <td>{{$a->codigo}}</td>
                     <td>{{$a->stock}}</td>
+                    <td>${{$a->precio_venta}}</td>
                    
                 </tr>
                 @endforeach                               

@@ -6,7 +6,7 @@
             
                 <select class="form-control" name="id" id="id" required>
                                                 
-                <option value="0" disabled>Seleccione</option>
+                <option value="">Seleccionar</option>
                 
                 @foreach($categorias as $cat)
                   

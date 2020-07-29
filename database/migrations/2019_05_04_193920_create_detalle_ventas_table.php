@@ -13,6 +13,7 @@ class CreateDetalleVentasTable extends Migration
      */
     public function up()
     {
+        
         Schema::create('detalle_ventas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idventa')->unsigned();

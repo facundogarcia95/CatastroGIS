@@ -1,0 +1,10 @@
+Ajustes a implementar
+
+- Pagina de not found autologin sin datos enviados
+- Diseño 
+- Alta de producto codigo debe ser unico
+- stock no se tiene que poder editar bajo ningun aspecto
+- armar modulo de faltantes de mercaderia
+- eliminar stock al crear un producto (siempre tiene que arrancar en cero)
+- arreglar carga de imagen en todo
+- modulo productos agregar busqueda por categoria y boton de limpiar busqueda
