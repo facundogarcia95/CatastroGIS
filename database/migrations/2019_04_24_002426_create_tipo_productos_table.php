@@ -22,8 +22,8 @@ class CreateTipoProductosTable extends Migration
             });
             
             $tipo = [
-                ['nombre' => 'INSUMO', 'created_at' => now()],
                 ['nombre' => 'PRODUCTO FINAL', 'created_at' => now()],
+                ['nombre' => 'INSUMO', 'created_at' => now()]
             ];
 		    $db = DB::table('tipo_productos')->insert($tipo);
 
