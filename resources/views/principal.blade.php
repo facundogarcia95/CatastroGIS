@@ -117,6 +117,7 @@
         modal.find('.modal-body #descripcion').val(descripcion_modal_editar);
         modal.find('.modal-body #id_categoria').val(id_categoria);
         modal.find('.modal-body #id_tipoproductos').val(id_tipoproductos);
+            tipoProducto(id_tipoproductos);
         })
 
 

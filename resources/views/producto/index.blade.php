@@ -243,13 +243,13 @@
     <script>
         function tipoProducto(tipo) {
 
-            if(tipo.value == "1"){
+            if(tipo == "1"){
                 $("#precio_venta").prop('required',true);
-                $("#collapsePrecioVenta").collapse('show');
+                $(".collapsePrecioVenta").collapse('show');
                
             }else{
                 $("#precio_venta").removeAttr('required');
-                $("#collapsePrecioVenta").collapse('hide');
+                $(".collapsePrecioVenta").collapse('hide');
                 
             }
 

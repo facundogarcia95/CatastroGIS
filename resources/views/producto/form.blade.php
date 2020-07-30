@@ -26,7 +26,7 @@
         
         <div class="col-md-9" >
         
-            <select class="form-control" name="idTipoProductos" id="id_tipoproductos" onchange="tipoProducto(this)" required>
+            <select class="form-control" name="idTipoProductos" id="id_tipoproductos" onchange="tipoProducto(this.value)" required>
                                             
             <option value="">Seleccionar</option>
             
@@ -58,7 +58,7 @@
                 </div>
     </div>
     
-    <div class="collapse" id="collapsePrecioVenta">
+    <div class="collapse collapsePrecioVenta">
         <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="nombre">Precio Venta</label>
                 <div class="col-md-9">

@@ -68,6 +68,7 @@ class ProductoController extends Controller
 
         if (!isset($existencia[0])){
 
+                if($request->idTipoProductos == 2){$request->precio_venta = null;}
                 $producto= new Producto();
                 $producto->idcategoria = $request->idCategoria;
                 $producto->codigo = $request->codigo;
@@ -141,9 +142,11 @@ class ProductoController extends Controller
         }
 
         if(!isset($existencia[0]->codigo)){
-                    
+                 
+            if($request->idTipoProductos == 2){$request->precio_venta = null;}
+
                 $producto= Producto::findOrFail($request->id_producto);
-                $producto->idcategoria = $request->id;
+                $producto->idcategoria = $request->idCategoria;
                 $producto->codigo = $request->codigo;
                 $producto->nombre = strtoupper($request->nombre);
                 $producto->precio_venta = $request->precio_venta??0;
