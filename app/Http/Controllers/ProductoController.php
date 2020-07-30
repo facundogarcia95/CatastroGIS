@@ -26,7 +26,7 @@ class ProductoController extends Controller
             $productos=DB::table('productos as p')
             ->join('categorias as c','p.idcategoria','=','c.id')
             ->join('tipo_productos as t','p.tipo_producto','=','t.id')
-            ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion','c.nombre as categoria', 't.nombre as tipoProducto')
+            ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos')
             ->where('p.nombre','LIKE','%'.$sql.'%')
             ->orwhere('p.codigo','LIKE','%'.$sql.'%')
             ->orderBy('p.id','desc')
@@ -71,7 +71,7 @@ class ProductoController extends Controller
                 $producto= new Producto();
                 $producto->idcategoria = $request->idCategoria;
                 $producto->codigo = $request->codigo;
-                $producto->nombre = $request->nombre;
+                $producto->nombre = strtoupper($request->nombre);
                 $producto->precio_venta = $request->precio_venta??0;
                 $producto->tipo_producto = $request->idTipoProductos;
                 $producto->condicion = '1';
@@ -145,7 +145,7 @@ class ProductoController extends Controller
                 $producto= Producto::findOrFail($request->id_producto);
                 $producto->idcategoria = $request->id;
                 $producto->codigo = $request->codigo;
-                $producto->nombre = $request->nombre;
+                $producto->nombre = strtoupper($request->nombre);
                 $producto->precio_venta = $request->precio_venta??0;
                 $producto->tipo_producto = $request->idTipoProductos;
                 $producto->condicion = '1';

@@ -94,7 +94,7 @@
             
                             
                                     <td>
-                                        <button type="button" class="btn btn-info rounded btn-md" data-id_producto="{{$prod->id}}" data-id_categoria="{{$prod->idcategoria}}" data-codigo="{{$prod->codigo}}" data-stock="{{$prod->stock}}" data-nombre="{{$prod->nombre}}" data-precio_venta="{{$prod->precio_venta}}"  data-toggle="modal" data-target="#abrirmodalEditar">
+                                        <button type="button" class="btn btn-info rounded btn-md" data-id_producto="{{$prod->id}}" data-id_categoria="{{$prod->idcategoria}}" data-id_tipoproductos="{{$prod->idtipoproductos}}" data-codigo="{{$prod->codigo}}" data-stock="{{$prod->stock}}" data-nombre="{{$prod->nombre}}" data-precio_venta="{{$prod->precio_venta}}"  data-toggle="modal" data-target="#abrirmodalEditar">
                                           <i class="fa fa-edit fa-2x"></i> EDITAR
                                         </button> &nbsp;
                                     </td>

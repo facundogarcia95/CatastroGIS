@@ -4,7 +4,7 @@
             
             <div class="col-md-9">
             
-                <select class="form-control" name="idCategoria" id="idCategoria" required>
+                <select class="form-control" name="idCategoria" id="id_categoria" required>
                                                 
                 <option value="">Seleccionar</option>
                 
@@ -19,13 +19,14 @@
             </div>
                                        
     </div>
+    
 
     <div class="form-group row">
         <label class="col-md-3 form-control-label" for="titulo">Tipo de Producto</label>
         
         <div class="col-md-9" >
         
-            <select class="form-control" name="idTipoProductos" onchange="tipoProducto(this)" required>
+            <select class="form-control" name="idTipoProductos" id="id_tipoproductos" onchange="tipoProducto(this)" required>
                                             
             <option value="">Seleccionar</option>
             
@@ -53,7 +54,7 @@
      <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="nombre">Nombre</label>
                 <div class="col-md-9">
-                    <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingrese la nombre" required pattern="^[a-zA-Z0-9_áéíóúñ\s]{0,100}$">
+                    <input type="text" id="nombre" name="nombre" class="form-control text-uppercase" placeholder="Ingrese la nombre" required pattern="^[a-zA-Z0-9_áéíóúñ\s]{0,100}$">
                 </div>
     </div>
     
