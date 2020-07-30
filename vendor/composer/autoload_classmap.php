@@ -48,7 +48,7 @@ return array(
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\Rol' => $baseDir . '/app/Rol.php',
-    'App\\Tipo_producto' => $baseDir . '/app/Tipo_producto.php',
+    'App\\TipoProducto' => $baseDir . '/app/TipoProducto.php',
     'App\\User' => $baseDir . '/app/User.php',
     'App\\Venta' => $baseDir . '/app/Venta.php',
     'Barryvdh\\DomPDF\\Facade' => $vendorDir . '/barryvdh/laravel-dompdf/src/Facade.php',
