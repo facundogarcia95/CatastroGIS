@@ -111,12 +111,14 @@
         var descripcion_modal_editar = button.data('descripcion')
         var id_categoria = button.data('id_categoria')
         var id_tipoproductos = button.data('id_tipoproductos')
+        var unidad_medida = button.data('unidad_medida')
         var modal = $(this)
         // modal.find('.modal-title').text('New message to ' + recipient)
         modal.find('.modal-body #nombre').val(nombre_modal_editar);
         modal.find('.modal-body #descripcion').val(descripcion_modal_editar);
         modal.find('.modal-body #id_categoria').val(id_categoria);
         modal.find('.modal-body #id_tipoproductos').val(id_tipoproductos);
+        modal.find('.modal-body #unidad_medida').val(unidad_medida);
             tipoProducto(id_tipoproductos);
         })
 

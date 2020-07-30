@@ -26,7 +26,8 @@ class ProductoController extends Controller
             $productos=DB::table('productos as p')
             ->join('categorias as c','p.idcategoria','=','c.id')
             ->join('tipo_productos as t','p.tipo_producto','=','t.id')
-            ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos')
+            ->join('unidad_medidas as uni','p.unidad_medida','=','uni.id')
+            ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
             ->where('p.nombre','LIKE','%'.$sql.'%')
             ->orwhere('p.codigo','LIKE','%'.$sql.'%')
             ->orderBy('p.id','desc')
@@ -42,7 +43,10 @@ class ProductoController extends Controller
             $tipoProductos = DB::table('tipo_productos')
             ->get();
 
-            return view('producto.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql,"tipoProductos"=>$tipoProductos]);
+            $unidades = DB::table('unidad_medidas')
+            ->get();
+
+            return view('producto.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql,"tipoProductos"=>$tipoProductos, "unidades" => $unidades]);
      
             //return $productos;
         }
@@ -70,11 +74,12 @@ class ProductoController extends Controller
 
                 if($request->idTipoProductos == 2){$request->precio_venta = null;}
                 $producto= new Producto();
-                $producto->idcategoria = $request->idCategoria;
+                $producto->idcategoria = $request->idcategoria;
                 $producto->codigo = $request->codigo;
                 $producto->nombre = strtoupper($request->nombre);
                 $producto->precio_venta = $request->precio_venta??0;
                 $producto->tipo_producto = $request->idTipoProductos;
+                $producto->unidad_medida = $request->unidad_medida;
                 $producto->condicion = '1';
 
                 //Handle File Upload
@@ -146,11 +151,12 @@ class ProductoController extends Controller
             if($request->idTipoProductos == 2){$request->precio_venta = null;}
 
                 $producto= Producto::findOrFail($request->id_producto);
-                $producto->idcategoria = $request->idCategoria;
+                $producto->idcategoria = $request->idcategoria;
                 $producto->codigo = $request->codigo;
                 $producto->nombre = strtoupper($request->nombre);
                 $producto->precio_venta = $request->precio_venta??0;
                 $producto->tipo_producto = $request->idTipoProductos;
+                $producto->unidad_medida = $request->unidad_medida;
                 $producto->condicion = '1';
 
                 //Handle File Upload

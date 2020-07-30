@@ -4,7 +4,7 @@
             
             <div class="col-md-9">
             
-                <select class="form-control" name="idCategoria" id="id_categoria" required>
+                <select class="form-control" name="idcategoria" id="id_categoria" required>
                                                 
                 <option value="">Seleccionar</option>
                 
@@ -22,6 +22,7 @@
     
 
     <div class="form-group row">
+        
         <label class="col-md-3 form-control-label" for="titulo">Tipo de Producto</label>
         
         <div class="col-md-9" >
@@ -40,8 +41,29 @@
 
         </div>
                                    
-</div>
+    </div>
     
+    <div class="form-group row">
+        
+        <label class="col-md-3 form-control-label" for="titulo">Unidad de Medida</label>
+        
+        <div class="col-md-9" >
+        
+            <select class="form-control" name="unidad_medida" id="unidad_medida" required>
+                                            
+            <option value="">Seleccionar</option>
+            
+            @foreach($unidades as $unidad)
+              
+               <option value="{{$unidad->id}}">{{$unidad->unidad}}</option>
+                    
+            @endforeach
+
+            </select>
+
+        </div>
+                                   
+    </div>
     
     <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="codigo">Código</label>

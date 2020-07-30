@@ -25,11 +25,12 @@ class CreateProductosTable extends Migration
             $table->boolean('condicion')->default(1);
             $table->integer('tipo_producto')->unsigned()->default(1);
             $table->string('imagen')->default('noImagen.jpg');
-
+            $table->integer('unidad_medida')->unsigned()->default(1);
             $table->timestamps();
 
             $table->foreign('idcategoria')->references('id')->on('categorias');
             $table->foreign('tipo_producto')->references('id')->on('tipo_productos');
+            $table->foreign('unidad_medida')->references('id')->on('unidad_medidas');
         });
 
         
