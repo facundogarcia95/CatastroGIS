@@ -52,6 +52,7 @@ class VentaController extends Controller
              ->select(DB::raw('CONCAT(prod.codigo," ",prod.nombre) AS producto'),'prod.id','prod.stock','prod.precio_venta')
              ->where('prod.condicion','=','1')
              ->where('prod.stock','>','0')
+             ->where('prod.tipo_producto','=','1')
              ->groupBy('producto','prod.id','prod.stock','prod.precio_venta')
              ->get(); 
 
