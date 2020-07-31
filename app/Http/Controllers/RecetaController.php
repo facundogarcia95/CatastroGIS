@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Receta;
 use App\DetalleReceta;
+use Illuminate\Support\Facades\Redirect;
+use DB;
+
 
 class RecetaController extends Controller
 {
@@ -19,7 +21,7 @@ class RecetaController extends Controller
         $sql=trim($request->get('buscarTexto'));
         $recetas=Receta::join('users','recetas.idusuario','=','users.id')
         ->join('detalle_recetas','recetas.id','=','detalle_recetas.idreceta')
-         ->select('recetas.id','recetas.nombre','recetas.condicion','users.nombre')
+         ->select('recetas.id','recetas.nombre','recetas.condicion','users.nombre as usuario')
         ->where('recetas.nombre','LIKE','%'.$sql.'%')
         ->where('recetas.condicion','=','1')
         ->orderBy('recetas.id','desc')
@@ -40,9 +42,10 @@ class RecetaController extends Controller
             
          /*listar los productos en ventana modal*/
          $productos=DB::table('productos as prod')
-         ->select(DB::raw('CONCAT(prod.codigo," ",prod.nombre) AS producto'),'prod.id')
+         ->join('unidad_medidas','prod.unidad_medida','=','unidad_medidas.id')
+         ->select(DB::raw('CONCAT("#",prod.codigo," - ",prod.nombre) AS producto'),'prod.id', 'unidad_medidas.unidad')
          ->where('prod.condicion','=','1')
-         ->where('prod.tipo_productos','=','2')
+         ->where('prod.tipo_producto','=','2')
          ->get(); 
 
 
@@ -65,8 +68,6 @@ class RecetaController extends Controller
         try{
 
             DB::beginTransaction();
-
-            $mytime= Carbon::now('America/Argentina/Mendoza');
 
             $receta = new Receta();
             $receta->idusuario = \Auth::user()->id;
@@ -120,7 +121,7 @@ class RecetaController extends Controller
              //$id = $request->id;
              $receta=Receta::join('users','recetas.idusuario','=','users.id')
              ->join('detalle_recetas','recetas.id','=','detalle_recetas.idreceta')
-             ->select('recetas.id','recetas.nombre','recetas.condicion','users.nombre')
+             ->select('recetas.id','recetas.nombre','recetas.condicion','users.nombre as usuario')
              ->where('recetas.id','=',$id)
              ->where('recetas.condicion','=','1')
              ->orderBy('recetas.id','desc')
@@ -131,7 +132,7 @@ class RecetaController extends Controller
              /*mostrar detalles*/
              $detalles = DetalleReceta::join('productos','detalle_recetas.idproducto','=','productos.id')
              ->join('unidad_medidas','unidad_medidas.id','=','productos.unidad_medida')
-             ->select('productos.nombre as producto','detalle_recetas.cantidad','unidad_medidas.unidad')
+             ->select('productos.nombre as producto','productos.codigo','detalle_recetas.cantidad','unidad_medidas.unidad')
              ->where('detalle_recetas.idreceta','=',$id)
              ->orderBy('detalle_recetas.id', 'desc')->get();
              
