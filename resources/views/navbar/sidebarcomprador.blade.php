@@ -15,7 +15,7 @@
 
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('categoria')}}" onclick="event.preventDefault(); document.getElementById('categoria-form').submit();"><i class="fa fa-list-ul"></i> Categorías</a>
+                        <a class="nav-link" href="{{url('categoria')}}" onclick="event.preventDefault(); document.getElementById('categoria-form').submit();"><i class="fa text-light fa-list-ul"></i> Categorías</a>
                         
                          <form id="categoria-form" action="{{url('categoria')}}" method="GET" style="display: none;">
                             {{csrf_field()}} 
@@ -25,7 +25,7 @@
                    
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('producto')}}" onclick="event.preventDefault(); document.getElementById('producto-form').submit();"><i class="fa fa-product-hunt"></i> Productos</a>
+                        <a class="nav-link" href="{{url('producto')}}" onclick="event.preventDefault(); document.getElementById('producto-form').submit();"><i class="fa text-light fa-product-hunt"></i> Productos</a>
                         <form id="producto-form" action="{{url('producto')}}" method="GET" style="display: none;">
                             {{csrf_field()}} 
                          </form>
@@ -33,14 +33,14 @@
                       
             
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('compra')}}" onclick="event.preventDefault(); document.getElementById('compra-form').submit();"><i class="fa fa-shopping-cart"></i> Compras</a>
+                        <a class="nav-link" href="{{url('compra')}}" onclick="event.preventDefault(); document.getElementById('compra-form').submit();"><i class="fa text-light fa-shopping-cart"></i> Compras</a>
                         <form id="compra-form" action="{{url('compra')}}" method="GET" style="display: none;">
                             {{csrf_field()}} 
                          </form>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('proveedor')}}" onclick="event.preventDefault(); document.getElementById('proveedor-form').submit();"><i class="fa fa-users"></i> Proveedores</a>
+                        <a class="nav-link" href="{{url('proveedor')}}" onclick="event.preventDefault(); document.getElementById('proveedor-form').submit();"><i class="fa text-light fa-users"></i> Proveedores</a>
                         <form id="proveedor-form" action="{{url('proveedor')}}" method="GET" style="display: none;">
                             {{csrf_field()}} 
                          </form>

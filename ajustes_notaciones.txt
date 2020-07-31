@@ -6,4 +6,3 @@ Ajustes a implementar
 - modulo productos agregar busqueda por categoria y boton de limpiar busqueda
 -al anular una compra se restan el stock de los productos, pero ojo que si se vendió y despues 
 se anula la compra puede dar negativo.
--agregarle unidad de medida a los productos

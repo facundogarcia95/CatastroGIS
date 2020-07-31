@@ -399,6 +399,7 @@ class ComposerStaticInit2f9f0b717bab02491bf819b18aef4914
         'App\\DetalleCompra' => __DIR__ . '/../..' . '/app/DetalleCompra.php',
         'App\\DetalleVenta' => __DIR__ . '/../..' . '/app/DetalleVenta.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Faltante' => __DIR__ . '/../..' . '/app/Faltante.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',

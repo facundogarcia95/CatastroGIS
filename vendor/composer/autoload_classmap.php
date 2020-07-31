@@ -13,6 +13,7 @@ return array(
     'App\\DetalleCompra' => $baseDir . '/app/DetalleCompra.php',
     'App\\DetalleVenta' => $baseDir . '/app/DetalleVenta.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Faltante' => $baseDir . '/app/Faltante.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
     'App\\Http\\Controllers\\Auth\\RegisterController' => $baseDir . '/app/Http/Controllers/Auth/RegisterController.php',
