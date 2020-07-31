@@ -20,12 +20,12 @@ class UnidadMedidas extends Migration
         });
         
         $unidad = [
-            ['unidad' => 'Unidad - ud.', 'created_at' => now()],
-            ['unidad' => 'Kilo gramos - kg', 'created_at' => now()],
-            ['unidad' => 'Gramos - gr', 'created_at' => now()],
-            ['unidad' => 'Metros - mts', 'created_at' => now()],
-            ['unidad' => 'Centimetros - cm', 'created_at' => now()],
-            ['unidad' => 'Milímetros - mm', 'created_at' => now()]
+            ['unidad' => 'UD.', 'created_at' => now()],
+            ['unidad' => 'KG.', 'created_at' => now()],
+            ['unidad' => 'GR.', 'created_at' => now()],
+            ['unidad' => 'MTS.', 'created_at' => now()],
+            ['unidad' => 'CM.', 'created_at' => now()],
+            ['unidad' => 'MM.', 'created_at' => now()]
         ];
         $db = DB::table('unidad_medidas')->insert($unidad);
     }

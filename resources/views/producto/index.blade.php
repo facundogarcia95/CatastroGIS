@@ -85,7 +85,7 @@
                                         @endif
                                        
                                     </td>
-                                    <td>{{$prod->stock}}</td>
+                                <td>{{$prod->stock}} {{$prod->unidad}}</td>
                                     <td><b>{{$prod->tipoProducto}}</b></td>
 
                                     <td>
