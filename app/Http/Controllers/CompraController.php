@@ -66,7 +66,7 @@ class CompraController extends Controller
 
                  DB::beginTransaction();
  
-                 $mytime= Carbon::now('America/Costa_Rica');
+                 $mytime= Carbon::now('America/Argentina/Mendoza');
  
                  $compra = new Compra();
                  $compra->idproveedor = $request->id_proveedor;

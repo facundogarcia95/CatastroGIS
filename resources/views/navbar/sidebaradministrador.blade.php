@@ -30,6 +30,14 @@
                             </form>
                     </li>
                       
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('receta')}}" onclick="event.preventDefault(); document.getElementById('receta-form').submit();"><i class="fa text-light fa fa-book"></i> Recetas</a>
+                            
+                            <form id="receta-form" action="{{url('receta')}}" method="GET" style="display: none;">
+                            @csrf
+                            </form>
+                    </li>
+
             
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('compra')}}" onclick="event.preventDefault(); document.getElementById('compra-form').submit();"><i class="fa text-light fa-shopping-cart"></i> Compras</a>
