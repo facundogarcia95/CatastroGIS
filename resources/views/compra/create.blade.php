@@ -77,8 +77,12 @@
                             
                             @foreach($productos as $prod)
                             
-                            <option value="{{$prod->id}}">{{$prod->producto}}</option>
-                                    
+                            @if(!$prod->idreceta)
+
+                                <option value="{{$prod->id}}">#{{$prod->producto}} ({{$prod->unidad}})</option>
+                            
+                            @endif
+
                             @endforeach
 
                             </select>
@@ -103,7 +107,7 @@
 
                
 
-                <div class="col-md-3">
+                <div class="col-md-3 mt-3">
                         
                     <button type="button" id="agregar" class="btn btn-primary"><i class="fa fa-plus fa-2x"></i> Agregar detalle</button>
                 </div>

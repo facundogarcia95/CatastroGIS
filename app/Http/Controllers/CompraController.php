@@ -47,7 +47,8 @@ class CompraController extends Controller
             
              /*listar los productos en ventana modal*/
              $productos=DB::table('productos as prod')
-             ->select(DB::raw('CONCAT(prod.codigo," ",prod.nombre) AS producto'),'prod.id')
+             ->join('unidad_medidas as uni','prod.unidad_medida', '=','uni.id')
+             ->select(DB::raw('CONCAT(prod.codigo," - ",prod.nombre) AS producto'),'prod.id','prod.idreceta', 'uni.unidad')
              ->where('prod.condicion','=','1')->get(); 
  
              $negocio=DB::table('negocio')->get();

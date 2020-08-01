@@ -1,5 +1,7 @@
 @extends('principal')
 @section('contenido')
+@inject('productoControlador', 'App\Http\Controllers\ProductoController')
+
 <main class="main">
             @include('breadcrumb.bread')
             <div class="container-fluid">
@@ -85,7 +87,18 @@
                                         @endif
                                        
                                     </td>
-                                <td>{{$prod->stock}} {{$prod->unidad}}</td>
+                                <td> 
+
+                                    @if($prod->idreceta)
+
+                                    {{$productoControlador->stock($prod->id)}} {{$prod->unidad}} 
+
+                                    @else
+
+                                    {{$prod->stock}} {{$prod->unidad}}
+
+                                    @endif
+                                </td>
                                     <td><b>{{$prod->tipoProducto}}</b></td>
 
                                     <td>
@@ -94,7 +107,7 @@
             
                             
                                     <td>
-                                        <button type="button" class="btn btn-info rounded btn-md" data-id_producto="{{$prod->id}}" data-id_categoria="{{$prod->idcategoria}}" data-id_tipoproductos="{{$prod->idtipoproductos}}" data-codigo="{{$prod->codigo}}" data-stock="{{$prod->stock}}" data-nombre="{{$prod->nombre}}" data-precio_venta="{{$prod->precio_venta}}" data-unidad_medida="{{$prod->id_unidad}}" data-toggle="modal" data-target="#abrirmodalEditar">
+                                    <button type="button" class="btn btn-info rounded btn-md" data-id_producto="{{$prod->id}}" data-id_categoria="{{$prod->idcategoria}}" data-id_tipoproductos="{{$prod->idtipoproductos}}" data-codigo="{{$prod->codigo}}" data-stock="{{$prod->stock}}" data-nombre="{{$prod->nombre}}" data-precio_venta="{{$prod->precio_venta}}" data-unidad_medida="{{$prod->id_unidad}}" data-id_receta="{{$prod->idreceta}}" data-toggle="modal" data-target="#abrirmodalEditar">
                                           <i class="fa fa-edit fa-2x"></i> EDITAR
                                         </button> &nbsp;
                                     </td>
@@ -246,10 +259,12 @@
             if(tipo == "1"){
                 $("#precio_venta").prop('required',true);
                 $(".collapsePrecioVenta").collapse('show');
+                $(".collapseReceta").collapse('show');
                
             }else{
                 $("#precio_venta").removeAttr('required');
                 $(".collapsePrecioVenta").collapse('hide');
+                $(".collapseReceta").collapse('hide');
                 
             }
 

@@ -21,11 +21,11 @@ class RecetaController extends Controller
         $sql=trim($request->get('buscarTexto'));
         $recetas=Receta::join('users','recetas.idusuario','=','users.id')
         ->join('detalle_recetas','recetas.id','=','detalle_recetas.idreceta')
-         ->select('recetas.id','recetas.nombre','recetas.condicion','users.nombre as usuario')
+         ->select('recetas.id','recetas.nombre','recetas.condicion','recetas.created_at','users.nombre as usuario')
         ->where('recetas.nombre','LIKE','%'.$sql.'%')
         ->where('recetas.condicion','=','1')
         ->orderBy('recetas.id','desc')
-        ->groupBy('recetas.id','recetas.nombre','recetas.condicion','users.nombre')
+        ->groupBy('recetas.id','recetas.nombre','recetas.condicion','users.nombre','recetas.created_at')
         ->paginate(8);
          
 

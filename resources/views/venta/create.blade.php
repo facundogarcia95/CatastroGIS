@@ -1,6 +1,6 @@
 @extends('principal')
 @section('contenido')
-
+@inject('productoControlador', 'App\Http\Controllers\ProductoController')
 
 <main class="main">
 
@@ -74,15 +74,27 @@
 
                  <div class="col-md-8">  
 
-                        <label class="form-control-label" for="nombre">Producto</label>
+                        <label class="form-control-label" for="nombre">Producto </label>
 
                             <select class="form-control selectpicker" name="id_producto" id="id_producto" data-live-search="true" required>
                                                             
                             <option value="0" selected>Seleccione</option>
                             
+                          
                             @foreach($productos as $prod)
                             
-                            <option value="{{$prod->id}}_{{$prod->stock}}_{{$prod->precio_venta}}">{{$prod->producto}}</option>
+                            
+                            @if($prod->idreceta)
+
+                                <option  value="{{$prod->id}}_{{$productoControlador->stock($prod->id)}}_{{$prod->precio_venta}}">{{$prod->producto}}</option>
+
+                            @else
+
+                                <option  value="{{$prod->id}}_{{$prod->stock}}_{{$prod->precio_venta}}">{{$prod->producto}}</option>
+
+                            @endif
+
+                            
                                     
                             @endforeach
 
@@ -118,7 +130,7 @@
                         <input type="number" id="descuento" name="descuento" class="form-control" placeholder="Ingrese el descuento">
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4 mt-3">
                         
                     <button type="button" id="agregar" class="btn btn-primary"><i class="fa fa-plus fa-2x"></i> Agregar detalle</button>
                 </div>
@@ -234,9 +246,6 @@
 
                 if(parseInt(stock)>=parseInt(cantidad)){
                     
-                    /*subtotal[cont]=(cantidad*precio_venta)-descuento;
-                    total= total+subtotal[cont];*/
-
                     subtotal[cont]=(cantidad*precio_venta)-(cantidad*precio_venta*descuento/100);
                     total= total+subtotal[cont];
 

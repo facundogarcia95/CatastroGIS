@@ -89,6 +89,32 @@
         </div>
     </div>
 
+    <div class="collapse collapseReceta">
+
+        <div class="form-group row">
+            
+            <label class="col-md-3 form-control-label" for="titulo">Receta del producto  (Opcional)</label>
+            
+            <div class="col-md-9" >
+            
+                <select class="form-control" name="id_receta" id="id_receta">
+                                                
+                <option value="">Seleccionar</option>
+                
+                @foreach($recetas as $receta)
+                
+                <option value="{{$receta->id}}">{{$receta->nombre}}</option>
+                        
+                @endforeach
+
+                </select>
+
+            </div>
+                                    
+        </div>
+    
+    </div>
+
     <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="imagen">Imagen</label>
                 <div class="col-md-9">

@@ -20,7 +20,7 @@ class UnidadMedidas extends Migration
         });
         
         $unidad = [
-            ['unidad' => 'UD.', 'created_at' => now()],
+            ['unidad' => 'U.', 'created_at' => now()],
             ['unidad' => 'KG.', 'created_at' => now()],
             ['unidad' => 'GR.', 'created_at' => now()],
             ['unidad' => 'MTS.', 'created_at' => now()],

@@ -27,7 +27,7 @@ class ProductoController extends Controller
             ->join('categorias as c','p.idcategoria','=','c.id')
             ->join('tipo_productos as t','p.tipo_producto','=','t.id')
             ->join('unidad_medidas as uni','p.unidad_medida','=','uni.id')
-            ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
+            ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
             ->where('p.nombre','LIKE','%'.$sql.'%')
             ->orwhere('p.codigo','LIKE','%'.$sql.'%')
             ->orderBy('p.id','desc')
@@ -46,13 +46,33 @@ class ProductoController extends Controller
             $unidades = DB::table('unidad_medidas')
             ->get();
 
-            return view('producto.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql,"tipoProductos"=>$tipoProductos, "unidades" => $unidades]);
+            $recetas = DB::table('recetas')
+            ->where('recetas.condicion','=','1')
+            ->get();
+
+            return view('producto.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql,"tipoProductos"=>$tipoProductos, "unidades" => $unidades, "recetas" => $recetas]);
      
             //return $productos;
         }
        
     }
 
+    public function stock($id){
+
+        $respuesta=DB::table('productos as p')
+        ->join('recetas','p.idreceta','=','recetas.id')
+        ->join('detalle_recetas as d','recetas.id','=','d.idreceta')
+        ->join('productos as prod', 'd.idproducto','=','prod.id')
+        ->select(DB::raw('round(min(prod.stock / d.cantidad)-0.5) as stock') )
+        ->where('p.id','=',$id)->first();
+
+        $producto= Producto::findOrFail($id);
+        $producto->stock = $respuesta->stock;
+        $producto->save();
+
+        return $respuesta->stock;
+
+    }
     
 
     /**
@@ -79,6 +99,7 @@ class ProductoController extends Controller
                 $producto->nombre = strtoupper($request->nombre);
                 $producto->precio_venta = $request->precio_venta??0;
                 $producto->tipo_producto = $request->idTipoProductos;
+                $producto->idreceta = $request->id_receta??null;
                 $producto->unidad_medida = $request->unidad_medida;
                 $producto->condicion = '1';
 
@@ -156,6 +177,7 @@ class ProductoController extends Controller
                 $producto->nombre = strtoupper($request->nombre);
                 $producto->precio_venta = $request->precio_venta??0;
                 $producto->tipo_producto = $request->idTipoProductos;
+                $producto->idreceta = $request->id_receta??null;
                 $producto->unidad_medida = $request->unidad_medida;
                 $producto->condicion = '1';
 
