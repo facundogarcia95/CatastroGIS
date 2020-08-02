@@ -40,16 +40,24 @@ class RecetaController extends Controller
     public function create()
     {
             
+
+        $categorias = DB::table('categorias')
+        ->select('id','nombre')
+        ->get();
+
+        $unidades = DB::table('unidad_medidas')
+        ->select('id','unidad')
+        ->get();
+
          /*listar los productos en ventana modal*/
          $productos=DB::table('productos as prod')
          ->join('unidad_medidas','prod.unidad_medida','=','unidad_medidas.id')
          ->select(DB::raw('CONCAT("#",prod.codigo," - ",prod.nombre) AS producto'),'prod.id', 'unidad_medidas.unidad')
          ->where('prod.condicion','=','1')
-         ->where('prod.tipo_producto','=','2')
+         ->where('prod.tipo_producto','=','3')
          ->get(); 
 
-
-         return view('receta.create',["productos"=>$productos]);
+         return view('receta.create',["productos"=>$productos,"categorias" => $categorias, "unidades" => $unidades]);
     }
 
     /**

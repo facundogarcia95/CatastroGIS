@@ -1,4 +1,38 @@
     
+        <div class="form-group row">
+        
+            <label class="col-md-3 form-control-label" for="titulo">Tipo de Producto</label>
+            
+            <div class="col-md-9" >
+            
+                <select class="form-control" name="idTipoProductos" id="id_tipoproductos" onchange="tipoProducto(this.value)" required>
+                                                
+                <option value="">Seleccionar</option>
+                
+                @foreach($tipoProductos as $tipo)
+                  
+                   <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
+                        
+                @endforeach
+    
+                </select>
+    
+            </div>
+                                       
+        </div>
+
+        <div class="form-group row">
+        
+            <label class="col-md-3 form-control-label" for="nombre">Nombre</label>
+        
+            <div class="col-md-9">
+                <input type="text" id="nombre" name="nombre" class="form-control text-uppercase" placeholder="Ingrese la nombre" required pattern="^[a-zA-Z0-9_áéíóúñ\s]{0,100}$">
+            </div>
+        
+        </div>
+
+
+    
     <div class="form-group row">
             <label class="col-md-3 form-control-label" for="titulo">Categoría</label>
             
@@ -20,28 +54,6 @@
                                        
     </div>
     
-
-    <div class="form-group row">
-        
-        <label class="col-md-3 form-control-label" for="titulo">Tipo de Producto</label>
-        
-        <div class="col-md-9" >
-        
-            <select class="form-control" name="idTipoProductos" id="id_tipoproductos" onchange="tipoProducto(this.value)" required>
-                                            
-            <option value="">Seleccionar</option>
-            
-            @foreach($tipoProductos as $tipo)
-              
-               <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
-                    
-            @endforeach
-
-            </select>
-
-        </div>
-                                   
-    </div>
     
     <div class="form-group row">
         
@@ -73,12 +85,7 @@
                 </div>
     </div>
 
-     <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="nombre">Nombre</label>
-                <div class="col-md-9">
-                    <input type="text" id="nombre" name="nombre" class="form-control text-uppercase" placeholder="Ingrese la nombre" required pattern="^[a-zA-Z0-9_áéíóúñ\s]{0,100}$">
-                </div>
-    </div>
+
     
     <div class="collapse collapsePrecioVenta">
         <div class="form-group row">
@@ -87,32 +94,6 @@
                     <input type="number" id="precio_venta" name="precio_venta" class="form-control" placeholder="Ingrese el precio venta" pattern="^{0,100}$">
                 </div>
         </div>
-    </div>
-
-    <div class="collapse collapseReceta">
-
-        <div class="form-group row">
-            
-            <label class="col-md-3 form-control-label" for="titulo">Receta del producto  (Opcional)</label>
-            
-            <div class="col-md-9" >
-            
-                <select class="form-control" name="id_receta" id="id_receta">
-                                                
-                <option value="">Seleccionar</option>
-                
-                @foreach($recetas as $receta)
-                
-                <option value="{{$receta->id}}">{{$receta->nombre}}</option>
-                        
-                @endforeach
-
-                </select>
-
-            </div>
-                                    
-        </div>
-    
     </div>
 
     <div class="form-group row">

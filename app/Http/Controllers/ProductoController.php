@@ -63,7 +63,7 @@ class ProductoController extends Controller
         ->join('recetas','p.idreceta','=','recetas.id')
         ->join('detalle_recetas as d','recetas.id','=','d.idreceta')
         ->join('productos as prod', 'd.idproducto','=','prod.id')
-        ->select(DB::raw('round(min(prod.stock / d.cantidad)-0.5) as stock') )
+        ->select(DB::raw('round(min(prod.stock / d.cantidad)) as stock') )
         ->where('p.id','=',$id)->first();
 
         $producto= Producto::findOrFail($id);
