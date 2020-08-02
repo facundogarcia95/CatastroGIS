@@ -8,6 +8,7 @@ use App\DetalleVenta;
 use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
 use DB;
+use App\Producto;
 
 
 class VentaController extends Controller
@@ -106,6 +107,9 @@ class VentaController extends Controller
                             $detalle->precio = $precio[$cont];
                             $detalle->descuento = $descuento[$cont];           
                             $detalle->save();
+ 
+                            $this->actualizarStock($id_producto[$cont], $cantidad[$cont]);
+                               
                             $cont=$cont+1;
                         }
                             
@@ -164,6 +168,36 @@ class VentaController extends Controller
              return Redirect::to('venta');
  
         }
+
+         private function actualizarStock($id, $cantidad) {
+
+            $detalles = DB::table('productos as p')
+                        ->join('recetas','p.idreceta','=','recetas.id')
+                        ->join('detalle_recetas as d','recetas.id','=','d.idreceta')
+                        ->join('productos as prod', 'd.idproducto','=','prod.id')
+                        ->select('prod.id','d.cantidad')
+                        ->where('p.id','=',$id)->get();
+
+            if(isset($detalles[0])){
+
+                foreach($detalles as $detalle){
+
+                    $producto= Producto::findOrFail($detalle->id);
+                    $producto->stock = $producto->stock - ($detalle->cantidad * $cantidad);
+                    $producto->save();
+
+                }
+
+            }else{
+
+                
+                $producto= Producto::findOrFail($id);
+                $producto->stock = $producto->stock - $cantidad;
+                $producto->save();
+
+            }
+
+         }
  
          public function pdf(Request $request,$id){
          
