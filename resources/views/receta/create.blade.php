@@ -6,30 +6,115 @@
 
  <div class="card-body">
 
- <h2>Agregar Receta</h2>
+ <h2>Agregar Producto Elaborado</h2>
 
- <span><strong>(*) Campo obligatorio</strong></span><br/><br/>
-
- <h3 class="text-left mt-4">Cargar Insumos</h3>
 
     <form action="{{route('receta.store')}}" method="POST">
     {{csrf_field()}}
 
-         
+<div class="border p-2">   
+
     <div class="form-group row">
 
-        <div class="col-md-4">
-                <label class="form-control-label" for="cantidad">Nombre</label>
+        <div class="col-md-4 mt-3">
+                <label class="form-control-label" for="cantidad">Nombre Producto</label>
                 
                 <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingrese Nombre" pattern="^[a-zA-Z0-9_áéíóúñ\s]{0,100}$">
         </div>
 
     </div>
-            <div class="form-group row border">
+
+    <div class="form-group row">
+
+        <div class="col-md-8">  
+
+               <label class="form-control-label" for="nombre">Categoria</label>
+
+                   <select class="form-control selectpicker" name="id_categoria" id="id_categoria" data-live-search="true">
+                                                   
+                   <option value="0" selected>Seleccione</option>
+                   
+                   @foreach($categorias as $categoria)
+                   
+                   <option value="{{$categoria->id}}" >{{$categoria->nombre}}</option>
+                           
+                   @endforeach
+
+                   </select>
+
+       </div>
+
+   </div>
+
+   <div class="form-group row">
+        
+        <label class="col-md-12 form-control-label" for="titulo">Unidad de Medida</label>
+        
+        <div class="col-md-8" >
+        
+            <select class="form-control" name="unidad_medida" id="unidad_medida" required>
+                                            
+            <option value="">Seleccionar</option>
+            
+            @foreach($unidades as $unidad)
+            
+            <option value="{{$unidad->id}}">{{$unidad->unidad}}</option>
+                    
+            @endforeach
+
+            </select>
+
+        </div>
+                                
+    </div>
+
+    <div class="form-group row">
+        
+        <label class="col-md-8 form-control-label" for="codigo">Código</label>
+       
+        <div class="col-md-8">
+            <input type="text" id="codigo" name="codigo" class="form-control" placeholder="Ingrese el Código" required pattern="[0-9]{0,15}">
+           
+        </div>
+
+</div>
+
+
+    <div class="form-group row">
+
+        <label class="col-md-8 form-control-label" for="nombre">Precio Venta</label>
+
+        <div class="col-md-8">
+
+            <input type="number" id="precio_venta" name="precio_venta" class="form-control" placeholder="Ingrese el precio venta" pattern="^[0-9]$">
+
+        </div>
+
+    </div>
+
+
+
+    <div class="form-group row">
+        
+        <label class="col-md-8 form-control-label" for="imagen">Imagen</label>
+        
+        <div class="col-md-8">
+          
+            <input type="file" id="imagen" name="imagen" class="form-control">
+               
+        </div>
+
+    </div>
+
+</div>   
+
+            <div class="form-group row">
 
                  <div class="col-md-8">  
 
-                        <label class="form-control-label" for="nombre">Producto</label>
+                    <h4 class="text-left mt-1">Cargar Insumos</h4>
+
+                        <label class="form-control-label" for="nombre">Insumo</label>
 
                             <select class="form-control selectpicker" name="id_producto" id="id_producto" data-live-search="true">
                                                             
@@ -55,7 +140,7 @@
                         <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="Ingrese cantidad" pattern="[a-zA-Z0-9_áéíóúñ\s]{0,100}">
                 </div>
                
-                <div class="col-md-3">
+                <div class="col-md-3 mt-3">
                         
                     <button type="button" id="agregar" class="btn btn-primary"><i class="fa fa-plus fa-2x"></i> Agregar Insumo</button>
                 </div>
@@ -66,7 +151,7 @@
 
            <div class="form-group row border">
 
-              <h3>Lista de Productos de la Receta</h3>
+              <h3>Lista de Insumos del Producto</h3>
 
               <div class="table-responsive col-md-12">
                 <table id="detalles" class="table table-bordered table-striped table-sm">

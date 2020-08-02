@@ -1,6 +1,7 @@
 @extends('principal')
 @section('contenido')
 @inject('productoControlador', 'App\Http\Controllers\ProductoController')
+@inject('recetaControlador', 'App\Http\Controllers\RecetaController')
 
 <main class="main">
             @include('breadcrumb.bread')
@@ -57,7 +58,7 @@
                         <table class="table table-bordered table-striped table-sm">
                             <thead>
                                 <tr class="bg-primary">
-                                   
+                                   <th>Producto Elaborado</th>
                                     <th>Categoria</th>
                                     <th>Producto</th>
                                     <th>Codigo</th>
@@ -75,7 +76,13 @@
                                @foreach($productos as $prod)
                                
                                 <tr>
-                                    
+                                    <td>
+                                    @if ($prod->idreceta)
+                                    <b><a  class="btn btn-primary rounded" href="{{url("../receta/{$prod->idreceta}")}}">VER RECETA</a></b>
+                                    @else
+                                        <b>NO</b>
+                                    @endif
+                                    </td>
                                    <td>{{$prod->categoria}}</td>
                                     <td>{{$prod->nombre}}</td>
                                     <td>{{$prod->codigo}}</td>
@@ -107,7 +114,7 @@
             
                             
                                     <td>
-                                    <button type="button" class="btn btn-info rounded btn-md" data-id_producto="{{$prod->id}}" data-id_categoria="{{$prod->idcategoria}}" data-id_tipoproductos="{{$prod->idtipoproductos}}" data-codigo="{{$prod->codigo}}" data-stock="{{$prod->stock}}" data-nombre="{{$prod->nombre}}" data-precio_venta="{{$prod->precio_venta}}" data-unidad_medida="{{$prod->id_unidad}}" data-id_receta="{{$prod->idreceta}}" data-toggle="modal" data-target="#abrirmodalEditar">
+                                    <button type="button" class="btn btn-info rounded btn-md" data-id_producto="{{$prod->id}}" data-id_categoria="{{$prod->idcategoria}}" data-id_tipoproductos="{{$prod->idtipoproductos}}" data-codigo="{{$prod->codigo}}" data-stock="{{$prod->stock}}" data-nombre="{{$prod->nombre}}" data-precio_venta="{{$prod->precio_venta}}" data-unidad_medida="{{$prod->id_unidad}}"  data-toggle="modal" data-target="#abrirmodalEditar">
                                           <i class="fa fa-edit fa-2x"></i> EDITAR
                                         </button> &nbsp;
                                     </td>
@@ -257,11 +264,15 @@
         function tipoProducto(tipo) {
 
             if(tipo == "1"){
+                window.location.href = "../receta/create";
+            }
+            if(tipo == "2"){
                 $("#precio_venta").prop('required',true);
                 $(".collapsePrecioVenta").collapse('show');
                 $(".collapseReceta").collapse('show');
                
-            }else{
+            }
+            if(tipo == "3"){
                 $("#precio_venta").removeAttr('required');
                 $(".collapsePrecioVenta").collapse('hide');
                 $(".collapseReceta").collapse('hide');

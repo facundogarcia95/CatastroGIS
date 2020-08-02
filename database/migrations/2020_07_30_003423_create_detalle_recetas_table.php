@@ -17,7 +17,7 @@ class CreateDetalleRecetasTable extends Migration
             $table->increments('id');
             $table->integer('idreceta')->unsigned();
             $table->integer('idproducto')->unsigned();
-            $table->integer('cantidad');
+            $table->decimal('cantidad', 11, 2);
             $table->timestamps();
 
             $table->foreign('idreceta')->references('id')->on('recetas')->onDelete('cascade');

@@ -21,7 +21,7 @@ class CreateProductosTable extends Migration
             $table->string('codigo',50)->nullable();
             $table->string('nombre',100)->unique();
             $table->decimal('precio_venta',11,2)->default(0);
-            $table->integer('stock')->default(0);
+            $table->decimal('stock', 11, 2)->default(0);
             $table->boolean('condicion')->default(1);
             $table->integer('tipo_producto')->unsigned()->default(1);
             $table->integer('idreceta')->nullable();
