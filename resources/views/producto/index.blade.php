@@ -58,13 +58,12 @@
                         <table class="table table-bordered table-striped table-sm">
                             <thead>
                                 <tr class="bg-primary">
-                                   <th>Producto Elaborado</th>
+                                    <th>Tipo</th>
                                     <th>Categoria</th>
                                     <th>Producto</th>
                                     <th>Codigo</th>
                                     <th>Precio Venta ($)</th>
-                                    <th>Stock</th>
-                                    <th>Tipo</th>
+                                    <th>Stock</th>                
                                     <th>Imagen</th>
                       
                                     <th>Editar</th>
@@ -76,11 +75,12 @@
                                @foreach($productos as $prod)
                                
                                 <tr>
-                                    <td>
-                                    @if ($prod->idreceta)
-                                    <b><a  class="btn btn-primary rounded" href="{{url("../receta/{$prod->idreceta}")}}">VER RECETA</a></b>
-                                    @else
-                                        <b>NO</b>
+                                    <td><b>{{$prod->tipoProducto}}</b>
+                                        @if($prod->idreceta)
+                                        <br/>
+                                        <a href="{{ action('RecetaController@show', ['id' => $prod->idreceta]) }}" class="btn btn-warning rounded btn-md">
+                                            <i class="fa fa-eye fa-2x"></i> RECETA
+                                        </a>
                                     @endif
                                     </td>
                                    <td>{{$prod->categoria}}</td>
@@ -98,7 +98,7 @@
 
                                     @if($prod->idreceta)
 
-                                    {{$productoControlador->stock($prod->id)}} {{$prod->unidad}} 
+                                    {{round($productoControlador->stock($prod->id),2)}}  {{$prod->unidad}}<br/> (Según Insumos)
 
                                     @else
 
@@ -106,21 +106,28 @@
 
                                     @endif
                                 </td>
-                                    <td><b>{{$prod->tipoProducto}}</b></td>
 
                                     <td>
                                          <img src="{{asset('storage/img/producto/'.$prod->imagen)}}" id="imagen1" alt="{{$prod->nombre}}" class="img-responsive" width="100px" height="100px">
                                     </td>
             
                             
-                                    <td>
-                                    <button type="button" class="btn btn-info rounded btn-md" data-id_producto="{{$prod->id}}" data-id_categoria="{{$prod->idcategoria}}" data-id_tipoproductos="{{$prod->idtipoproductos}}" data-codigo="{{$prod->codigo}}" data-stock="{{$prod->stock}}" data-nombre="{{$prod->nombre}}" data-precio_venta="{{$prod->precio_venta}}" data-unidad_medida="{{$prod->id_unidad}}"  data-toggle="modal" data-target="#abrirmodalEditar">
-                                          <i class="fa fa-edit fa-2x"></i> EDITAR
-                                        </button> &nbsp;
+                                    <td class="text-center">
+                                        @if($prod->idreceta)
+                                            <a href="{{ action('RecetaController@edit', ['id' => $prod->id]) }}" class="btn btn-info rounded btn-md">
+                                                <i class="fa fa-edit fa-2x"></i> RECETA
+                                            </a>
+                                        @else
+                                        <button type="button" class="btn btn-info rounded btn-md" data-id_producto="{{$prod->id}}" data-id_categoria="{{$prod->idcategoria}}" data-id_tipoproductos="{{$prod->idtipoproductos}}" data-codigo="{{$prod->codigo}}" data-stock="{{$prod->stock}}" data-nombre="{{$prod->nombre}}" data-precio_venta="{{$prod->precio_venta}}" data-unidad_medida="{{$prod->id_unidad}}"  data-toggle="modal" data-target="#abrirmodalEditar">
+                                            <i class="fa fa-edit fa-2x"></i> EDITAR</button>
+
+                                        @endif
+                                        
+                                      
                                     </td>
 
                                     
-                                    <td>
+                                    <td class="text-center">
 
                                        @if($prod->condicion)
 
@@ -200,7 +207,7 @@
                                 {{method_field('patch')}}
                                 {{csrf_field()}}
 
-                                <input type="hidden" id="id_producto" name="id_producto" value="">
+                                <input type="hidden" id="id_producto" name="idproducto" value="">
                                 
                                 @include('producto.form')
 
@@ -234,7 +241,7 @@
                                 {{method_field('delete')}}
                                 {{csrf_field()}}
 
-                                <input type="hidden" id="id_producto" name="id_producto" value="">
+                                <input type="hidden" id="id_producto" name="idproducto" value="">
                                 
                                 <p>Estas seguro de cambiar el estado?</p>
         
@@ -269,14 +276,12 @@
             if(tipo == "2"){
                 $("#precio_venta").prop('required',true);
                 $(".collapsePrecioVenta").collapse('show');
-                $(".collapseReceta").collapse('show');
-               
+                $(".collapseDatosProducto").collapse('show'); 
             }
             if(tipo == "3"){
                 $("#precio_venta").removeAttr('required');
                 $(".collapsePrecioVenta").collapse('hide');
-                $(".collapseReceta").collapse('hide');
-                
+                $(".collapseDatosProducto").collapse('show'); 
             }
 
           }

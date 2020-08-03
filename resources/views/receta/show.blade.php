@@ -40,7 +40,7 @@
 
            <div class="form-group row border m-2">
 
-              <h3>Detalle de Receta</h3>
+              <h3>Lista de Insumos Utilizados</h3>
 
               <div class="table-responsive col-md-12">
                 <table id="detalles" class="table table-bordered table-striped table-sm">

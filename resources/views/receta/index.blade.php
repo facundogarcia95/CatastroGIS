@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
 
-                       <h2>Listado de Recetas</h2><br/>
+                       <h2>Listado de Productos Elaborados</h2><br/>
                        
                        <a href="receta/create">
 

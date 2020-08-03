@@ -86,7 +86,7 @@
                             
                             @if($prod->idreceta)
 
-                                <option  value="{{$prod->id}}_{{$productoControlador->stock($prod->id)}}_{{$prod->precio_venta}}">{{$prod->producto}}</option>
+                                <option  value="{{$prod->id}}_{{round($productoControlador->stock($prod->id),2)}}_{{$prod->precio_venta}}">{{$prod->producto}}</option>
 
                             @else
 

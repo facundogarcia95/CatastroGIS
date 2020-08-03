@@ -46,11 +46,8 @@ class ProductoController extends Controller
             $unidades = DB::table('unidad_medidas')
             ->get();
 
-            $recetas = DB::table('recetas')
-            ->where('recetas.condicion','=','1')
-            ->get();
 
-            return view('producto.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql,"tipoProductos"=>$tipoProductos, "unidades" => $unidades, "recetas" => $recetas]);
+            return view('producto.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql,"tipoProductos"=>$tipoProductos, "unidades" => $unidades]);
      
             //return $productos;
         }
@@ -63,7 +60,7 @@ class ProductoController extends Controller
         ->join('recetas','p.idreceta','=','recetas.id')
         ->join('detalle_recetas as d','recetas.id','=','d.idreceta')
         ->join('productos as prod', 'd.idproducto','=','prod.id')
-        ->select(DB::raw('round(min(prod.stock / d.cantidad)) as stock') )
+        ->select(DB::raw('min(prod.stock / d.cantidad) as stock') )
         ->where('p.id','=',$id)->first();
 
         $producto= Producto::findOrFail($id);
@@ -155,7 +152,7 @@ class ProductoController extends Controller
 
         $validar = DB::table('productos')
         ->select('codigo')
-        ->where("id","=",$request->id_producto)
+        ->where("id","=",$request->idproducto)
         ->get();
 
 
@@ -171,7 +168,7 @@ class ProductoController extends Controller
                  
             if($request->idTipoProductos == 2){$request->precio_venta = null;}
 
-                $producto= Producto::findOrFail($request->id_producto);
+                $producto= Producto::findOrFail($request->idproducto);
                 $producto->idcategoria = $request->idcategoria;
                 $producto->codigo = $request->codigo;
                 $producto->nombre = strtoupper($request->nombre);
@@ -237,7 +234,7 @@ class ProductoController extends Controller
     public function destroy(Request $request)
     {
         // 
-            $producto= Producto::findOrFail($request->id_producto);
+            $producto= Producto::findOrFail($request->idproducto);
 
             if($producto->condicion=="1"){
                 

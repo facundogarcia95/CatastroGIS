@@ -16,8 +16,6 @@ class CreateRecetasTable extends Migration
         Schema::create('recetas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idusuario')->unsigned();
-            $table->string('nombre',100)->unique();
-            $table->boolean('condicion')->default(1);
             $table->timestamps();
 
             $table->foreign('idusuario')->references('id')->on('users');

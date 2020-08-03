@@ -3,112 +3,196 @@
 
 
 <main class="main">
-
+@include('breadcrumb.bread')
  <div class="card-body">
 
- <h2>Agregar Producto Elaborado</h2>
+ <h2>Agregar Producto Elaborado</h2><br/>
 
-
-    <form action="{{route('receta.store')}}" method="POST">
-    {{csrf_field()}}
-
-<div class="border p-2">   
-
-    <div class="form-group row">
-
-        <div class="col-md-4 mt-3">
-                <label class="form-control-label" for="cantidad">Nombre Producto</label>
-                
-                <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingrese Nombre" pattern="^[a-zA-Z0-9_áéíóúñ\s]{0,100}$">
+ <div class="col-sm-12 mt-4">
+    @if ( session('error') )
+        <div class="alert alert-danger" role="alert">{{ session('error') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
         </div>
-
-    </div>
-
-    <div class="form-group row">
-
-        <div class="col-md-8">  
-
-               <label class="form-control-label" for="nombre">Categoria</label>
-
-                   <select class="form-control selectpicker" name="id_categoria" id="id_categoria" data-live-search="true">
-                                                   
-                   <option value="0" selected>Seleccione</option>
-                   
-                   @foreach($categorias as $categoria)
-                   
-                   <option value="{{$categoria->id}}" >{{$categoria->nombre}}</option>
-                           
-                   @endforeach
-
-                   </select>
-
-       </div>
-
-   </div>
-
-   <div class="form-group row">
-        
-        <label class="col-md-12 form-control-label" for="titulo">Unidad de Medida</label>
-        
-        <div class="col-md-8" >
-        
-            <select class="form-control" name="unidad_medida" id="unidad_medida" required>
-                                            
-            <option value="">Seleccionar</option>
-            
-            @foreach($unidades as $unidad)
-            
-            <option value="{{$unidad->id}}">{{$unidad->unidad}}</option>
-                    
-            @endforeach
-
-            </select>
-
-        </div>
-                                
-    </div>
-
-    <div class="form-group row">
-        
-        <label class="col-md-8 form-control-label" for="codigo">Código</label>
-       
-        <div class="col-md-8">
-            <input type="text" id="codigo" name="codigo" class="form-control" placeholder="Ingrese el Código" required pattern="[0-9]{0,15}">
-           
-        </div>
-
+    @endif
 </div>
 
 
-    <div class="form-group row">
 
-        <label class="col-md-8 form-control-label" for="nombre">Precio Venta</label>
+    <form 
+    
+    @isset($productoEditar[0])
 
-        <div class="col-md-8">
+    action="{{route('receta.update','test')}}"
+    
+    @else
 
-            <input type="number" id="precio_venta" name="precio_venta" class="form-control" placeholder="Ingrese el precio venta" pattern="^[0-9]$">
+    action="{{route('receta.store')}}"
+   
+    @endisset
 
-        </div>
+    method="POST">  
 
-    </div>
+    @isset($productoEditar[0])
+        {{method_field('patch')}}
+    @endisset
+    
+    {{csrf_field()}}
 
+    @isset($productoEditar[0])
 
+        <input type="hidden" id="idproducto" name="idproducto" value="{{$productoEditar[0]->id}}">
+        <input type="hidden" id="id_receta" name="id_receta" value="{{$productoEditar[0]->idreceta}}">
+        <input type="hidden" id="idTipoProductos" name="idTipoProductos" value="{{$productoEditar[0]->tipo_producto}}">
+    
+    @endisset
 
-    <div class="form-group row">
-        
-        <label class="col-md-8 form-control-label" for="imagen">Imagen</label>
-        
-        <div class="col-md-8">
-          
-            <input type="file" id="imagen" name="imagen" class="form-control">
-               
-        </div>
-
-    </div>
-
-</div>   
+    <div class="border p-2">   
 
             <div class="form-group row">
+
+                <div class="col-md-4 mt-3">
+                        <label class="form-control-label" for="cantidad">Nombre Producto</label>
+                        
+                        @isset($productoEditar[0])
+                        
+                            <input type="text" id="nombre" value="{{$productoEditar[0]->nombre}}" name="nombre" class="form-control" placeholder="Ingrese Nombre" pattern="^[a-zA-Z0-9_áéíóúñ\s]{0,100}$">
+
+                        @else
+
+                            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingrese Apellido" pattern="^[a-zA-Z0-9_áéíóúñ\s]{0,100}$">
+
+                        @endisset
+                            
+                       
+                        
+
+
+                        
+                </div>
+
+            </div>
+
+            <div class="form-group row">
+
+                <div class="col-md-8">  
+
+                    <label class="form-control-label" for="nombre">Categoria</label>
+
+                        <select class="form-control selectpicker" name="idcategoria" id="idcategoria" data-live-search="true">
+                                                        
+                        <option value="0">Seleccione</option>
+                        
+                        @foreach($categorias as $categoria)
+                        
+                        <option value="{{$categoria->id}}"
+                            @isset($productoEditar[0])
+
+                                @if ($categoria->id == $productoEditar[0]->idcategoria)
+                                    selected
+                                @endif
+
+                            @endisset>{{$categoria->nombre}}</option>
+                                
+                        @endforeach
+
+                        </select>
+
+                </div>
+
+            </div>
+
+            <div class="form-group row">
+                
+                <label class="col-md-12 form-control-label" for="titulo">Unidad de Medida</label>
+                
+                <div class="col-md-8" >
+                
+                    <select class="form-control" name="unidad_medida" id="unidad_medida" required>
+                                                    
+                    <option value="">Seleccionar</option>
+                    
+                    @foreach($unidades as $unidad)
+                    
+                    <option value="{{$unidad->id}}"
+                            @isset($productoEditar[0])
+
+                                @if ($unidad->id == $productoEditar[0]->unidad_medida)
+                                    selected
+                                @endif
+
+                            @endisset
+                            >{{$unidad->unidad}}</option>
+                            
+                    @endforeach
+
+                    </select>
+
+                </div>
+                                        
+            </div>
+
+            <div class="form-group row">
+                
+                <label class="col-md-8 form-control-label" for="codigo">Código</label>
+            
+                <div class="col-md-8">
+
+                            @isset($productoEditar[0])
+                                
+                                <input type="text" id="codigo" value="{{$productoEditar[0]->codigo}}" name="codigo" class="form-control" placeholder="Ingrese el Código" required pattern="[0-9]{0,15}">
+
+                            @else
+
+                                <input type="text" id="codigo" name="codigo" class="form-control" placeholder="Ingrese el Código" required pattern="[0-9]{0,15}">
+
+                            @endisset
+
+                
+                </div>
+
+            </div>
+
+
+            <div class="form-group row">
+
+                <label class="col-md-8 form-control-label" for="nombre">Precio Venta</label>
+
+                <div class="col-md-8">
+
+                    @isset($productoEditar[0])
+                    
+                        <input type="number" id="precio_venta" value="{{$productoEditar[0]->precio_venta}}" name="precio_venta" class="form-control" placeholder="Ingrese el precio venta" pattern="^[0-9]$">
+                        
+                    @else
+                    
+                        <input type="number" id="precio_venta" name="precio_venta" class="form-control" placeholder="Ingrese el precio venta" pattern="^[0-9]$">
+
+                    @endisset
+
+
+                </div>
+
+            </div>
+
+
+
+            <div class="form-group row">
+        
+                <label class="col-md-8 form-control-label" for="imagen">Imagen</label>
+                
+                <div class="col-md-8">
+                
+                    <input type="file" id="imagen" name="imagen" class="form-control">
+                    
+                </div>
+
+            </div>
+
+        </div>   
+
+            <div class="form-group row mt-2">
 
                  <div class="col-md-8">  
 
@@ -116,13 +200,13 @@
 
                         <label class="form-control-label" for="nombre">Insumo</label>
 
-                            <select class="form-control selectpicker" name="id_producto" id="id_producto" data-live-search="true">
+                            <select class="form-control selectpicker" name="id_insumo" id="id_insumo" data-live-search="true">
                                                             
-                            <option value="0" selected>Seleccione</option>
+                            <option value="" selected>Seleccione</option>
                             
                             @foreach($productos as $prod)
                             
-                            <option value="{{$prod->id}}" unidad="{{$prod->unidad}}">{{$prod->producto}} ({{$prod->unidad}})</option>
+                            <option value="{{$prod->id}}" nombre="{{$prod->producto}}" unidad="{{$prod->unidad}}">{{$prod->producto}} ({{$prod->unidad}})</option>
                                     
                             @endforeach
 
@@ -165,6 +249,26 @@
                 </thead>
                  
                 <tbody>
+                    @isset($insumosEditar[0])
+
+                    @php
+                        $count = 0;    
+                    @endphp
+
+                    @foreach ($insumosEditar as $insumo)
+
+
+                    <tr class="selected" id="fila{{$count}}"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar({{$count}});"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="id_producto[]" value="{{$insumo->id}}">{{$insumo->nombre}}</td> <td><input type="number" step="0.1" name="cantidad[]" value="{{$insumo->cantidad}}"><td>{{$insumo->unidad}}</td></tr>
+
+
+                    @php
+                        $count++;    
+                    @endphp
+                        
+                    @endforeach
+
+                    @endisset
+
                 </tbody>
                 
                 
@@ -184,7 +288,7 @@
 
             </div>
 
-         </form>
+    </form>
 
     </div><!--fin del div card body-->
   </main>
@@ -201,21 +305,35 @@
 
   });
 
+  @isset($insumosEditar[0])
+
+  var cont={{$count}};
+
+   @else
+
    var cont=0;
+
+   @endisset
 
    $("#guardar").hide();
 
+  @isset($insumosEditar[0])
+
+    $("#guardar").show();
+
+  @endisset
      function agregar(){
 
-          id_producto= $("#id_producto").val();
-          unidad= $("#id_producto option:selected").attr('unidad');
-          producto= $("#id_producto option:selected").text();
+          id_producto= $("#id_insumo").val();
+          unidad= $("#id_insumo option:selected").attr('unidad');
+          producto= $("#id_insumo option:selected").attr('nombre');
           cantidad= $("#cantidad").val();      
           
           if(id_producto !="" && cantidad!="" && cantidad>0){
             
              
-             var fila= '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar('+cont+');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td> <td><input type="number" name="cantidad[]" value="'+cantidad+'"><td>'+unidad+'</td> </td></tr>';
+            var fila= '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar('+cont+');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td> <td><input type="number"  step="0.1" name="cantidad[]" value="'+cantidad+'"></td><td>'+unidad+'</td> </tr>';
+
              cont++;
              limpiar();
              
@@ -229,7 +347,7 @@
                 Swal.fire({
                 type: 'error',
                 //title: 'Oops...',
-                text: 'Rellene todos los campos del detalle de la compras',
+                text: 'Rellene todos los campos del detalle de insumos',
               
                 })
             
@@ -241,7 +359,7 @@
      function limpiar(){
         
         $("#cantidad").val("");
-        $("#id_producto").val("");
+        $("#id_insumo").val("");
         
      }
 
