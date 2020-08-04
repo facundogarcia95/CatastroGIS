@@ -9,6 +9,7 @@
  <h2>Agregar Venta</h2>
 
  <span><strong>(*) Campo obligatorio</strong></span><br/>
+ <input type="hidden" id="negocio" value="{{$negocio[0]->impuesto??0 }}"/>
 
  <h3 class="text-center">LLenar el formulario</h3>
 
@@ -240,7 +241,7 @@
           }
           precio_venta= $("#precio_venta").val();
           stock= $("#stock").val();
-          impuesto= {{ $negocio[0]->impuesto??0 }};
+          impuesto= $("#negocio").val();
           
           if(id_producto !="" && cantidad!="" && cantidad>0  && precio_venta!=""){
 
@@ -251,12 +252,18 @@
 
                     var fila= '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar('+cont+');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td> <td><input type="number" name="precio_venta[]" value="'+parseFloat(precio_venta).toFixed(2)+'"> </td> <td><input type="number" name="descuento[]" value="'+parseFloat(descuento).toFixed(2)+'"> </td> <td><input type="number" name="cantidad[]" value="'+cantidad+'"> </td> <td>$'+parseFloat(subtotal[cont]).toFixed(2)+'</td></tr>';
                     cont++;
+
+                    stock_restante =  parseFloat(stock) - parseFloat(cantidad);
+                    stock_actualizado = id_producto+"_"+stock_restante+"_"+precio_venta;
+                    $("#id_producto option:selected").val(stock_actualizado);
+
                     limpiar();
                     totales();
                     /*$("#total").html("USD$ " + total.toFixed(2));
                     $("#total_venta").val(total.toFixed(2));*/   
                     evaluar();
                     $('#detalles').append(fila);
+
 
                 } else{
 
