@@ -57,11 +57,11 @@
                         
                         @isset($productoEditar[0])
                         
-                            <input type="text" id="nombre" value="{{$productoEditar[0]->nombre}}" name="nombre" class="form-control" placeholder="Ingrese Nombre" pattern="^[a-zA-Z0-9_áéíóúñ\s]{0,100}$">
+                            <input type="text" id="nombre" value="{{$productoEditar[0]->nombre}}" name="nombre" class="form-control text-uppercase" placeholder="Ingrese Nombre" pattern="^[a-zA-Z0-9_áéíóúñ\s]{0,100}$">
 
                         @else
 
-                            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingrese Apellido" pattern="^[a-zA-Z0-9_áéíóúñ\s]{0,100}$">
+                            <input type="text" id="nombre" name="nombre" class="form-control text-uppercase" placeholder="Ingrese Nombre" pattern="^[a-zA-Z0-9_áéíóúñ\s]{0,100}$">
 
                         @endisset
                             

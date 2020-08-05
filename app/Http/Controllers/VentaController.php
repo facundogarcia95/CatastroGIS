@@ -165,9 +165,52 @@ class VentaController extends Controller
              $venta = Venta::findOrFail($request->id_venta);
              $venta->estado = 'Anulado';
              $venta->save();
+             
+             $insumos = DB::table('detalle_ventas')
+             ->select('idproducto','cantidad')
+             ->where('idventa','=',$request->id_venta)
+             ->get();
+
+             foreach($insumos as $insumo){
+                 
+                $this->actualizarStockAnulado($insumo->idproducto,$insumo->cantidad);
+
+             }
+
              return Redirect::to('venta');
  
         }
+
+        
+        private function actualizarStockAnulado($id, $cantidad) {
+
+            $detalles = DB::table('productos as p')
+                        ->join('recetas','p.idreceta','=','recetas.id')
+                        ->join('detalle_recetas as d','recetas.id','=','d.idreceta')
+                        ->join('productos as prod', 'd.idproducto','=','prod.id')
+                        ->select('prod.id','d.cantidad')
+                        ->where('p.id','=',$id)->get();
+
+            if(isset($detalles[0])){
+
+                foreach($detalles as $detalle){
+
+                    $producto= Producto::findOrFail($detalle->id);
+                    $producto->stock = $producto->stock + ($detalle->cantidad * $cantidad);
+                    $producto->save();
+
+                }
+
+            }else{
+
+                
+                $producto= Producto::findOrFail($id);
+                $producto->stock = $producto->stock + $cantidad;
+                $producto->save();
+
+            }
+
+         }
 
          private function actualizarStock($id, $cantidad) {
 

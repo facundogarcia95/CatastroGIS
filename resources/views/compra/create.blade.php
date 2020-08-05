@@ -76,12 +76,8 @@
                             <option value="0" selected>Seleccione</option>
                             
                             @foreach($productos as $prod)
-                            
-                            @if(!$prod->idreceta)
-
-                                <option value="{{$prod->id}}">#{{$prod->producto}} ({{$prod->unidad}})</option>
-                            
-                            @endif
+                                           
+                                <option value="{{$prod->id}}">#{{$prod->producto}} ({{$prod->unidad}})</option>              
 
                             @endforeach
 

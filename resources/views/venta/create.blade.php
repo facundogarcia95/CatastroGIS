@@ -259,8 +259,7 @@
 
                     limpiar();
                     totales();
-                    /*$("#total").html("USD$ " + total.toFixed(2));
-                    $("#total_venta").val(total.toFixed(2));*/   
+                 
                     evaluar();
                     $('#detalles').append(fila);
 
