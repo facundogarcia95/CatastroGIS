@@ -52,7 +52,7 @@ class VentaController extends Controller
              ->select(DB::raw('CONCAT(prod.codigo," ",prod.nombre) AS producto'),'prod.id','prod.stock','prod.precio_venta', 'prod.idreceta')
              ->where('prod.condicion','=','1')
              ->where('prod.stock','>','0')
-             ->where('prod.tipo_producto','=','1')
+             ->where('prod.tipo_producto','!=','3')
              ->groupBy('producto','prod.id','prod.stock','prod.precio_venta','prod.idreceta')
              ->get(); 
 
@@ -166,15 +166,30 @@ class VentaController extends Controller
              $venta->estado = 'Anulado';
              $venta->save();
              
-             $insumos = DB::table('detalle_ventas')
-             ->select('idproducto','cantidad')
+             $insumos = DB::table('detalle_ventas as dv')
+             ->leftJoin('productos as p','dv.idproducto','=','p.id')
+             ->select('dv.idproducto','dv.cantidad','p.idreceta')
              ->where('idventa','=',$request->id_venta)
              ->get();
 
              foreach($insumos as $insumo){
-                 
-                $this->actualizarStockAnulado($insumo->idproducto,$insumo->cantidad);
+                
+                if($insumo->idreceta != null){
 
+                        $producto= Producto::findOrFail($insumo->idproducto);
+                        $producto->stock = $producto->stock + $insumo->cantidad;
+                        $producto->save();
+                        
+                      $this->actualizarStockAnulado($insumo->idproducto,$insumo->cantidad);
+                
+                    }else{
+
+                    $producto= Producto::findOrFail($insumo->idproducto);
+                    $producto->stock = $producto->stock + $insumo->cantidad;
+                    $producto->save();
+
+                    }
+              
              }
 
              return Redirect::to('venta');
@@ -201,13 +216,6 @@ class VentaController extends Controller
 
                 }
 
-            }else{
-
-                
-                $producto= Producto::findOrFail($id);
-                $producto->stock = $producto->stock + $cantidad;
-                $producto->save();
-
             }
 
          }
@@ -222,6 +230,10 @@ class VentaController extends Controller
                         ->where('p.id','=',$id)->get();
 
             if(isset($detalles[0])){
+
+                        $producto= Producto::findOrFail($id);
+                        $producto->stock = $producto->stock - $cantidad;
+                        $producto->save();
 
                 foreach($detalles as $detalle){
 

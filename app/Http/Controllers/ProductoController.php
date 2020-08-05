@@ -166,7 +166,7 @@ class ProductoController extends Controller
 
         if(!isset($existencia[0]->codigo)){
                  
-            if($request->idTipoProductos == 2){$request->precio_venta = null;}
+            if($request->idTipoProductos == 3){$request->precio_venta = null;}
 
                 $producto= Producto::findOrFail($request->idproducto);
                 $producto->idcategoria = $request->idcategoria;
