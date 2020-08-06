@@ -33,9 +33,10 @@ class VentaController extends Controller
             'ventas.num_venta','ventas.fecha_venta','ventas.impuesto',
             'ventas.estado','ventas.total','clientes.nombre','users.nombre')
             ->paginate(8);
-             
+
+            $usuarioRol = \Auth::user()->idrol;
  
-            return view('venta.index',["ventas"=>$ventas,"buscarTexto"=>$sql]);
+            return view('venta.index',["ventas"=>$ventas,"usuarioRol"=>$usuarioRol,"buscarTexto"=>$sql]);
             //return $ventas;
         }
       

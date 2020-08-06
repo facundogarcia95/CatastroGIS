@@ -44,7 +44,9 @@
                                     <th>Total ($)</th>
                                     <th>Impuesto</th>
                                     <th>Estado</th>
+                                    @if ($usuarioRol == 1)
                                     <th>Cambiar Estado</th>
+                                    @endif
                                     <th>Descargar Reporte</th>
                                     
                                 </tr>
@@ -88,7 +90,7 @@
                                        
                                     </td>
 
-                                    
+                                    @if ($usuarioRol == 1)
                                     <td>
 
                                        @if($vent->estado=="Registrado")
@@ -106,7 +108,8 @@
                                         @endif
                                        
                                     </td>
-
+                                    @endif
+                                    
                                     <td>
                                        
                                         <a href="{{url('pdfVenta',$vent->id)}}" target="_blank">

@@ -44,7 +44,9 @@
                                     <th>Total ($)</th>
                                     <th>Impuesto</th>
                                     <th>Estado</th>
-                                    <th>Cambiar Estado</th>
+                                    @if ($usuarioRol == 1)
+                                    <th>Cambiar Estado</th> 
+                                    @endif
                                     <th>Descargar Reporte</th>
                                     
                                 </tr>
@@ -74,26 +76,26 @@
                                     <td>
                                       
                                       @if($comp->estado=="Registrado")
-                                        <button type="button" class="btn btn-success btn-md">
+                                        <label class=" text-success h6">
                                     
                                           <i class="fa fa-check fa-2x"></i> Registrado
-                                        </button>
+                                        </label>
 
                                       @else
 
-                                        <button type="button" class="btn btn-danger btn-md">
+                                        <label class=" text-danger h6">
                                     
                                           <i class="fa fa-check fa-2x"></i> Anulado
-                                        </button>
+                                        </label>
 
                                        @endif
                                        
                                     </td>
 
-                                    
+                                    @if ($usuarioRol == 1)
                                     <td>
 
-                            
+                                      
 
                                             @if($comp->estado=="Registrado")
 
@@ -107,10 +109,13 @@
                                                     <i class="fa fa-lock fa-2x"></i> Anulado
                                                 </button>
 
-                                            @endif
-                                       
+                                            @endif                 
+
+                                     
                                     </td>
 
+                                    @endif
+                                    
                                     <td>
                                        
                                        <a href="{{url('pdfCompra',$comp->id)}}" target="_blank">
@@ -160,8 +165,8 @@
         
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times fa-2x"></i>Cerrar</button>
-                                <button type="submit" class="btn btn-success"><i class="fa fa-lock fa-2x"></i>Aceptar</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-success">Aceptar</button>
                             </div>
 
                          </form>

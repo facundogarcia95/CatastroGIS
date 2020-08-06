@@ -28,11 +28,12 @@ class CompraController extends Controller
             ->orderBy('compras.id','desc')
             ->groupBy('compras.id','compras.tipo_identificacion',
             'compras.num_compra','compras.fecha_compra','compras.impuesto',
-            'compras.estado','compras.total','proveedores.nombre','users.nombre')
+            'compras.estado','compras.total','proveedores.nombre','users.nombre','users.idrol')
             ->paginate(8);
              
+            $usuarioRol = \Auth::user()->idrol;
  
-            return view('compra.index',["compras"=>$compras,"buscarTexto"=>$sql]);
+            return view('compra.index',["compras"=>$compras,"usuarioRol"=>$usuarioRol,"buscarTexto"=>$sql]);
             
             //return $compras;
         }
