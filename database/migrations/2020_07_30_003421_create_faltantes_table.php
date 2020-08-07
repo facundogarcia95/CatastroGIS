@@ -14,19 +14,14 @@ class CreateFaltantesTable extends Migration
     public function up()
     {
         Schema::create('faltantes', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('idusuarioregistro')->unsigned();
-            $table->integer('idproducto')->unsigned();
-            $table->integer('idmotivo')->unsigned();
-            $table->integer('idusuarioresponsable')->unsigned()->nullable();
+            $table->increments('id');
+            $table->integer('idusuario')->unsigned();
+            $table->string('motivo')->nullable();
             $table->string('observacion');
-            $table->integer('cantidad')->default(0);
+            $table->integer('condicion')->default(1);
             $table->timestamps();
 
-            $table->foreign('idusuarioregistro')->references('id')->on('users');
-            $table->foreign('idusuarioresponsable')->references('id')->on('users');
-            $table->foreign('idproducto')->references('id')->on('productos');
-            $table->foreign('idmotivo')->references('id')->on('motivos');
+            $table->foreign('idusuario')->references('id')->on('users');
         });
 
         

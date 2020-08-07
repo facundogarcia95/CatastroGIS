@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class TrUpdStockVentaAnular extends Migration
+class TrUpdStockFaltanteAnular extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,12 @@ class TrUpdStockVentaAnular extends Migration
     public function up()
     {
         DB::unprepared('
-        CREATE TRIGGER `tr_updStockVentaAnular` AFTER UPDATE ON `ventas` FOR EACH ROW BEGIN
+        CREATE TRIGGER `tr_updStockFaltanteAnular` AFTER UPDATE ON `faltantes` FOR EACH ROW BEGIN
         UPDATE productos p
-          JOIN detalle_ventas dv
-            ON dv.idproducto = p.id
-           AND dv.idventa= new.id
-           SET p.stock = p.stock + dv.cantidad;
+          JOIN detalle_faltantes df
+            ON df.idproducto = p.id
+           AND df.idfaltante= new.id
+           SET p.stock = p.stock + df.cantidad;
         END
         ');
     }
@@ -31,6 +31,6 @@ class TrUpdStockVentaAnular extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP TRIGGER `tr_updStockVentaAnular`');
+        DB::unprepared('DROP TRIGGER `tr_updStockFaltanteAnular`');
     }
 }

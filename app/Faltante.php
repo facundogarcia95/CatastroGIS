@@ -10,12 +10,9 @@ class Faltante extends Model
     protected $table = 'faltantes';
         
         protected $fillable = [
-            'idusuarioregistro',
-            'idproducto',
-            'idmotivo',
-            'idusuarioresponsable',
-            'observacion',
-            'cantidad'
+            'idusuario',
+            'motivo',
+            'observacion'
         ];
 
         /*es el usuario que hace el registro*/
