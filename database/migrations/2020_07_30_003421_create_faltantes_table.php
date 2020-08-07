@@ -16,9 +16,9 @@ class CreateFaltantesTable extends Migration
         Schema::create('faltantes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idusuario')->unsigned();
-            $table->string('motivo')->nullable();
-            $table->string('observacion');
-            $table->integer('condicion')->default(1);
+            $table->string('motivo')->nullable(false);
+            $table->string('observacion')->nullable();
+            $table->boolean('condicion')->default(1);
             $table->timestamps();
 
             $table->foreign('idusuario')->references('id')->on('users');

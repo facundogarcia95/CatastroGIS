@@ -73,7 +73,7 @@
 
                             <select class="form-control selectpicker" name="id_producto" id="id_producto" data-live-search="true">
                                                             
-                            <option value="0" selected>Seleccione</option>
+                            <option value="" selected>Seleccione</option>
                             
                             @foreach($productos as $prod)
                                            

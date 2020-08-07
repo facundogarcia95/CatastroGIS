@@ -62,6 +62,8 @@ Route::group(['middleware' => ['auth']], function () {
       Route::resource('rol', 'RolController');
       Route::resource('user', 'UserController');
       Route::resource('receta','RecetaController');
+      Route::resource('faltante','FaltanteController');
+      Route::get('/listarFaltantesPdf', 'FaltanteController@listarPdf')->name('faltantes_pdf');
     
     });
 

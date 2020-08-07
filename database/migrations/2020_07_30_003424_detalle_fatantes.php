@@ -13,11 +13,11 @@ class DetalleFatantes extends Migration
      */
     public function up()
     {
-        Schema::create('faltante_detalles', function (Blueprint $table) {
+        Schema::create('detalle_faltantes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idfaltante')->unsigned();
             $table->integer('idproducto')->unsigned();
-            $table->string('cantidad');
+            $table->decimal('cantidad',11,2);
             $table->timestamps();
 
             $table->foreign('idfaltante')->references('id')->on('faltantes');

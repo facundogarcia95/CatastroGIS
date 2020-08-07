@@ -14,6 +14,7 @@ class Faltante extends Model
             'motivo',
             'observacion'
         ];
+        public $timestamps = true;
 
         /*es el usuario que hace el registro*/
      public function usuario()
