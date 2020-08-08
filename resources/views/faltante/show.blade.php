@@ -3,40 +3,37 @@
 
 
 <main class="main">
-
+  @include('breadcrumb.bread')
  <div class="card-body">
 
-  <h2 class="text-center">Detalle de Faltante</h2><br/><br/><br/>
+  <h2 class="text-center">Detalle de Ajuste</h2><br/><br/><br/>
 
     
-            <div class="form-group row">
+            <div class="form-group row ">
 
-                    <div class="col-md-4">  
+                    <div class="col-md-3 border">  
 
-                        <label class="form-control-label" for="nombre">Usuario</label>
+                        <label class="form-control-label h6" for="nombre">Creado por:</label>
                         
                         <p>{{$faltante->nombre}}</p>
                             
                     </div>
 
-                    <div class="col-md-4">  
-
-                    <label class="form-control-label" for="documento">Motivo</label>
-
-                    <p>{{$faltante->motivo}}</p>
-                    
-                    </div>
-
-                    <div class="col-md-4">
-                            <label class="form-control-label" for="num_compra">Fecha Creación</label>
+                    <div class="col-md-6 border">
+                            <label class="form-control-label h6" for="observacion">Observacion</label>
                             
-                            <p>{{$faltante->create_at}}</p>
+                            @isset($faltante->observacion)
+                              <p>{{$faltante->observacion}}</p>
+                            @else    
+                              <p>SIN OBSERVACIÓN</p>
+                            @endisset
+                  
                     </div>
 
-                    <div class="col-md-12">
-                      <label class="form-control-label" for="num_compra">Fecha Creación</label>
+                    <div class="col-md-3 border">
+                      <label class="form-control-label h6" for="fecha_creacion">Fecha Creación</label>
                       
-                      <p>{{$faltante->observacion}}</p>
+                      <p>{{$faltante->created_at}}</p>
                     </div>
 
             </div>
@@ -56,6 +53,7 @@
                         <th>Producto</th>
                         <th>Cantidad</th>
                         <th>Unidad</th>
+                        <th>Motivo</th>
 
                     </tr>
                 </thead>
@@ -69,7 +67,8 @@
                      
                       <td>{{$det->producto}}</td>
                       <td>{{$det->cantidad}}</td>
-                      <td>${{$det->unidad}}</td>
+                      <td>{{$det->unidad}}</td>
+                      <td><b>{{$det->motivo}}</b></td>
                     
                     
                     </tr> 

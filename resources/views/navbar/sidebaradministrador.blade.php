@@ -49,7 +49,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('faltante')}}" onclick="event.preventDefault(); document.getElementById('faltante-form').submit();"><i class="fa text-light fa-trash"></i> Faltantes</a>
+                        <a class="nav-link" href="{{url('faltante')}}" onclick="event.preventDefault(); document.getElementById('faltante-form').submit();"><i class="fa text-light fa-trash"></i> Ajuste de Inventario</a>
                         <form id="faltante-form" action="{{url('faltante')}}" method="GET" style="display: none;">
                             @csrf
                          </form>

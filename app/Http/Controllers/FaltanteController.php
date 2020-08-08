@@ -25,12 +25,12 @@ class FaltanteController extends Controller
             $faltantes=Faltante::join('users','faltantes.idusuario','=','users.id')
             ->join('detalle_faltantes','faltantes.id','=','detalle_faltantes.idfaltante')
             ->select('faltantes.id','faltantes.created_at',
-             'users.nombre','faltantes.motivo','faltantes.condicion')
-            ->where('faltantes.motivo','LIKE','%'.$sql.'%')
-            ->orWhere('faltantes.observacion','LIKE','%'.$sql.'%')
+             'users.nombre','faltantes.observacion','faltantes.condicion')
+            ->where('faltantes.observacion','LIKE','%'.$sql.'%')
+            ->orWhere('detalle_faltantes.motivo','LIKE','%'.$sql.'%')
             ->orderBy('faltantes.id','desc')
             ->groupBy('faltantes.id','faltantes.created_at',
-            'users.nombre','faltantes.motivo','faltantes.condicion')
+            'users.nombre','faltantes.observacion','faltantes.condicion')
             ->paginate(8);
              
             $usuarioRol = \Auth::user()->idrol;
@@ -54,6 +54,7 @@ class FaltanteController extends Controller
          ->select(DB::raw('CONCAT(prod.codigo," - ",prod.nombre) AS producto'),'prod.id', 'uni.unidad')
          ->where('prod.condicion','=','1')
          ->where('prod.idreceta','=',null)
+         ->where('prod.stock','>','0')
          ->get();
 
          return view('faltante.create',["productos"=>$productos]);
@@ -73,13 +74,13 @@ class FaltanteController extends Controller
 
              $faltante = new Faltante();
              $faltante->idusuario = \Auth::user()->id;
-             $faltante->motivo = $request->motivo;
              $faltante->observacion = $request->observacion;
              $faltante->condicion = 1;
              $faltante->save();
 
              $id_producto=$request->id_producto;
              $cantidad=$request->cantidad;
+             $motivo=$request->motivo;
 
              
              //Recorro todos los elementos
@@ -93,6 +94,7 @@ class FaltanteController extends Controller
                  $detalle->idfaltante = $faltante->id;
                  $detalle->idproducto = $id_producto[$cont];
                  $detalle->cantidad = $cantidad[$cont];
+                 $detalle->motivo = $motivo[$cont];
                  $detalle->save();
                  $cont=$cont+1;
              }
@@ -117,18 +119,17 @@ class FaltanteController extends Controller
     {
         $faltante = Faltante::join('users','faltantes.idusuario','=','users.id')
         ->join('detalle_faltantes','faltantes.id','=','detalle_faltantes.idfaltante')
-        ->select('faltantes.id','faltantes.motivo',
+        ->select('faltantes.id',
         'faltantes.observacion','faltantes.created_at','users.nombre')
         ->where('faltantes.id','=',$id)
         ->orderBy('faltantes.id', 'desc')
-        ->groupBy('faltantes.id','faltantes.motivo',
-        'faltantes.observacion','faltantes.created_at','users.nombre')
+        ->groupBy('faltantes.id','faltantes.observacion','faltantes.created_at','users.nombre')
         ->first();
 
         /*mostrar detalles*/
         $detalles = DetalleFaltante::join('productos','detalle_faltantes.idproducto','=','productos.id')
         ->join('unidad_medidas','productos.unidad_medida','=','unidad_medidas.id')
-        ->select('detalle_faltantes.cantidad','productos.nombre as producto','unidad_medidas.unidad')
+        ->select('detalle_faltantes.cantidad','productos.nombre as producto','unidad_medidas.unidad','detalle_faltantes.motivo')
         ->where('detalle_faltantes.idfaltante','=',$id)
         ->orderBy('detalle_faltantes.id', 'desc')->get();
         
@@ -149,15 +150,19 @@ class FaltanteController extends Controller
         $faltantes = Faltante::join('detalle_faltantes','faltantes.id','=','detalle_faltantes.idfaltante')
         ->join('productos','detalle_faltantes.idproducto','=','productos.id')
         ->join('categorias','productos.idcategoria','=','categorias.id')
-        ->select('productos.codigo','productos.nombre','categorias.nombre as nombre_categoria','detalle_faltantes.cantidad','faltantes.motivo')
+        ->join('users','faltantes.idusuario','=','users.id')
+        ->select('productos.codigo','productos.nombre','categorias.nombre as nombre_categoria','detalle_faltantes.cantidad','detalle_faltantes.motivo','users.nombre as usuario','faltantes.created_at as fecha')
         ->where('faltantes.condicion', '=', '1')
         ->orderBy('faltantes.created_at', 'desc')->get(); 
 
 
-        $cont=Faltante::count()
-        ->where('fatantes.condicion','=','1');
+        $cont= DB::table('faltantes')
+        ->select(DB::raw('COUNT(faltantes.id) as cantidad'))
+        ->where('faltantes.condicion','=','1')
+        ->get();
 
-        $pdf= \PDF::loadView('pdf.faltantespdf',['faltantes'=>$faltantes,'cont'=>$cont]);
+        $pdf= \PDF::loadView('pdf.faltantespdf',['faltantes'=>$faltantes,'cont'=>$cont[0]]);
         return $pdf->download('faltantes.pdf');
+        
     }
 }

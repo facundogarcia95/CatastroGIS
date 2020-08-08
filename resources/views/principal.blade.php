@@ -300,6 +300,21 @@
        modal.find('.modal-body #id_compra').val(id_compra);
        })
         
+
+         /*INICIO ventana modal para cambiar estado de Compra*/
+        
+         $('#cambiarEstadoFaltante').on('show.bs.modal', function (event) {
+       
+       //console.log('modal abierto');
+       
+       var button = $(event.relatedTarget) 
+       var idfaltante = button.data('idfaltante')
+       var modal = $(this)
+       // modal.find('.modal-title').text('New message to ' + recipient)
+       
+       modal.find('.modal-body #idfaltante').val(idfaltante);
+       })
+
        /*FIN ventana modal para cambiar estado de la compra*/
 
        /*INICIO ventana modal para cambiar estado de Venta*/

@@ -7,15 +7,20 @@
                 <div class="card">
                     <div class="card-header">
 
-                       <h2>Listado de Faltantes</h2><br/>
+                       <h2>Listado de Ajustes</h2><br/>
                        
                        <a href="faltante/create">
-
                         <button class="btn btn-primary btn-lg" type="button">
-                            <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Faltante
+                            <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Ajuste
                         </button>
-
                         </a>
+
+                        <a href="{{url('listarFaltantesPdf')}}" target="_blank">
+                          <button type="button" class="btn btn-success btn-lg">
+                              <i class="fa fa-file fa-2x"></i>&nbsp;&nbsp;Reporte PDF
+                              
+                          </button>
+                      </a>
                        
                     </div>
                     <div class="card-body">
@@ -36,9 +41,9 @@
                                 <tr class="bg-primary">
                                     
                                     <th>Ver Detalle</th>
-                                    <th>Fecha Faltante</th>
-                                    <th>Usuario</th>
-                                    <th>Motivo</th> 
+                                    <th>Fecha Ajuste</th>
+                                    <th>Creado por</th>
+                                    <th>Observacion</th> 
                                     <th>Estado</th>
                                     @if ($usuarioRol == 1)
                                     <th>Cambiar Estado</th> 
@@ -47,7 +52,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-
                               @foreach($faltantes as $faltante)
                                
                                 <tr>
@@ -62,8 +66,14 @@
                                    </td>
 
                                     <td>{{$faltante->created_at}}</td>
-                                    <td>{{$faltante->usuario}}</td>
-                                    <td>{{$faltante->motivo}}</td>
+                                    <td>{{$faltante->nombre}}</td>
+                                    <td>
+                                      @isset($faltante->observacion)
+                                        {{$faltante->observacion}}
+                                      @else    
+                                        SIN OBSERVACIÓN
+                                      @endisset
+                                    </td>
                                     <td>
                                       
                                       @if($faltante->condicion==1)
@@ -90,14 +100,14 @@
 
                                             @if($faltante->condicion==1)
 
-                                                <button type="button" class="btn btn-danger btn-sm" data-id_compra="{{$comp->id}}" data-toggle="modal" data-target="#cambiarEstadoCompra">
+                                                <button type="button" class="btn btn-danger btn-sm" data-idfaltante="{{$faltante->id}}" data-toggle="modal" data-target="#cambiarEstadoFaltante">
                                                     <i class="fa fa-times fa-2x"></i> Anular Faltante
                                                 </button>
 
                                                 @else
 
-                                                <label  class="text-success h6">
-                                                    <i class="fa fa-lock fa-2x"></i> Anulado
+                                                <label  class="text-danger h6 ">
+                                                    <i class="fa fa-lock fa-2x"></i> No permitido
                                                 </label>
 
                                             @endif                 
@@ -107,18 +117,6 @@
 
                                     @endif
                                     
-                                    <td>
-                                       
-                                       <a href="{{url('pdfCompra',$comp->id)}}" target="_blank">
-                                          
-                                          <button type="button" class="btn btn-info btn-sm">
-                                           
-                                            <i class="fa fa-file fa-2x"></i> Descargar PDF
-                                          </button> &nbsp;
-
-                                       </a> 
-
-                                   </td>
                                 </tr>
 
                                 @endforeach
@@ -134,12 +132,12 @@
             </div>
                        
            
-        <!-- Inicio del modal cambiar estado de compra -->
-         <div class="modal fade" id="cambiarEstadoCompra" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+        <!-- Inicio del modal cambiar estado de Faltante -->
+         <div class="modal fade" id="cambiarEstadoFaltante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-danger" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Cambiar Estado de Compra</h4>
+                            <h4 class="modal-title">Cambiar Estado de Faltante</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">×</span>
                             </button>

@@ -18,7 +18,7 @@ class DetalleFatantes extends Migration
             $table->integer('idfaltante')->unsigned();
             $table->integer('idproducto')->unsigned();
             $table->decimal('cantidad',11,2);
-            $table->timestamps();
+            $table->string('motivo')->nullable(false);
 
             $table->foreign('idfaltante')->references('id')->on('faltantes');
             $table->foreign('idproducto')->references('id')->on('productos');

@@ -6,37 +6,14 @@
 
  <div class="card-body">
 
- <h2>Agregar Faltante</h2>
+ <h2>Agregar Ajuste</h2>
 
  <span><strong>(*) Campo obligatorio</strong></span><br/>
 
- <h3 class="text-center">LLenar el formulario</h3>
+ <h3 class="text-left mt-5 mb-3">LLenar el formulario</h3>
 
     <form action="{{route('faltante.store')}}" method="POST">
     {{csrf_field()}}
-
-            <div class="form-group row">
-
-            <div class="col-md-8">  
-
-                <label class="form-control-label" for="nombre">Motivo de Faltante</label>
-                
-                    <select class="form-control selectpicker" name="motivo" id="motivo" data-live-search="true">
-                                                    
-                    <option value="0" disabled>Seleccione</option>  
-                    
-                    <option value="ROTO"></option>
-                    <option value="PERDIDO"></option>
-                    <option value="VENCIDO"></option>
-                    <option value="FALLADO"></option>            
-                    <option value="ROBO"></option>            
-                    <option value="OTRO"></option>            
-
-                    </select>
-                
-                </div>
-            </div>
-
 
             <div class="form-group row">
 
@@ -49,11 +26,30 @@
 
             </div>
 
-            <br/><br/>
+            <br/>
 
             <div class="form-group row border">
 
-                 <div class="col-md-8">  
+                    <div class="col-md-8 mb-3 mt-2">  
+    
+                        <label class="form-control-label" for="nombre">Motivo de Faltante</label>
+                    
+                        <select class="form-control selectpicker" name="motivo" id="motivo" data-live-search="true">
+                                                        
+                        <option value="" selected>Seleccione</option>  
+                        <option value="ROTO">ROTO</option>
+                        <option value="PERDIDO">PERDIDO</option>
+                        <option value="VENCIDO">VENCIDO</option>
+                        <option value="FALLADO">FALLADO</option>            
+                        <option value="ROBO">ROBO</option>            
+                        <option value="OTRO">OTRO</option>            
+    
+                        </select>
+                    
+                    </div>
+        
+
+                 <div class="col-md-8 mb-2">  
 
                         <label class="form-control-label" for="nombre">Producto</label>
 
@@ -71,11 +67,8 @@
 
                 </div>
 
-            </div>
 
-            <div class="form-group row">
-
-                <div class="col-md-3">
+                <div class="col-md-5 mb-3">
                         <label class="form-control-label" for="cantidad">Cantidad</label>
                         
                         <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="Ingrese cantidad" pattern="[0-9]{0,15}">
@@ -85,7 +78,7 @@
 
                 <div class="col-md-3 mt-3">
                         
-                    <button type="button" id="agregar" class="btn btn-primary"><i class="fa fa-plus fa-2x"></i> Agregar detalle</button>
+                    <button type="button" id="agregar" class="btn btn-primary w-100"><i class="fa fa-plus fa-2x"></i> Agregar detalle</button>
                 </div>
 
 
@@ -95,7 +88,7 @@
 
            <div class="form-group row border">
 
-              <h3>Lista de Faltantes agregados</h3>
+              <h3>Lista de Ajustes Agregados</h3>
 
               <div class="table-responsive col-md-12">
                 <table id="detalles" class="table table-bordered table-striped table-sm">
@@ -104,6 +97,7 @@
                         <th>Eliminar</th>
                         <th>Producto</th>
                         <th>Cantidad</th>
+                        <th>Motivo</th>
                     </tr>
                 </thead>
 
@@ -153,11 +147,12 @@
           id_producto= $("#id_producto").val();
           producto= $("#id_producto option:selected").text();
           cantidad= $("#cantidad").val();
-        
+          motivo= $("#motivo option:selected").text();
+
           
-          if(id_producto !="" && cantidad!="" && cantidad>0 ){
+          if(id_producto !="" && cantidad!="" && cantidad>0 && motivo != "" ){
             
-             var fila= '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar('+cont+');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"> </td> </tr>';
+             var fila= '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar('+cont+');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"> </td><td><input type="hidden" name="motivo[]" value="'+motivo+'"><b>'+motivo+'</b> </td>  </tr>';
              cont++;
              limpiar();
             
@@ -184,6 +179,7 @@
         
         $("#cantidad").val("");
         $("#id_producto").val("");
+        $("#motivo").val("");
         
 
      }
