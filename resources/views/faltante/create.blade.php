@@ -59,7 +59,7 @@
                             
                             @foreach($productos as $prod)
                                            
-                                <option value="{{$prod->id}}">#{{$prod->producto}} ({{$prod->unidad}})</option>              
+                            <option stock="{{$prod->stock}}" value="{{$prod->id}}">#{{$prod->producto}} ({{$prod->unidad}})</option>              
 
                             @endforeach
 
@@ -69,7 +69,7 @@
 
 
                 <div class="col-md-5 mb-3">
-                        <label class="form-control-label" for="cantidad">Cantidad</label>
+                        <label class="form-control-label" for="cantidad">Cantidad Sobrante</label>
                         
                         <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="Ingrese cantidad" pattern="[0-9]{0,15}">
                 </div>
@@ -136,7 +136,15 @@
          agregar();
      });
 
+     $("#id_producto").change(mostrarStockMaximo);
+
   });
+
+  function mostrarStockMaximo(){
+    stock= $("#id_producto option:selected").attr('stock');
+    $("#cantidad").attr('placeholder','Stock actual del sistema: '+stock);
+    $("#cantidad").attr('max',stock);
+  }
 
    var cont=0;
 
@@ -146,20 +154,31 @@
 
           id_producto= $("#id_producto").val();
           producto= $("#id_producto option:selected").text();
+          stock= $("#id_producto option:selected").attr('stock');
           cantidad= $("#cantidad").val();
           motivo= $("#motivo option:selected").text();
 
           
           if(id_producto !="" && cantidad!="" && cantidad>0 && motivo != "" ){
             
+            if(cantidad <= stock){
              var fila= '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar('+cont+');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td><td><input type="number" name="cantidad[]" value="'+cantidad+'"> </td><td><input type="hidden" name="motivo[]" value="'+motivo+'"><b>'+motivo+'</b> </td>  </tr>';
              cont++;
              limpiar();
             
              evaluar();
              $('#detalles').append(fila);
-            
+
             }else{
+                Swal.fire({
+                type: 'error',
+                //title: 'Oops...',
+                text: 'La cantidad no puede supertar el stock',
+              
+                })
+            }
+
+          }else{
 
                // alert("Rellene todos los campos del detalle de la compra, revise los datos del producto");
                

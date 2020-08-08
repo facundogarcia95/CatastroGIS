@@ -51,7 +51,7 @@ class FaltanteController extends Controller
          /*listar los productos en ventana modal*/
          $productos=DB::table('productos as prod')
          ->join('unidad_medidas as uni','prod.unidad_medida', '=','uni.id')
-         ->select(DB::raw('CONCAT(prod.codigo," - ",prod.nombre) AS producto'),'prod.id', 'uni.unidad')
+         ->select(DB::raw('CONCAT(prod.codigo," - ",prod.nombre) AS producto'),'prod.id', 'uni.unidad','prod.stock')
          ->where('prod.condicion','=','1')
          ->where('prod.idreceta','=',null)
          ->where('prod.stock','>','0')
@@ -87,7 +87,7 @@ class FaltanteController extends Controller
              $cont=0;
  
               while($cont < count($id_producto)){
-
+                
                  $detalle = new DetalleFaltante();
                  /*enviamos valores a las propiedades del objeto detalle*/
                  /*al idcompra del objeto detalle le envio el id del objeto compra, que es el objeto que se ingresó en la tabla compras de la bd*/
