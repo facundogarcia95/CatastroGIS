@@ -15,6 +15,9 @@ class Comprador
      */
     public function handle($request, Closure $next)
     {
+        if(\Auth::user()->idrol != 3){
+            return redirect('/home');
+        }
         return $next($request);
     }
 }

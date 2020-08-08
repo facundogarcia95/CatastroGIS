@@ -15,6 +15,9 @@ class Administrador
      */
     public function handle($request, Closure $next)
     {
+        if(\Auth::user()->idrol != 1){
+            return redirect('/home');
+        }
         return $next($request);
     }
 }

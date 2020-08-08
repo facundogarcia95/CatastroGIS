@@ -15,6 +15,9 @@ class Vendedor
      */
     public function handle($request, Closure $next)
     {
+        if(\Auth::user()->idrol != 2){
+            return redirect('/home');
+        }
         return $next($request);
     }
 }
