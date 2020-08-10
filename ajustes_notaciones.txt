@@ -1,8 +1,5 @@
 Ajustes a implementar
 
 - Diseño 
-- armar modulo de faltantes de mercaderia
 - modulo productos agregar busqueda por categoria y boton de limpiar busqueda
--al anular una compra se restan el stock de los productos, pero ojo que si se vendió y despues 
-se anula la compra puede dar negativo.
-- revisar ventas (podes agregar todas las veces que quieras el máximo de stock )
+-cuando cargas las compras actualizar stock de productos elaborados

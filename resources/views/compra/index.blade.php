@@ -37,7 +37,7 @@
                                     
                                     <th>Ver Detalle</th>
                                     <th>Fecha Compra</th>
-                                    <th>Número Compra</th>
+                                    <th>N° Comprobante</th>
                                     <th>Proveedor</th>
                                     <th>Tipo de identificación</th>
                                     <th>Comprador</th> 
@@ -73,7 +73,7 @@
                                     <td>{{$comp->nombre}}</td>
                                     <td>${{number_format($comp->total,2)}}</td>
                                     <td>{{$comp->impuesto}}</td>
-                                    <td>
+                                    <td class="text-center">
                                       
                                       @if($comp->estado=="Registrado")
                                         <label class=" text-success h6">
@@ -93,7 +93,7 @@
                                     </td>
 
                                     @if ($usuarioRol == 1)
-                                    <td>
+                                    <td class="text-center">
 
                                       
 
@@ -105,9 +105,9 @@
 
                                                 @else
 
-                                                <button type="button" class="btn btn-success btn-sm">
-                                                    <i class="fa fa-lock fa-2x"></i> Anulado
-                                                </button>
+                                                <label class=" text-danger h6 m-1">
+                                                    <i class="fa fa-lock fa-2x"></i> 
+                                                </label>
 
                                             @endif                 
 

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
 use DB;
 use App\Producto;
+use App\Http\Controllers\ProductoController;
 
 
 class VentaController extends Controller
@@ -55,7 +56,16 @@ class VentaController extends Controller
              ->where('prod.stock','>','0')
              ->where('prod.tipo_producto','!=','3')
              ->groupBy('producto','prod.id','prod.stock','prod.precio_venta','prod.idreceta')
-             ->get(); 
+             ->get();
+             
+             foreach($productos as $producto){
+                 
+                if($producto->idreceta != null){
+                    $p = new ProductoController();
+                    $p->stock($producto->id);
+                 }
+                 
+             }
 
              /*listar las datos negocio*/
              $negocio = DB::table('negocio')->get();
@@ -278,8 +288,9 @@ class VentaController extends Controller
              ->where('detalle_ventas.idventa','=',$id)
              ->orderBy('detalle_ventas.id', 'desc')->get();
  
+             $negocio = DB::table('negocio')->first();
              
-             $pdf= \PDF::loadView('pdf.venta',['venta'=>$venta,'detalles'=>$detalles]);
+             $pdf= \PDF::loadView('pdf.venta',['venta'=>$venta,'detalles'=>$detalles,'negocio'=>$negocio]);
              return $pdf->download('venta-'.$id.'.pdf');
          }
  

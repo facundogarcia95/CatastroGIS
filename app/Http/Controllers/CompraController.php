@@ -117,11 +117,6 @@ class CompraController extends Controller
  
          public function show($id){
  
-             //dd($id);
-            
-             /*mostrar compra*/
- 
-             //$id = $request->id;
              $compra = Compra::join('proveedores','compras.idproveedor','=','proveedores.id')
              ->join('detalle_compras','compras.id','=','detalle_compras.idcompra')
              ->select('compras.id','compras.tipo_identificacion',
@@ -140,7 +135,9 @@ class CompraController extends Controller
              ->where('detalle_compras.idcompra','=',$id)
              ->orderBy('detalle_compras.id', 'desc')->get();
              
-             return view('compra.show',['compra' => $compra,'detalles' =>$detalles]);
+             $negocio = DB::table('negocio')->get();
+
+             return view('compra.show',['compra' => $compra,'detalles' =>$detalles,'negocio'=>$negocio]);
          }
          
          public function destroy(Request $request){

@@ -57,7 +57,7 @@
             <div class="form-group row">
 
                 <div class="col-md-8">
-                        <label class="form-control-label" for="num_compra">Número Compra (Opcional)</label>
+                        <label class="form-control-label" for="num_compra">Número Factura/Ticket (Opcional)</label>
                         
                         <input type="text" id="num_compra" name="num_compra" class="form-control" placeholder="Ingrese el número compra" pattern="[0-9]{0,15}">
                 </div>

@@ -7,11 +7,8 @@
  <div class="card-body">
 
  <h2>Agregar Venta</h2>
-
- <span><strong>(*) Campo obligatorio</strong></span><br/>
+<br/>
  <input type="hidden" id="negocio" value="{{$negocio[0]->impuesto??0 }}"/>
-
- <h3 class="text-center">LLenar el formulario</h3>
 
     <form action="{{route('venta.store')}}" method="POST">
     {{csrf_field()}}
@@ -20,7 +17,7 @@
 
                 <div class="col-md-8">  
 
-                        <label class="form-control-label" for="documento">Documento</label>
+                        <label class="form-control-label" for="documento">Tipo Comprobante</label>
                         
                         <select class="form-control" name="tipo_identificacion" id="tipo_identificacion" required>
                                                         
@@ -63,21 +60,19 @@
             <div class="form-group row">
 
                 <div class="col-md-8">
-                        <label class="form-control-label" for="num_venta">Número Factura (Opcional)</label>
+                        <label class="form-control-label" for="num_venta">Número Factura/Ticket (Opcional)</label>
                         
                         <input type="text" id="num_venta" name="num_venta" class="form-control" placeholder="Ingrese el número venta" pattern="[0-9]{0,15}">
                 </div>
             </div>
 
-            <br/><br/>
-
-            <div class="form-group row border">
+            <div class="form-group row">
 
                  <div class="col-md-8">  
 
                         <label class="form-control-label" for="nombre">Producto </label>
 
-                            <select class="form-control selectpicker" name="id_producto" id="id_producto" data-live-search="true" required>
+                            <select class="form-control selectpicker" name="id_producto" id="id_producto" data-live-search="true">
                                                             
                             <option value="" selected>Seleccione</option>
                             
@@ -126,7 +121,7 @@
                 </div>
 
                 <div class="col-md-2">
-                        <label class="form-control-label" for="descuento">Descuento</label>
+                        <label class="form-control-label" for="descuento">Descuento (%)</label>
                         
                         <input type="number" id="descuento" name="descuento" class="form-control" placeholder="Ingrese el descuento">
                 </div>
@@ -298,7 +293,7 @@
         $("#stock").val("0");
         $("#descuento").val("0");
         $("#precio_venta").val("");
-        $("#id_producto").val("0");
+        $("#id_producto").val("");
 
      }
 

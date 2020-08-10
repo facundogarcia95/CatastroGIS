@@ -6,44 +6,43 @@
 
  <div class="card-body">
 
-  <h2 class="text-center">Detalle de Venta</h2><br/><br/><br/>
+  <h2 class="text-center text-uppercase"><u>Detalle de Venta</u></h2><br/><br/><br/>
 
     
-            <div class="form-group row">
+            <div class="form-group row  m-1 bg-light">
 
-                    <div class="col-md-4">  
+                    <div class="col-md-4 border">  
 
-                        <label class="form-control-label" for="nombre">Cliente</label>
+                        <label class="form-control-label m-1" for="nombre">Cliente</label>
                         
-                        <p>{{$venta->nombre}}</p>
+                        <p class="m-1 font-weight-bold">{{$venta->nombre}}</p>
                             
                     </div>
 
-                    <div class="col-md-4">  
+                    <div class="col-md-4 border">  
 
-                    <label class="form-control-label" for="documento">Documento</label>
+                    <label class="form-control-label m-1" for="documento">Documento</label>
 
-                    <p>{{$venta->tipo_identificacion}}</p>
+                    <p class="m-1 font-weight-bold">{{$venta->tipo_identificacion}}</p>
                     
                     </div>
 
-                    <div class="col-md-4">
-                            <label class="form-control-label" for="num_venta">Número Venta</label>
+                    <div class="col-md-4 border">
+                            <label class="form-control-label m-1" for="num_venta">Número Venta</label>
                             
-                            <p>{{$venta->num_venta}}</p>
+                            <p class="m-1 font-weight-bold">{{$venta->num_venta}}</p>
                     </div>
 
             </div>
-
             
             <br/><br/>
 
-           <div class="form-group row border">
+           <div class="form-group row border m-1  bg-light">
 
-              <h3>Detalle de Ventas</h3>
+              <h3 class="m-2">Lista de Productos</h3>
 
               <div class="table-responsive col-md-12">
-                <table id="detalles" class="table table-bordered table-striped table-sm">
+                <table id="detalles" class="table table-bordered table-default table-sm">
                 <thead>
                     <tr class="bg-success">
 
@@ -55,7 +54,7 @@
                     </tr>
                 </thead>
                  
-                <tfoot>
+                <tfoot class="bg-white">
                    
                    <!--<th><h2>TOTAL</h2></th>
                    <th></th>

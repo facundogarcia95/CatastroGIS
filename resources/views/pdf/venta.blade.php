@@ -111,14 +111,14 @@
                 <table id="datos">
                     <thead>                        
                         <tr>
-                            <th id="">DATOS DEL VENDEDOR</th>
+                            <th id="">DATOS DEL CLIENTE</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th><p id="proveedor">Nombre: {{$v->nombre}}<br>
+                            <th><p >Nombre: {{$v->nombre}}<br>
                             Tipo: {{$v->tipo_identificacion}}<br/>
-                            N° Venta: {{$v->num_venta}}<br>
+                            N° Comprobante: {{$v->num_venta}}<br>
                             Dirección: {{$v->direccion}}<br>
                             Teléfono: {{$v->telefono}}<br>
                             Email: {{$v->email}}</</p></th>
@@ -129,7 +129,7 @@
             
             <div id="fact">
                 <p>&nbsp;{{$v->tipo_identificacion}}-VENTA &nbsp;<br>
-                    &nbsp;N° Venta: {{$v->num_venta}}&nbsp;</p>
+                    &nbsp;N°: {{$v->num_venta}}&nbsp;</p>
             </div>
         </header>
         <br>
@@ -188,7 +188,7 @@
             <!--puedes poner un mensaje aqui-->
             <div id="datos">
                 <p id="encabezado">
-                    <b>nuestraempresa.com</b><br>Nombre de la empresa<br>Telefono:(+00)123456789<br>Email:nuestraempresa@gmail.com
+                <b>{{$negocio->web}}</b><br>{{$negocio->razon_social}}<br>Telefono: (+54 9) {{$negocio->telefono}}<br>Email: {{$negocio->email}}<br/>Dirección: {{$negocio->direccion}}
                 </p>
             </div>
         </footer>

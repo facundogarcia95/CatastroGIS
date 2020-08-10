@@ -22,6 +22,7 @@ class CreateNegociosTable extends Migration
             $table->float('impuesto');
             $table->string('direccion');
             $table->string('telefono');
+            $table->string('web');
             $table->string('logo');
             //$table->timestamps();
         });
@@ -34,6 +35,7 @@ class CreateNegociosTable extends Migration
                 'impuesto' => '21', 
                 'direccion' => 'calle 234 - Mendoza', 
                 'telefono' => '2612678891', 
+                'web' => 'nuestraempresa.com', 
                 'logo' => '123456.png'
             ];
 
