@@ -21,11 +21,14 @@ class UnidadMedidas extends Migration
         
         $unidad = [
             ['unidad' => 'U.', 'created_at' => now()],
-            ['unidad' => 'KG.', 'created_at' => now()],
-            ['unidad' => 'GR.', 'created_at' => now()],
-            ['unidad' => 'MTS.', 'created_at' => now()],
-            ['unidad' => 'CM.', 'created_at' => now()],
-            ['unidad' => 'MM.', 'created_at' => now()]
+            ['unidad' => 'kg.', 'created_at' => now()],
+            ['unidad' => 'gr.', 'created_at' => now()],
+            ['unidad' => 'mg.', 'created_at' => now()],
+            ['unidad' => 'l.', 'created_at' => now()],
+            ['unidad' => 'ml.', 'created_at' => now()],
+            ['unidad' => 'm.', 'created_at' => now()],
+            ['unidad' => 'cm.', 'created_at' => now()],
+            ['unidad' => 'mm.', 'created_at' => now()]
         ];
         $db = DB::table('unidad_medidas')->insert($unidad);
     }

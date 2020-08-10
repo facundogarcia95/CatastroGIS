@@ -64,7 +64,8 @@ Route::group(['middleware' => ['auth']], function () {
       Route::resource('receta','RecetaController');
       Route::resource('faltante','FaltanteController');
       Route::get('/listarFaltantesPdf', 'FaltanteController@listarPdf')->name('faltantes_pdf');
-    
+      Route::post('ajax-consultas','AjaxController@index');
+
     });
 
 

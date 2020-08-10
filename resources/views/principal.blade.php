@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Sistema Compras-Ventas">
     <meta name="keyword" content="Sistema Compras-Ventas">
+    <meta name="csrf-token" content="{{csrf_token()}}">
     <title>Sistema COVE</title>
 
     <!-- Icons -->
@@ -89,12 +90,15 @@
 
     <!-- Bootstrap and necessary plugins -->
     <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="{{asset('js/solicitudesAjax.js')}}"></script>
     @stack('scripts')
     <script src="{{asset('js/popper.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/pace.min.js')}}"></script>
     <!-- Plugins and scripts required by all views -->
     <script src="{{asset('js/Chart.min.js')}}"></script>
+    <script src="{{asset('js/util.js')}}"></script>
     <!-- GenesisUI main scripts -->
     <script src="{{asset('js/template.js')}}"></script>
     <script src="{{asset('js/sweetalert2.all.min.js')}}"></script>

@@ -80,62 +80,71 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $existencia = DB::table('productos')
-        ->select('codigo')
-        ->where("codigo","=",$request->codigo)
-        ->get();
+        try{
+
+            $existencia = DB::table('productos')
+            ->select('codigo')
+            ->where("codigo","=",$request->codigo)
+            ->get();
 
 
-        if (!isset($existencia[0])){
+            if (!isset($existencia[0])){
 
-                if($request->idTipoProductos == 2){$request->precio_venta = null;}
-                $producto= new Producto();
-                $producto->idcategoria = $request->idcategoria;
-                $producto->codigo = $request->codigo;
-                $producto->nombre = strtoupper($request->nombre);
-                $producto->precio_venta = $request->precio_venta??0;
-                $producto->tipo_producto = $request->idTipoProductos;
-                $producto->idreceta = $request->id_receta??null;
-                $producto->unidad_medida = $request->unidad_medida;
-                $producto->condicion = '1';
+                    if($request->idTipoProductos == 3){$request->precio_venta = null;}
+                    $producto= new Producto();
+                    $producto->idcategoria = $request->idcategoria;
+                    $producto->codigo = $request->codigo;
+                    $producto->nombre = strtoupper($request->nombre);
+                    $producto->precio_venta = $request->precio_venta??0;
+                    $producto->tipo_producto = $request->idTipoProductos;
+                    $producto->idreceta = $request->id_receta??null;
+                    $producto->unidad_medida = $request->unidad_medida;
+                    $producto->condicion = '1';
 
-                //Handle File Upload
-                if($request->hasFile('imagen')){
+                    //Handle File Upload
+                    if($request->hasFile('imagen')){
 
-                //Get filename with the extension
-                $filenamewithExt = $request->file('imagen')->getClientOriginalName();
+                    //Get filename with the extension
+                    $filenamewithExt = $request->file('imagen')->getClientOriginalName();
+                    
+                    //Get just filename
+                    $filename = pathinfo($filenamewithExt,PATHINFO_FILENAME);
+                    
+                    //Get just ext
+                    $extension = $request->file('imagen')->guessClientExtension();
+                    
+                    //FileName to store
+                    $fileNameToStore = time().'.'.$extension;
+                    
+                    //Upload Image
+                    $path = $request->file('imagen')->storeAs('public/img/producto',$fileNameToStore);
+
                 
-                //Get just filename
-                $filename = pathinfo($filenamewithExt,PATHINFO_FILENAME);
-                
-                //Get just ext
-                $extension = $request->file('imagen')->guessClientExtension();
-                
-                //FileName to store
-                $fileNameToStore = time().'.'.$extension;
-                
-                //Upload Image
-                $path = $request->file('imagen')->storeAs('public/img/producto',$fileNameToStore);
+                    } else{
 
-            
-                } else{
-
-                    $fileNameToStore="noimagen.jpg";
-                }
-                
-                $producto->imagen=$fileNameToStore;
+                        $fileNameToStore="noimagen.jpg";
+                    }
+                    
+                    $producto->imagen=$fileNameToStore;
 
 
-                $producto->save();
-                
-                return Redirect::to("producto")->with('mensaje', 'Producto Agregado!');
+                    $producto->save();
+                    
+                  
+            }else{
 
-        }else{
+                    return Redirect::to("producto")->with('error', 'El código de producto ingresado ya existe!');
 
-                return Redirect::to("producto")->with('error', 'El código de producto ingresado ya existe!');
+            }
 
+        } catch(Exception $e){
+                    
+            DB::rollBack();
+            return Redirect::to("producto")->with('error', 'Hubo un error, vuelva a intentar!');
         }
+        
+        return Redirect::to("producto")->with('mensaje', 'Producto Agregado!');
+
     }
 
 
@@ -149,6 +158,8 @@ class ProductoController extends Controller
     public function update(Request $request)
     {
         //
+
+        try{
 
         $validar = DB::table('productos')
         ->select('codigo')
@@ -168,11 +179,12 @@ class ProductoController extends Controller
                  
             if($request->idTipoProductos == 3){$request->precio_venta = null;}
 
+
                 $producto= Producto::findOrFail($request->idproducto);
                 $producto->idcategoria = $request->idcategoria;
                 $producto->codigo = $request->codigo;
                 $producto->nombre = strtoupper($request->nombre);
-                $producto->precio_venta = $request->precio_venta??0;
+                $producto->precio_venta = $request->precio_venta;
                 $producto->tipo_producto = $request->idTipoProductos;
                 $producto->idreceta = $request->id_receta??null;
                 $producto->unidad_medida = $request->unidad_medida;
@@ -216,13 +228,22 @@ class ProductoController extends Controller
         
                 $producto->save();
 
-                return Redirect::to("producto")->with('mensaje', 'Producto Modificado!');
+               
 
-        }else{
+            }else{
 
-                return Redirect::to("producto")->with('error', 'El código de producto ingresado ya existe!');
+                    return Redirect::to("producto")->with('error', 'El código de producto ingresado ya existe!');
+
+            }
+
+        } catch(Exception $e){
+                    
+            DB::rollBack();
+            return Redirect::to("producto")->with('error', 'Hubo un error, vuelva a intentar!');
 
         }
+
+        return Redirect::to("producto")->with('mensaje', 'Producto Modificado!');
     }
 
     /**
