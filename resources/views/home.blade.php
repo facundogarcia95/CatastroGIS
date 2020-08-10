@@ -22,7 +22,9 @@
                                         <button class="btn btn-transparent p-0 float-right" type="button">
                                         <i class="fa fa-shopping-cart fa-4x"></i>
                                         </button>
-                                        <div class="text-value h3"><strong>$ {{$total->totalcompra}} </strong>(MES ACTUAL)</div>
+                                        <div class="text-value h3"><strong>$ {{$total->totalcompra}} </strong>(<label class="text-uppercase">@php
+                                            echo strftime("%G");
+                                        @endphp </label>)</div>
                                         <div class="h2">Compras</div>
                                     </div>
                                     <div class="chart-wrapper mt-3 mx-3" style="height:35px;">
@@ -39,7 +41,9 @@
                                         <button class="btn btn-transparent p-0 float-right" type="button">
                                         <i class="fa fa-suitcase fa-4x"></i>
                                         </button>
-                                        <div class="text-value h3"><strong>$ {{$total->totalventa}} </strong>(MES ACTUAL)</div>
+                                        <div class="text-value h3"><strong>$ {{$total->totalventa}} </strong>(<label class="text-uppercase">@php
+                                            echo strftime("%G");
+                                        @endphp </label>)</div>
                                         <div class="h2">Ventas</div>
                                     </div>
                                     <div class="chart-wrapper mt-3 mx-3" style="height:35px;">
@@ -55,7 +59,9 @@
                                         <button class="btn btn-transparent p-0 float-right" type="button">
                                         <i class="fa fa-product-hunt fa-4x"></i>
                                         </button>
-                                        <div class="text-value h3"><strong>$-{{round($total->ajustes,2)}} </strong>(Mes Actual)</div>
+                                        <div class="text-value h3"><strong>$-{{round($total->ajustes,2)}} </strong>(<label class="text-uppercase">@php
+                                            echo strftime("%G");
+                                        @endphp </label>)</div>
                                         <div class="h2">Ajustes Inventario</div>
                                     </div>
                                     <div class="chart-wrapper mt-3 mx-3" style="height:35px;">
