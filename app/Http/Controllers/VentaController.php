@@ -51,27 +51,46 @@ class VentaController extends Controller
             
              /*listar los productos en ventana modal*/
              $productos= DB::table('productos as prod')
-             ->select(DB::raw('CONCAT(prod.codigo," ",prod.nombre) AS producto'),'prod.id','prod.stock','prod.precio_venta', 'prod.idreceta')
+             ->select(DB::raw('CONCAT(prod.codigo," ",prod.nombre) AS producto'),'prod.id','prod.stock','prod.precio_venta', 'prod.idreceta','prod.idcategoria')
              ->where('prod.condicion','=','1')
              ->where('prod.stock','>','0')
              ->where('prod.tipo_producto','!=','3')
-             ->groupBy('producto','prod.id','prod.stock','prod.precio_venta','prod.idreceta')
+             ->groupBy('producto','prod.id','prod.stock','prod.precio_venta','prod.idreceta','prod.idcategoria')
              ->get();
+
              
-             foreach($productos as $producto){
-                 
-                if($producto->idreceta != null){
+             $productosRecetas = DB::table('productos')->where('productos.idreceta','!=',null)->get();
+
+             foreach($productosRecetas as $producto){
+
                     $p = new ProductoController();
-                    $p->stock($producto->id);
-                 }
-                 
+                    $p->stock($producto->id); 
+
              }
+
+             $categorias = DB::table('categorias')->where('condicion','=',1)->get();
+
+             
+             $productosPorCategoria = array();
+
+             foreach($categorias as $categoria){
+
+                $datos = array("categoria" => $categoria->nombre, "productos" => array());
+                foreach($productos as $producto){
+                    if($producto->idcategoria == $categoria->id){
+                        array_push($datos["productos"],$producto);
+                    }
+                }
+                array_push($productosPorCategoria, $datos);
+                
+             }
+
 
              /*listar las datos negocio*/
              $negocio = DB::table('negocio')->get();
  
  
-             return view('venta.create',["clientes"=>$clientes,"productos"=>$productos, "negocio"=>$negocio]);
+             return view('venta.create',["clientes"=>$clientes,"productos"=>$productos, "negocio"=>$negocio,'productosPorCategoria'=>$productosPorCategoria]);
   
         }
  
