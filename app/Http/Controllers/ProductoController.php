@@ -7,6 +7,7 @@ use App\Producto;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use DB;
+use Illuminate\Support\Facades\App;
 
 class ProductoController extends Controller
 {
@@ -178,7 +179,7 @@ class ProductoController extends Controller
 
         if(!isset($existencia[0]->codigo)){
                  
-            if($request->idTipoProductos == 3){$request->precio_venta = null;}
+            if($request->idTipoProductos == 3){$request->precio_venta = 0;}
 
 
                 $producto= Producto::findOrFail($request->idproducto);
@@ -199,6 +200,7 @@ class ProductoController extends Controller
                     entonces eliminaría la imagen anterior, eso es para evitar 
                     acumular imagenes en el servidor*/ 
                 if($producto->imagen != 'noimagen.jpg'){ 
+
                     Storage::delete('public/img/producto/'.$producto->imagen);
                 }
 
@@ -216,10 +218,8 @@ class ProductoController extends Controller
                 $fileNameToStore = time().'.'.$extension;
                 
                 //Upload Image
-                //$path = $request->file('imagen')->storeAs('img/productos',$fileNameToStore);
+                $path = $request->file('imagen')->storeAs('producto',$fileNameToStore,'public');
                 
-                Storage::copy($filenamewithExt, 'img/productos/'.$fileNameToStore);
-
                 
                 } else {
                     
