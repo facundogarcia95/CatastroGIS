@@ -56,6 +56,7 @@ class VentaController extends Controller
              ->where('prod.stock','>','0')
              ->where('prod.tipo_producto','!=','3')
              ->groupBy('producto','prod.id','prod.stock','prod.precio_venta','prod.idreceta','prod.idcategoria')
+             ->orderBy('prod.nombre')
              ->get();
 
              
@@ -68,7 +69,7 @@ class VentaController extends Controller
 
              }
 
-             $categorias = DB::table('categorias')->where('condicion','=',1)->get();
+             $categorias = DB::table('categorias')->where('condicion','=',1)->orderBy('nombre')->get();
 
              
              $productosPorCategoria = array();

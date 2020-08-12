@@ -1,5 +1,5 @@
 Ajustes a implementar
 
 - Diseño 
-- modulo productos agregar busqueda por categoria y boton de limpiar busqueda
--cuando cargas las compras actualizar stock de productos elaborados
+Carga de imagenes (solucionar) No se puede subir
+

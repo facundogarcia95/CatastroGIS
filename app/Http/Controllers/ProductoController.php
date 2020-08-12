@@ -30,6 +30,7 @@ class ProductoController extends Controller
             ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
             ->where('p.nombre','LIKE','%'.$sql.'%')
             ->orwhere('p.codigo','LIKE','%'.$sql.'%')
+            ->orwhere('c.nombre','LIKE','%'.$sql.'%')
             ->orderBy('p.id','desc')
             ->paginate(10);
            
@@ -117,7 +118,7 @@ class ProductoController extends Controller
                     $fileNameToStore = time().'.'.$extension;
                     
                     //Upload Image
-                    $path = $request->file('imagen')->storeAs('public/img/producto',$fileNameToStore);
+                    $path = $request->file('imagen')->storeAs('img/productos',$fileNameToStore);
 
                 
                     } else{
@@ -215,9 +216,10 @@ class ProductoController extends Controller
                 $fileNameToStore = time().'.'.$extension;
                 
                 //Upload Image
-                $path = $request->file('imagen')->storeAs('public/img/producto',$fileNameToStore);
+                //$path = $request->file('imagen')->storeAs('img/productos',$fileNameToStore);
                 
-                
+                Storage::copy($filenamewithExt, 'img/productos/'.$fileNameToStore);
+
                 
                 } else {
                     

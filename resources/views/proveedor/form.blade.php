@@ -22,10 +22,10 @@
             
                 <select class="form-control" name="tipo_documento" id="tipo_documento">
                                                 
-                    <option value="0" disabled>Seleccione</option>
+                    <option value="" disabled>Seleccione</option>
                     <option value="DNI">DNI</option>
                     <option value="CEDULA">CEDULA</option>
-                    
+                    <option value="CUIL">CUIL</option>
 
                 </select>
             

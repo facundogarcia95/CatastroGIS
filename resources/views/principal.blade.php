@@ -122,10 +122,9 @@
         modal.find('.modal-body #nombre').val(nombre_modal_editar);
         modal.find('.modal-body #descripcion').val(descripcion_modal_editar);
         modal.find('.modal-body #id_categoria').val(id_categoria);
-        modal.find('.modal-body #id_tipoproductos').val(id_tipoproductos);
         modal.find('.modal-body #unidad_medida').val(unidad_medida);
         modal.find('.modal-body #id_receta').val(id_receta);
-            tipoProducto(id_tipoproductos);
+           // tipoProducto(id_tipoproductos);
         })
 
 
@@ -160,6 +159,7 @@
         var stock_modal_editar = button.data('stock')
         //var imagen_modal_editar = button.data('imagen1')
         var id_producto = button.data('id_producto')
+        var id_tipoproductos = button.data('id_tipoproductos')
         var modal = $(this)
         // modal.find('.modal-title').text('New message to ' + recipient)
         /*los # son los id que se encuentran en el formulario*/
@@ -168,8 +168,10 @@
         modal.find('.modal-body #precio_venta').val(precio_venta_modal_editar);
         modal.find('.modal-body #codigo').val(codigo_modal_editar);
         modal.find('.modal-body #stock').val(stock_modal_editar);
+        modal.find('.modal-body #id_tipoproductos').val(id_tipoproductos);
        // modal.find('.modal-body #subirImagen').html("<img src="img/producto/imagen_modal_editar">");
         modal.find('.modal-body #id_producto').val(id_producto);
+        tipoProducto(id_tipoproductos);
         })
 
         /*INICIO ventana modal para cambiar el estado del producto*/

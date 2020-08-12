@@ -205,7 +205,7 @@
              subtotal[cont]=cantidad*precio_compra;
              total= total+subtotal[cont];
              
-             var fila= '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar('+cont+');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td> <td><input type="number" id="precio_compra[]" name="precio_compra[]"  value="'+precio_compra+'"> </td>  <td><input type="number" name="cantidad[]" value="'+cantidad+'"> </td> <td>$'+subtotal[cont]+' </td></tr>';
+             var fila= '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar('+cont+');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td> <td><input type="number" id="precio_compra[]" name="precio_compra[]"  value="'+precio_compra+'" class="form-control" readonly> </td>  <td><input type="number" name="cantidad[]" value="'+cantidad+'" class="form-control" readonly> </td> <td>$'+subtotal[cont]+' </td></tr>';
              cont++;
              limpiar();
              totales();

@@ -50,7 +50,7 @@
                                 <div class="input-group">
                                    
                                     <input type="text" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
-                                    <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                    <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button> &nbsp;<a href={{url('producto')}}  class="btn btn-primary">Limpiar</a>
                                 </div>
                             {{Form::close()}}
                             </div>
@@ -108,7 +108,7 @@
                                 </td>
 
                                     <td>
-                                         <img src="{{asset('storage/img/producto/'.$prod->imagen)}}" id="imagen1" alt="{{$prod->nombre}}" class="img-responsive" width="100px" height="100px">
+                                         <img src="{{asset('img/producto/'.$prod->imagen)}}" id="imagen1" alt="{{$prod->nombre}}" class="img-responsive" width="100px" height="100px">
                                     </td>
             
                             

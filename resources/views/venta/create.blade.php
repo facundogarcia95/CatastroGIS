@@ -23,9 +23,7 @@
                                                         
                             <option value="" selected>Seleccione</option>
                             <option value="FACTURA">Factura</option>
-                            <option value="TICKET">Ticket</option>
-                            <option value="CUENTA CORRIENTE">Cuenta Corriente</option>
-                            
+                            <option value="TICKET">Ticket</option>            
 
                         </select>
                 </div>
@@ -77,20 +75,24 @@
                             <option value="" selected>Seleccione</option>
                             
                           
-                            @foreach($productos as $prod)
+                            @foreach($productosPorCategoria as $prodcat)
                             
-                            
-                            @if($prod->idreceta)
+                                <optgroup label="{{$prodcat['categoria']}}">
 
-                                <option  value="{{$prod->id}}_{{round($productoControlador->stock($prod->id),2)}}_{{$prod->precio_venta}}">{{$prod->producto}}</option>
+                                    @foreach ($prodcat['productos'] as $prod)
+                                        
+                                            @if($prod->idreceta)
 
-                            @else
+                                            <option idProducto="{{$prod->id}}" value="{{$prod->id}}_{{round($productoControlador->stock($prod->id),2)}}_{{$prod->precio_venta}}">{{$prod->producto}}</option>
 
-                                <option  value="{{$prod->id}}_{{$prod->stock}}_{{$prod->precio_venta}}">{{$prod->producto}}</option>
+                                            @else
 
-                            @endif
+                                            <option  idProducto="{{$prod->id}}" value="{{$prod->id}}_{{$prod->stock}}_{{$prod->precio_venta}}">{{$prod->producto}}</option>
 
-                            
+                                            @endif
+                                    @endforeach
+
+                                </optgroup>
                                     
                             @endforeach
 
@@ -245,12 +247,15 @@
                     subtotal[cont]=(cantidad*precio_venta)-(cantidad*precio_venta*descuento/100);
                     total= total+subtotal[cont];
 
-                    var fila= '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar('+cont+');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td> <td><input type="number" name="precio_venta[]" value="'+parseFloat(precio_venta).toFixed(2)+'"> </td> <td><input type="number" name="descuento[]" value="'+parseFloat(descuento).toFixed(2)+'"> </td> <td><input type="number" name="cantidad[]" value="'+cantidad+'"> </td> <td>$'+parseFloat(subtotal[cont]).toFixed(2)+'</td></tr>';
-                    cont++;
-
+                    
                     stock_restante =  parseFloat(stock) - parseFloat(cantidad);
                     stock_actualizado = id_producto+"_"+stock_restante+"_"+precio_venta;
                     $("#id_producto option:selected").val(stock_actualizado);
+
+
+                    var fila= '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" idproducto="'+id_producto+'" precio="'+precio_venta+'" stock="'+stock_restante+'" cantidad="'+cantidad+'" onclick="eliminar('+cont+',this);"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td> <td><input type="number" name="precio_venta[]" value="'+parseFloat(precio_venta).toFixed(2)+'" class="form-control" readonly> </td> <td><input class="form-control" readonly type="number" name="descuento[]" value="'+parseFloat(descuento).toFixed(2)+'"> </td> <td><input class="form-control" readonly type="number" name="cantidad[]" value="'+cantidad+'"> </td> <td>$'+parseFloat(subtotal[cont]).toFixed(2)+'</td></tr>';
+                    cont++;
+
 
                     limpiar();
                     totales();
@@ -322,7 +327,19 @@
          }
      }
 
-     function eliminar(index){
+     function eliminar(index,item){
+
+        stock= item.getAttribute("stock");
+        cantidad= item.getAttribute("cantidad");
+        id_producto= item.getAttribute("idproducto");
+        precio_venta= item.getAttribute("precio");
+
+        stock_restante = parseFloat(stock)+ parseFloat(cantidad);
+
+        stock_actualizado = id_producto+"_"+stock_restante+"_"+precio_venta;
+       
+        $("#id_producto option[idProducto='"+id_producto+"']").val(stock_actualizado);
+       
 
         total=total-subtotal[index];
         total_impuesto= total*20/100;
