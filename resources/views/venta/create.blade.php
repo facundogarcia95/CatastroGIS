@@ -188,7 +188,7 @@
             <div class="col-md">
                <input type="hidden" name="_token" value="{{csrf_token()}}">
                
-                <button type="submit" class="btn btn-success"><i class="fa fa-plus-square rounded "></i> Registrar</button>
+                <button type="submit" class="btn btn-success rounded"><i class="fa fa-plus-square  "></i> Registrar</button>
             
             </div>
 

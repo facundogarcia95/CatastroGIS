@@ -1,5 +1,6 @@
 Ajustes a implementar
 
-- Diseño 
-Carga de imagenes (solucionar) No se puede subir
-
+-Baja de rol y cliente y proveedor
+-centrar tablas 
+-ver detalles de todo diseño
+quitar vista de roles

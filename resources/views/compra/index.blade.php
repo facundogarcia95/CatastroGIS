@@ -60,7 +60,7 @@
                                     <td>
                                      
                                      <a href="{{URL::action('CompraController@show',$comp->id)}}" style="text-decoration: none !important">
-                                       <button type="button" class="btn btn-detalle btn-md text-light">
+                                       <button type="button" class="btn btn-detalle rounded btn-md text-light">
                                          <i class="fa fa-eye "></i> Detalle
                                        </button> &nbsp;
 

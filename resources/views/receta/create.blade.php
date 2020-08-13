@@ -233,14 +233,14 @@
 
             <br/><br/>
 
-           <div class="form-group row border">
+           <div class="form-group row ">
 
-              <h3>Lista de Insumos del Producto</h3>
+              <h3 class="ml-1">Lista de Insumos del Producto</h3>
 
-              <div class="table-responsive col-md-12">
-                <table id="detalles" class="table table-bordered table-striped table-sm">
+              <div class="mt-1 col-md-12">
+                <table id="detalles" class="table table-bordered  table-respinsive table-striped table-sm">
                 <thead>
-                    <tr class="bg-success">
+                    <tr class="bg-dark text-light">
                         <th>Eliminar</th>
                         <th>Producto</th>
                         <th>Cantidad</th>
@@ -282,7 +282,7 @@
             <div class="col-md">
                <input type="hidden" name="_token" value="{{csrf_token()}}">
               
-                <button type="submit" class="btn btn-success"><i class="fa fa-save fa-2x"></i> Registrar</button>
+                <button type="submit" class="btn btn-success pull-right"><i class="fa fa-plus-square fa-2x"></i> Registrar</button>
             
             </div>
 
@@ -332,7 +332,7 @@
           if(id_producto !="" && cantidad!="" && cantidad>0){
             
              
-            var fila= '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar('+cont+');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td> <td><input type="number"  step="0.1" name="cantidad[]" value="'+cantidad+'"></td><td>'+unidad+'</td> </tr>';
+            var fila= '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar('+cont+');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td> <td><input type="number"  step="0.1" name="cantidad[]" class="form-control" readonly value="'+cantidad+'"></td><td>'+unidad+'</td> </tr>';
 
              cont++;
              limpiar();

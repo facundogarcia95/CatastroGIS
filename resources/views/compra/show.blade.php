@@ -6,7 +6,7 @@
 
  <div class="card-body">
 
-  <h2 class="text-center text-uppercase"><u>Detalle de Compra</u></h2><br/><br/><br/>
+  <h2 class="text-left text-uppercase">Detalle de Compra</h2><br/><br/><br/>
 
     
             <div class="form-group row border m-1 bg-light">
@@ -42,10 +42,10 @@
 
               <h3 class="m-2">Lista de Productos</h3>
 
-              <div class="table-responsive col-md-12">
-                <table id="detalles" class="table table-bordered table-default table-sm">
+              <div class="col-md-12">
+                <table id="detalles" class="table table-responsive  table-bordered table-default table-sm">
                 <thead>
-                    <tr class="bg-success">
+                    <tr class="bg-dark text-light">
 
                         <th>Producto</th>
                         <th>Precio ($)</th>

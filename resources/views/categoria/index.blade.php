@@ -84,7 +84,7 @@
                                     </td>
 
                                     <td>
-                                        <button type="button" class="btn btn-warning btn-sm" data-id_categoria="{{$cat->id}}" data-nombre="{{$cat->nombre}}" data-descripcion="{{$cat->descripcion}}" data-toggle="modal" data-target="#abrirmodalEditarCat">
+                                        <button type="button" class="btn btn-warning rounded btn-sm" data-id_categoria="{{$cat->id}}" data-nombre="{{$cat->nombre}}" data-descripcion="{{$cat->descripcion}}" data-toggle="modal" data-target="#abrirmodalEditarCat">
 
                                           <i class="fa fa-edit fa-2x"></i> Editar
                                         </button> &nbsp;
@@ -95,13 +95,13 @@
                                         
                                         @if($cat->condicion)
 
-                                        <button type="button" class="btn btn-danger btn-sm" data-id_categoria="{{$cat->id}}" data-toggle="modal" data-target="#cambiarEstado">
+                                        <button type="button" class="btn btn-danger rounded btn-sm" data-id_categoria="{{$cat->id}}" data-toggle="modal" data-target="#cambiarEstado">
                                             <i class="fa fa-times fa-2x"></i> Desactivar
                                         </button>
 
                                         @else
 
-                                        <button type="button" class="btn btn-success btn-sm" data-id_categoria="{{$cat->id}}" data-toggle="modal" data-target="#cambiarEstado">
+                                        <button type="button" class="btn btn-success rounded btn-sm" data-id_categoria="{{$cat->id}}" data-toggle="modal" data-target="#cambiarEstado">
                                             <i class="fa fa-check fa-2x"></i> Activar
                                         </button>
 
@@ -123,12 +123,12 @@
             </div>
             <!--Inicio del modal agregar-->
             <div class="modal fade" id="abrirmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-primary modal-lg" role="document">
+                <div class="modal-dialog modal-dark modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Agregar categoría</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
+                              <span aria-hidden="true" class="text-light">×</span>
                             </button>
                         </div>
                        
@@ -154,12 +154,12 @@
 
              <!--Inicio del modal actualizar-->
              <div class="modal fade" id="abrirmodalEditarCat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-primary modal-lg" role="document">
+                <div class="modal-dialog modal-dark modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Actualizar categoría</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
+                              <span aria-hidden="true" class="text-light">×</span>
                             </button>
                         </div>
                        
@@ -188,12 +188,12 @@
 
              <!--Inicio del modal Cambiar Estado-->
              <div class="modal fade" id="cambiarEstado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-primary modal-lg" role="document">
+                <div class="modal-dialog modal-dark modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Cambiar Estado de la Categoría</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
+                              <span aria-hidden="true" class="text-light">×</span>
                             </button>
                         </div>
                        
@@ -211,8 +211,8 @@
         
 
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success">Aceptar</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-success rounded">Aceptar</button>
+                                    <button type="button" class="btn btn-danger rounded" data-dismiss="modal">Cerrar</button>
                                 </div>
 
 

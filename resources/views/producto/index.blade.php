@@ -223,12 +223,12 @@
 
              <!--Inicio del modal Cambiar Estado-->
              <div class="modal fade" id="cambiarEstado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-primary modal-lg" role="document">
+                <div class="modal-dialog modal-dark modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Cambiar Estado del Producto</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
+                              <span aria-hidden="true" class="text-light">×</span>
                             </button>
                         </div>
                        
@@ -245,9 +245,9 @@
                                 <p>¿Está seguro que desea cambiar el estado?</p>
         
 
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success">Aceptar</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                <div class="modal-footer" >
+                                    <button type="submit" class="btn btn-success rounded">Aceptar</button>
+                                    <button type="button" class="btn btn-danger rounded" data-dismiss="modal">Cerrar</button>
                                 </div>
 
 
