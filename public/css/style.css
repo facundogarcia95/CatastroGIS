@@ -1247,7 +1247,7 @@ pre {
     color: #536c79;
     opacity: 1; }
   .form-control::placeholder {
-    color: #536c79;
+    color: #9ca8ad;
     opacity: 1; }
   .form-control:disabled, .form-control[readonly] {
     background-color: #c2cfd6;

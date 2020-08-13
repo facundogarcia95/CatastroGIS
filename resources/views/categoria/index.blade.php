@@ -9,7 +9,7 @@
                         <div class="col-sm-12 mt-4">
                             <h2>Listado de Categorías</h2><br/>
                         
-                            <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#abrirmodal">
+                            <button class="btn btn-primary btn-lg rounded" type="button" data-toggle="modal" data-target="#abrirmodal">
                                 <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Categoría
                             </button>
                         </div>
@@ -36,15 +36,17 @@
                             {!!Form::open(array('url'=>'categoria','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!} 
                                 <div class="input-group">
                                    
-                                    <input type="text" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
+                                    <input type="text" name="buscarTexto" class="form-control" placeholder="Buscar texto..." value="{{$buscarTexto}}">
                                     <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                <a href="{{url('categoria')}}" class="btn btn-primary ml-2"> Limpiar</a>
+
                                 </div>
                             {{Form::close()}}
                             </div>
                         </div>
-                        <table class="table table-bordered table-striped table-sm">
+                        <table class="table table-bordered table-striped table-sm table-responsive">
                             <thead>
-                                <tr class="bg-primary">
+                                <tr class="bg-dark text-light">
                                    
                                     <th>Categoría</th>
                                     <th>Descripción</th>
@@ -82,7 +84,7 @@
                                     </td>
 
                                     <td>
-                                        <button type="button" class="btn btn-info btn-md" data-id_categoria="{{$cat->id}}" data-nombre="{{$cat->nombre}}" data-descripcion="{{$cat->descripcion}}" data-toggle="modal" data-target="#abrirmodalEditar">
+                                        <button type="button" class="btn btn-warning btn-sm" data-id_categoria="{{$cat->id}}" data-nombre="{{$cat->nombre}}" data-descripcion="{{$cat->descripcion}}" data-toggle="modal" data-target="#abrirmodalEditarCat">
 
                                           <i class="fa fa-edit fa-2x"></i> Editar
                                         </button> &nbsp;
@@ -100,7 +102,7 @@
                                         @else
 
                                         <button type="button" class="btn btn-success btn-sm" data-id_categoria="{{$cat->id}}" data-toggle="modal" data-target="#cambiarEstado">
-                                            <i class="fa fa-lock fa-2x"></i> Activar
+                                            <i class="fa fa-check fa-2x"></i> Activar
                                         </button>
 
                                         @endif
@@ -151,7 +153,7 @@
 
 
              <!--Inicio del modal actualizar-->
-             <div class="modal fade" id="abrirmodalEditar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+             <div class="modal fade" id="abrirmodalEditarCat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-primary modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -205,12 +207,12 @@
 
                                 <input type="hidden" id="id_categoria" name="id_categoria" value="">
                                 
-                                <p>Estas seguro de cambiar el estado?</p>
+                                <p>¿Está seguro que desea cambiar el estado?</p>
         
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                     <button type="submit" class="btn btn-success">Aceptar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                 </div>
 
 

@@ -1,0 +1,26 @@
+
+.btn-warning{
+    color: #fff !important;
+    background-color: #6b81ff !important;
+    border-color: #6b81ff !important;
+}
+
+.btn-warning:hover{
+    background-color: #4661ff !important;
+}
+
+.btn-report{
+    background-color: #ff9720 !important;
+}
+
+.btn-report:hover{
+    background-color: #f58300 !important;
+}
+
+.btn-detalle{
+    background-color: #80582a !important;
+}
+
+.btn-detalle:hover{
+    background-color: #694317 !important;
+}

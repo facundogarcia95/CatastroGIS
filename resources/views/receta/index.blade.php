@@ -147,7 +147,7 @@
 
                             <input type="hidden" id="id_receta" name="id_receta" value="">
 
-                                <p>Estas seguro de cambiar el estado?</p>
+                                <p>¿Está seguro que desea cambiar el estado?</p>
         
 
                             <div class="modal-footer">

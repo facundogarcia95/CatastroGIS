@@ -9,7 +9,7 @@
 
                        <h2>Listado de Proveedores</h2><br/>
                       
-                        <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#abrirmodal">
+                        <button class="btn btn-primary btn-lg rounded" type="button" data-toggle="modal" data-target="#abrirmodal">
                             <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Proveedor
                         </button>
                     </div>
@@ -20,14 +20,15 @@
                                 <div class="input-group">
                                    
                                     <input type="text" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
-                                    <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                    <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>&nbsp;
+                                    <a href={{url('proveedor')}}  class="btn btn-primary">Limpiar</a>
                                 </div>
                             {{Form::close()}}
                             </div>
                         </div>
-                        <table class="table table-bordered table-striped table-sm">
+                        <table class="table table-bordered table-striped table-sm table-responsive">
                             <thead>
-                                <tr class="bg-primary">
+                                <tr class="bg-dark text-light">
                                    
                                     <th>Proveedor</th>
                                     <th>Tipo de Documento</th>
@@ -52,7 +53,7 @@
                                     <td>{{$prove->direccion}}</td>
                             
                                     <td>
-                                        <button type="button" class="btn btn-info btn-md" data-id_proveedor="{{$prove->id}}" data-nombre="{{$prove->nombre}}" data-tipo_documento="{{$prove->tipo_documento}}" data-num_documento="{{$prove->num_documento}}" data-direccion="{{$prove->direccion}}" data-telefono="{{$prove->telefono}}" data-email="{{$prove->email}}" data-toggle="modal" data-target="#abrirmodalEditar">
+                                        <button type="button" class="btn btn-warning text-light rounded btn-sm" data-id_proveedor="{{$prove->id}}" data-nombre="{{$prove->nombre}}" data-tipo_documento="{{$prove->tipo_documento}}" data-num_documento="{{$prove->num_documento}}" data-direccion="{{$prove->direccion}}" data-telefono="{{$prove->telefono}}" data-email="{{$prove->email}}" data-toggle="modal" data-target="#abrirmodalEditarProveedor">
                                           <i class="fa fa-edit fa-2x"></i> Editar
                                         </button> &nbsp;
                                     </td>
@@ -73,12 +74,12 @@
             </div>
             <!--Inicio del modal agregar-->
             <div class="modal fade" id="abrirmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-primary modal-lg" role="document">
+                <div class="modal-dialog modal-dark modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Agregar proveedor</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
+                              <span aria-hidden="true" class="text-light">×</span>
                             </button>
                         </div>
                        
@@ -103,13 +104,13 @@
 
 
              <!--Inicio del modal actualizar-->
-             <div class="modal fade" id="abrirmodalEditar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-primary modal-lg" role="document">
+             <div class="modal fade" id="abrirmodalEditarProveedor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog modal-dark modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Actualizar proveedor</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
+                              <span aria-hidden="true" class="text-light">×</span>
                             </button>
                         </div>
                        

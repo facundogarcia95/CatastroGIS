@@ -18,14 +18,16 @@
                                 <div class="input-group">
                                    
                                     <input type="text" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
-                                    <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                    <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>&nbsp;
+                                    <a href={{url('usuario')}}  class="btn btn-primary">Limpiar</a>
+                                </div>
                                 </div>
                             {{Form::close()}}
                             </div>
-                        </div>
-                        <table class="table table-bordered table-striped table-sm">
+                     
+                        <table class="table table-bordered table-striped table-sm table-responsive">
                             <thead>
-                                <tr class="bg-primary">
+                                <tr class="bg-dark text-light">
                                    
                                     <th>Rol</th>
                                     <th>Descripción</th>
@@ -45,13 +47,13 @@
 
                                       @if($rol->condicion=="1")
 
-                                        <button type="button" class="btn btn-success btn-md">
+                                        <button type="button" class="btn btn-success rounded btn-sm">
                                     
                                           <i class="fa fa-check fa-2x"></i> Activo
                                         </button>
 
                                       @else
-                                         <button type="button" class="btn btn-danger btn-md">
+                                         <button type="button" class="btn btn-danger rounded btn-sm">
                                     
                                          <i class="fa fa-check fa-2x"></i> Desactivado
                                          </button>

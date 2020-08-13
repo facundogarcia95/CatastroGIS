@@ -15,6 +15,8 @@
     <link href="{{asset('css/simple-line-icons.min.css')}}" rel="stylesheet">
     <!-- Main styles for this application -->
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('css/estilos.css')}}" rel="stylesheet">
+
 
      <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js">-->
 
@@ -106,7 +108,7 @@
     <script>
     
          /*EDITAR CATEGORIA EN VENTANA MODAL*/
-         $('#abrirmodalEditar').on('show.bs.modal', function (event) {
+         $('#abrirmodalEditarCat').on('show.bs.modal', function (event) {
         
         //console.log('modal abierto');
         
@@ -114,7 +116,7 @@
         var nombre_modal_editar = button.data('nombre')
         var descripcion_modal_editar = button.data('descripcion')
         var id_categoria = button.data('id_categoria')
-        var id_tipoproductos = button.data('id_tipoproductos')
+        //var id_tipoproductos = button.data('id_tipoproductos')
         var unidad_medida = button.data('unidad_medida')
         var id_receta = button.data('id_receta')
         var modal = $(this)
@@ -191,7 +193,7 @@
         /*FIN ventana modal para cambiar estado del producto*/
 
          /*EDITAR PROVEEDOR EN VENTANA MODAL*/
-         $('#abrirmodalEditar').on('show.bs.modal', function (event) {
+         $('#abrirmodalEditarProveedor').on('show.bs.modal', function (event) {
         
         //console.log('modal abierto');
         /*el button.data es lo que está en el button de editar*/
@@ -217,7 +219,7 @@
         })
 
          /*EDITAR CLIENTE EN VENTANA MODAL*/
-         $('#abrirmodalEditar').on('show.bs.modal', function (event) {
+         $('#abrirmodalEditarCliente').on('show.bs.modal', function (event) {
         
         //console.log('modal abierto');
         /*el button.data es lo que está en el button de editar*/
@@ -244,7 +246,7 @@
 
 
          /*EDITAR USUARIO EN VENTANA MODAL*/
-         $('#abrirmodalEditar').on('show.bs.modal', function (event) {
+         $('#abrirmodalEditarUsuario').on('show.bs.modal', function (event) {
         
         //console.log('modal abierto');
         /*el button.data es lo que está en el button de editar*/

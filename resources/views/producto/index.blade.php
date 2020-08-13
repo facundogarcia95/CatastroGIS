@@ -13,12 +13,11 @@
                         <div class="col-sm-12">
                             <h2>Listado de Productos</h2><br/>
                       
-                            <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#abrirmodal">
+                            <button class="btn btn-primary btn-lg m-2 rounded" type="button" data-toggle="modal" data-target="#abrirmodal">
                                 <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Producto
-                            </button>
-                            
+                            </button>  
                             <a href="{{url('listarProductoPdf')}}" target="_blank">
-                                <button type="button" class="btn btn-success btn-lg">
+                                <button type="button" class="btn btn-report btn-lg m-2 text-light rounded">
                                     <i class="fa fa-file fa-2x"></i>&nbsp;&nbsp;Reporte PDF
                                     
                                 </button>
@@ -55,9 +54,9 @@
                             {{Form::close()}}
                             </div>
                         </div>
-                        <table class="table table-bordered table-striped table-sm">
+                        <table class="table-responsive table table-bordered table-striped table-sm">
                             <thead>
-                                <tr class="bg-primary">
+                                <tr class="bg-dark text-light">
                                     <th>Tipo</th>
                                     <th>Categoria</th>
                                     <th>Producto</th>
@@ -118,7 +117,7 @@
                                                 <i class="fa fa-edit fa-2x"></i> RECETA
                                             </a>
                                         @else
-                                        <button type="button" class="btn btn-info rounded btn-md" data-id_producto="{{$prod->id}}" data-id_categoria="{{$prod->idcategoria}}" data-id_tipoproductos="{{$prod->idtipoproductos}}" data-codigo="{{$prod->codigo}}" data-stock="{{$prod->stock}}" data-nombre="{{$prod->nombre}}" data-precio_venta="{{$prod->precio_venta}}" data-unidad_medida="{{$prod->id_unidad}}"  data-toggle="modal" data-target="#abrirmodalEditar">
+                                        <button type="button" class="btn rounded btn-warning btn-sm" data-id_producto="{{$prod->id}}" data-id_categoria="{{$prod->idcategoria}}" data-id_tipoproductos="{{$prod->idtipoproductos}}" data-codigo="{{$prod->codigo}}" data-stock="{{$prod->stock}}" data-nombre="{{$prod->nombre}}" data-precio_venta="{{$prod->precio_venta}}" data-unidad_medida="{{$prod->id_unidad}}"  data-toggle="modal" data-target="#abrirmodalEditar">
                                             <i class="fa fa-edit fa-2x"></i> EDITAR</button>
 
                                         @endif
@@ -137,7 +136,7 @@
 
                                         @else
 
-                                         <button type="button" class="btn btn-warning btn-sm" data-id_producto="{{$prod->id}}" data-toggle="modal" data-target="#cambiarEstado">
+                                         <button type="button" class="btn btn-success rounded btn-sm" data-id_producto="{{$prod->id}}" data-toggle="modal" data-target="#cambiarEstado">
                                             <i class="fa fa-check fa-2x "></i> ACTIVAR
                                         </button>
 
@@ -159,12 +158,12 @@
             </div>
             <!--Inicio del modal agregar-->
             <div class="modal fade" id="abrirmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-primary modal-lg" role="document">
+                <div class="modal-dialog modal-dark modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Agregar producto</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
+                              <span aria-hidden="true" class="text-light">×</span>
                             </button>
                         </div>
                        
@@ -190,12 +189,12 @@
 
              <!--Inicio del modal actualizar-->
              <div class="modal fade" id="abrirmodalEditar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-primary modal-lg" role="document">
+                <div class="modal-dialog modal-dark modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Actualizar producto</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
+                              <span aria-hidden="true" class="text-light">×</span>
                             </button>
                         </div>
                        
@@ -243,12 +242,12 @@
 
                                 <input type="hidden" id="id_producto" name="idproducto" value="">
                                 
-                                <p>Estas seguro de cambiar el estado?</p>
+                                <p>¿Está seguro que desea cambiar el estado?</p>
         
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                     <button type="submit" class="btn btn-success">Aceptar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                 </div>
 
 

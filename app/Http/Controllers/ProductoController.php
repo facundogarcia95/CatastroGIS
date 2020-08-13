@@ -118,8 +118,8 @@ class ProductoController extends Controller
                     //FileName to store
                     $fileNameToStore = time().'.'.$extension;
                     
-                    //Upload Image
-                    $path = $request->file('imagen')->storeAs('img/productos',$fileNameToStore);
+                    //Create Image
+                    $path = $request->file('imagen')->storeAs('producto',$fileNameToStore,'public');
 
                 
                     } else{

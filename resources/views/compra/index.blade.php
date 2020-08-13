@@ -11,7 +11,7 @@
                        
                        <a href="compra/create">
 
-                        <button class="btn btn-primary btn-lg" type="button">
+                        <button class="btn btn-primary btn-lg rounded ml-2" type="button">
                             <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Compra
                         </button>
 
@@ -26,14 +26,15 @@
                                 <div class="input-group">
                                    
                                     <input type="text" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
-                                    <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                    <button type="submit"  class="btn btn-primary "><i class="fa fa-search"></i> Buscar</button> &nbsp;
+                                    <a href={{url('compra')}}  class="btn btn-primary">Limpiar</a>
                                 </div>
                             {{Form::close()}}
                             </div>
                         </div>
-                        <table class="table table-bordered table-striped table-sm">
+                        <table class="table table-bordered table-striped table-sm table-responsive">
                             <thead>
-                                <tr class="bg-primary">
+                                <tr class="bg-dark text-light">
                                     
                                     <th>Ver Detalle</th>
                                     <th>Fecha Compra</th>
@@ -58,9 +59,9 @@
                                 <tr>
                                     <td>
                                      
-                                     <a href="{{URL::action('CompraController@show',$comp->id)}}">
-                                       <button type="button" class="btn btn-warning btn-md">
-                                         <i class="fa fa-eye fa-2x"></i> Ver detalle
+                                     <a href="{{URL::action('CompraController@show',$comp->id)}}" style="text-decoration: none !important">
+                                       <button type="button" class="btn btn-detalle btn-md text-light">
+                                         <i class="fa fa-eye "></i> Detalle
                                        </button> &nbsp;
 
                                      </a>
@@ -99,7 +100,7 @@
 
                                             @if($comp->estado=="Registrado")
 
-                                                <button type="button" class="btn btn-danger btn-sm" data-id_compra="{{$comp->id}}" data-toggle="modal" data-target="#cambiarEstadoCompra">
+                                                <button type="button" class="btn btn-danger rounded btn-sm" data-id_compra="{{$comp->id}}" data-toggle="modal" data-target="#cambiarEstadoCompra">
                                                     <i class="fa fa-times fa-2x"></i> Anular Compra
                                                 </button>
 
@@ -118,9 +119,9 @@
                                     
                                     <td>
                                        
-                                       <a href="{{url('pdfCompra',$comp->id)}}" target="_blank">
+                                       <a href="{{url('pdfCompra',$comp->id)}}" target="_blank" style="text-decoration: none !important">
                                           
-                                          <button type="button" class="btn btn-info btn-sm">
+                                          <button type="button" class="btn btn-report rounded text-light btn-sm" >
                                            
                                             <i class="fa fa-file fa-2x"></i> Descargar PDF
                                           </button> &nbsp;
@@ -161,7 +162,7 @@
 
                             <input type="hidden" id="id_compra" name="id_compra" value="">
 
-                                <p>Estas seguro de cambiar el estado?</p>
+                                <p>¿Está seguro que desea cambiar el estado?</p>
         
 
                             <div class="modal-footer">

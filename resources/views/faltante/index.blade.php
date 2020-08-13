@@ -9,14 +9,14 @@
 
                        <h2>Listado de Ajustes</h2><br/>
                        
-                       <a href="faltante/create">
-                        <button class="btn btn-primary btn-lg" type="button">
+                       <a href="faltante/create" style="text-decoration: none">
+                        <button class="btn btn-primary btn-lg m-2 rounded" type="button">
                             <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Ajuste
                         </button>
                         </a>
 
-                        <a href="{{url('listarFaltantesPdf')}}" target="_blank">
-                          <button type="button" class="btn btn-success btn-lg">
+                        <a href="{{url('listarFaltantesPdf')}}" target="_blank" style="text-decoration: none">
+                          <button type="button" class="btn btn-report btn-lg m-2 text-light rounded">
                               <i class="fa fa-file fa-2x"></i>&nbsp;&nbsp;Reporte PDF
                               
                           </button>
@@ -31,14 +31,15 @@
                                 <div class="input-group">
                                    
                                     <input type="text" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
-                                    <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                    <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>&nbsp;
+                                    <a href={{url('faltante')}}  class="btn btn-primary">Limpiar</a>
                                 </div>
                             {{Form::close()}}
                             </div>
                         </div>
-                        <table class="table table-bordered table-striped table-sm">
+                        <table class="table table-bordered table-striped table-sm table-responsive">
                             <thead>
-                                <tr class="bg-primary">
+                                <tr class="bg-dark text-light">
                                     
                                     <th>Ver Detalle</th>
                                     <th>Fecha Ajuste</th>
@@ -58,8 +59,8 @@
                                     <td>
                                      
                                      <a href="{{URL::action('FaltanteController@show',$faltante->id)}}">
-                                       <button type="button" class="btn btn-warning btn-md">
-                                         <i class="fa fa-eye fa-2x"></i> Ver detalle
+                                       <button type="button" class="btn btn-detalle btn-sm rounded text-light">
+                                         <i class="fa fa-eye fa-2x"></i> Detalle
                                        </button> &nbsp;
 
                                      </a>
@@ -100,14 +101,14 @@
 
                                             @if($faltante->condicion==1)
 
-                                                <button type="button" class="btn btn-danger btn-sm" data-idfaltante="{{$faltante->id}}" data-toggle="modal" data-target="#cambiarEstadoFaltante">
+                                                <button type="button" class="btn btn-danger btn-sm rounded" data-idfaltante="{{$faltante->id}}" data-toggle="modal" data-target="#cambiarEstadoFaltante">
                                                     <i class="fa fa-times fa-2x"></i> Anular Faltante
                                                 </button>
 
                                                 @else
 
-                                                <label  class="text-danger h6 ">
-                                                    <i class="fa fa-lock fa-2x"></i> No permitido
+                                                <label  class="text-danger h6 ml-2 ">
+                                                    <i class="fa fa-lock fa-2x"></i> 
                                                 </label>
 
                                             @endif                 
@@ -134,12 +135,12 @@
            
         <!-- Inicio del modal cambiar estado de Faltante -->
          <div class="modal fade" id="cambiarEstadoFaltante" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-danger" role="document">
+                <div class="modal-dialog modal-dark" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Cambiar Estado de Faltante</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
+                              <span aria-hidden="true" class="text-light">×</span>
                             </button>
                         </div>
 
@@ -150,12 +151,13 @@
 
                             <input type="hidden" id="idfaltante" name="idfaltante" value="">
 
-                                <p>Estas seguro de cambiar el estado?</p>
+                                <p>¿Está seguro que desea cambiar el estado?</p>
         
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-success">Aceptar</button>
+                              <button type="submit" class="btn btn-success rounded">Aceptar</button>
+                                <button type="button" class="btn btn-danger rounded" data-dismiss="modal">Cerrar</button>
+                                
                             </div>
 
                          </form>

@@ -130,7 +130,7 @@
 
                 <div class="col-md-4 mt-3">
                         
-                    <button type="button" id="agregar" class="btn btn-primary"><i class="fa fa-plus fa-2x"></i> Agregar detalle</button>
+                    <button type="button" id="agregar" class="btn btn-primary rounded"><i class="fa fa-plus fa-2x"></i> Agregar detalle</button>
                 </div>
 
 
@@ -138,14 +138,14 @@
 
             <br/><br/>
 
-           <div class="form-group row border">
+           <div class="form-group row ">
 
-              <h3>Lista de Ventas a Clientes</h3>
+              <h3 class="pl-3">Lista de Ventas a Clientes</h3>
 
               <div class="table-responsive col-md-12">
-                <table id="detalles" class="table table-bordered table-striped table-sm">
+                <table id="detalles" class="table-responsive table table-bordered table-striped table-sm">
                 <thead>
-                    <tr class="bg-success">
+                    <tr class="bg-dark text-light">
                         <th>Eliminar</th>
                         <th>Producto</th>
                         <th>Precio Venta ($)</th>
@@ -183,12 +183,12 @@
             
             </div>
 
-            <div class="modal-footer form-group row" id="guardar">
+            <div class="modal-footer form-group row pull-right" id="guardar">
             
             <div class="col-md">
                <input type="hidden" name="_token" value="{{csrf_token()}}">
                
-                <button type="submit" class="btn btn-success"><i class="fa fa-save fa-2x"></i> Registrar</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-plus-square rounded "></i> Registrar</button>
             
             </div>
 
