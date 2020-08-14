@@ -1,6 +1,3 @@
 Ajustes a implementar
 
--Baja de rol y cliente y proveedor
--centrar tablas 
--ver detalles de todo diseño
-quitar vista de roles
+
