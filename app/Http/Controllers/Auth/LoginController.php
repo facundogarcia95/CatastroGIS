@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class LoginController extends Controller
 {
@@ -17,7 +18,27 @@ class LoginController extends Controller
         $this->validateLogin($request);      
  
          if (Auth::attempt(['usuario' => $request->usuario,'password' => $request->password,'condicion'=>1])){
+
+             $rol = DB::table('users')
+             ->where('usuario','=', $request->usuario)
+             ->get();
+
+             switch ($rol[0]->idrol) {
+                 case 1:
+                    return redirect('/home');
+                    break;
+
+                case 2:
+                    return redirect('/venta');
+                    break;
+
+                 default:
+                    return redirect('/compra');
+                break;
+             }
+
              return redirect('/home');
+           
          }
 
          return back()->withErrors(['usuario' => trans('auth.failed')])

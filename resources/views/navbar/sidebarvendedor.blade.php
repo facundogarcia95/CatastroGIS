@@ -2,12 +2,7 @@
             <nav class="sidebar-nav">
                 <ul class="nav">
                     <li class="nav-item">
-                    <a class="nav-link active" href="{{url('home')}}" onclick="event.preventDefault(); document.getElementById('home-form').submit();"><i class="icon-speedometer"></i> Dashboard</a>
-                            
-                            <form id="home-form" action="{{url('home')}}" method="GET" style="display: none;">
-                            @csrf
-                            </form>
-                    </li>
+         
 
                     <li class="nav-title">
                         Menú
