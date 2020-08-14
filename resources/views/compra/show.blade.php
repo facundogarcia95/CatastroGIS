@@ -6,10 +6,16 @@
 
  <div class="card-body">
 
-  <h2 class="text-left text-uppercase">Detalle de Compra</h2><br/><br/><br/>
+  
 
     
             <div class="form-group row border m-1 bg-light">
+
+              <div class="col-md-12 border"> 
+
+                  <h2 class="text-left text-uppercase p-3">Detalle de Compra</h2>
+              
+              </div>
 
                     <div class="col-md-4 border">  
 
@@ -21,7 +27,7 @@
 
                     <div class="col-md-4 border">  
 
-                    <label class="form-control-label m-1" for="documento">Documento</label>
+                    <label class="form-control-label m-1" for="documento">Tipo Documento</label>
 
                     <p class="m-1 font-weight-bold">{{$compra->tipo_identificacion}}</p>
                     

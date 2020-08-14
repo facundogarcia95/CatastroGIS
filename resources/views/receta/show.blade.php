@@ -6,31 +6,35 @@
 
  <div class="card-body">
 
-  <h2 class="text-center">Detalle de Receta</h2><br/><br/><br/>
-
     
-            <div class="form-group row">
+            <div class="form-group row m-1 bg-light">
+
+                  <div class="col-md-12 border"> 
+
+                    <h2 class="text-left text-uppercase p-3">Detalle de Receta</h2>
+                
+                </div>
 
                     <div class="col-md-4 border">  
 
-                        <label class="form-control-label h6" for="nombre">Nombre Receta:</label>
+                        <label class="form-control-label m-1" for="nombre">Nombre Receta:</label>
                         
-                        <p class="h5">{{$receta->nombre}}</p>
+                        <p class="m-1 font-weight-bold">{{$receta->nombre}}</p>
                             
                     </div>
 
                     <div class="col-md-4 border">  
 
-                    <label class="form-control-label h6"  for="documento">Usuario:</label>
+                    <label class="form-control-label m-1"  for="documento">Usuario:</label>
 
-                    <p class="h5">{{$receta->usuario}}</p>
+                    <p class="m-1 font-weight-bold">{{$receta->usuario}}</p>
                     
                     </div>
 
                     <div class="col-md-4 border">
-                            <label class="form-control-label h6" for="num_compra">Número Receta:</label>
+                            <label class="form-control-label m-1" for="num_compra">Número Receta:</label>
                             
-                            <p class="h5">#{{$receta->id}}</p>
+                            <p class="m-1 font-weight-bold">#{{$receta->id}}</p>
                     </div>
 
             </div>
@@ -38,14 +42,14 @@
             
             <br/><br/>
 
-           <div class="form-group row border m-2">
+           <div class="form-group row border m-1  bg-light">
 
               <h3>Lista de Insumos Utilizados</h3>
 
-              <div class="table-responsive col-md-12">
-                <table id="detalles" class="table table-bordered table-striped table-sm">
+              <div class="col-md-12">
+                <table id="detalles" class="table table-responsive table-bordered table-striped table-sm">
                 <thead>
-                    <tr class="bg-success">
+                    <tr class="bg-dark text-light">
                         <th>Producto</th>
                         <th>Cantidad</th>
              

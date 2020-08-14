@@ -77,12 +77,12 @@
                          </form> 
                     </li>
 
-                    <li class="nav-item">
+                    <!--<li class="nav-item">
                         <a class="nav-link" href="{{url('rol')}}" onclick="event.preventDefault(); document.getElementById('rol-form').submit();"><i class="fa text-light fa-list"></i> Roles</a>
                         <form id="rol-form" action="{{url('rol')}}" method="GET" style="display: none;">
                             @csrf
                          </form> 
-                    </li>
+                    </li>-->
                                   
                     
                 </ul>

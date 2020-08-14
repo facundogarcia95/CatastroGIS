@@ -77,7 +77,7 @@
                                     <td><b>{{$prod->tipoProducto}}</b>
                                         @if($prod->idreceta)
                                         <br/>
-                                        <a href="{{ action('RecetaController@show', ['id' => $prod->idreceta]) }}" class="btn btn-warning rounded btn-md">
+                                        <a style="text-decoration:none" href="{{ action('RecetaController@show', ['id' => $prod->idreceta]) }}" class="btn btn-detalle text-light rounded btn-sm">
                                             <i class="fa fa-eye fa-2x"></i> RECETA
                                         </a>
                                     @endif
@@ -111,10 +111,10 @@
                                     </td>
             
                             
-                                    <td class="text-center">
+                                    <td class="">
                                         @if($prod->idreceta)
-                                            <a href="{{ action('RecetaController@edit', ['id' => $prod->id]) }}" class="btn btn-info rounded btn-md">
-                                                <i class="fa fa-edit fa-2x"></i> RECETA
+                                            <a href="{{ action('RecetaController@edit', ['id' => $prod->id]) }}" class="btn btn-warning rounded btn-sm">
+                                                <i class="fa fa-edit fa-2x"></i> EDITAR
                                             </a>
                                         @else
                                         <button type="button" class="btn rounded btn-warning btn-sm" data-id_producto="{{$prod->id}}" data-id_categoria="{{$prod->idcategoria}}" data-id_tipoproductos="{{$prod->idtipoproductos}}" data-codigo="{{$prod->codigo}}" data-stock="{{$prod->stock}}" data-nombre="{{$prod->nombre}}" data-precio_venta="{{$prod->precio_venta}}" data-unidad_medida="{{$prod->id_unidad}}"  data-toggle="modal" data-target="#abrirmodalEditar">
@@ -126,7 +126,7 @@
                                     </td>
 
                                     
-                                    <td class="text-center">
+                                    <td class="">
 
                                        @if($prod->condicion)
 

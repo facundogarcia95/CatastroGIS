@@ -8,10 +8,7 @@
 
  <h2>Agregar Compra</h2>
 
- <span><strong>(*) Campo obligatorio</strong></span><br/>
-
- <h3 class="text-center">LLenar el formulario</h3>
-
+ <br/>
     <form action="{{route('compra.store')}}" method="POST">
     {{csrf_field()}}
 
@@ -63,9 +60,7 @@
                 </div>
             </div>
 
-            <br/><br/>
-
-            <div class="form-group row border">
+            <div class="form-group row">
 
                  <div class="col-md-8">  
 
@@ -89,23 +84,22 @@
 
             <div class="form-group row">
 
-                <div class="col-md-3">
+                <div class="col-md-3 mt-2">
                         <label class="form-control-label" for="cantidad">Cantidad</label>
                         
                         <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="Ingrese cantidad" pattern="[0-9]{0,15}">
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-3 mt-2">
                         <label class="form-control-label" for="precio_compra">Precio Compra</label>
                         
                         <input type="number" id="precio_compra" name="precio_compra" class="form-control" placeholder="Ingrese precio de compra" pattern="[0-9]{0,15}">
                 </div>
 
                
-
-                <div class="col-md-3 mt-3">
+                <div class="col-md-3 mt-4">
                         
-                    <button type="button" id="agregar" class="btn btn-primary rounded"><i class="fa fa-plus fa-2x"></i> Agregar detalle</button>
+                    <button type="button" id="agregar" class="btn btn-primary rounded bt-md"><i class="fa fa-plus fa-2x"></i> Agregar detalle</button>
                 </div>
 
 
@@ -133,14 +127,14 @@
                   
 
                     <tr>
-                        <th  colspan="4"><p align="right">TOTAL:</p></th>
+                        <th  colspan="4"><p align="right">SUB TOTAL:</p></th>
                         <th><p align="right"><span id="total">$ 0.00</span> </p></th>
                     </tr>
 
-                    <tr>
+                    <!--<tr>
                         <th colspan="4"><p align="right">TOTAL IMPUESTO ({{$negocio[0]->impuesto}}%):</p></th>
                         <th><p align="right"><span id="total_impuesto">$ 0.00</span></p></th>
-                    </tr>
+                    </tr>-->
 
                     <tr>
                         <th  colspan="4"><p align="right">TOTAL PAGAR:</p></th>
@@ -197,7 +191,7 @@
           producto= $("#id_producto option:selected").text();
           cantidad= $("#cantidad").val();
           precio_compra= $("#precio_compra").val();
-          impuesto={{ $negocio[0]->impuesto }};
+          //impuesto={{ $negocio[0]->impuesto }};
         
           
           if(id_producto !="" && cantidad!="" && cantidad>0 && precio_compra!=""){
@@ -241,9 +235,10 @@
 
         $("#total").html("$ " + total.toFixed(2));
 
-        total_impuesto=total*impuesto/100;
-        total_pagar=total+total_impuesto;
-        $("#total_impuesto").html("$ " + total_impuesto.toFixed(2));
+       // total_impuesto=total*impuesto/100;
+        //total_pagar=total+total_impuesto;
+        total_pagar=total;
+       // $("#total_impuesto").html("$ " + total_impuesto.toFixed(2));
         $("#total_pagar_html").html("$ " + total_pagar.toFixed(2));
         $("#total_pagar").val(total_pagar.toFixed(2));
         
@@ -266,11 +261,12 @@
      function eliminar(index){
 
         total=total-subtotal[index];
-        total_impuesto= total*20/100;
-        total_pagar_html = total + total_impuesto;
+       // total_impuesto= total*20/100;
+       //total_pagar_html = total + total_impuesto;
+        total_pagar_html = total;
        
         $("#total").html("$" + total);
-        $("#total_impuesto").html("$" + total_impuesto);
+       // $("#total_impuesto").html("$" + total_impuesto);
         $("#total_pagar_html").html("$" + total_pagar_html);
         $("#total_pagar").val(total_pagar_html.toFixed(2));
        

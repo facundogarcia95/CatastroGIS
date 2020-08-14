@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
       Route::resource('venta', 'VentaController');
       Route::get('/pdfVenta/{id}', 'VentaController@pdf')->name('venta_pdf'); 
       Route::resource('cliente', 'ClienteController');
-      Route::resource('rol', 'RolController');
+     // Route::resource('rol', 'RolController');
       Route::resource('user', 'UserController');
       Route::resource('receta','RecetaController');
       Route::resource('faltante','FaltanteController');

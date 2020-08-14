@@ -8,7 +8,7 @@
           <form class="form-horizontal was-validated" method="POST" action="{{route('login')}}">
           {{ csrf_field() }}
               <div class="card-body">
-              <h3 class="text-center bg-success">Compras - Ventas</h3>
+              <h3 class="text-center bg-dark text-light p-2">COVE  <span class="h6 m-2  "></span></h3>
              
               <div class="form-group mb-3{{$errors->has('usuario' ? 'is-invalid' : '')}}">
                 <span class="input-group-addon"><i class="icon-user"></i></span>
@@ -22,7 +22,7 @@
               </div>
               <div class="row">
                 <div class="col-6">
-                  <button type="submit" class="btn btn-success px-4"><i class="fa fa-sign-in fa-2x"></i> Iniciar sesión</button>
+                  <button type="submit" class="btn btn-dark text-light px-4"><i class="fa fa-sign-in fa-2x"></i> Iniciar sesión</button>
                 </div>
               </div>
             </div>

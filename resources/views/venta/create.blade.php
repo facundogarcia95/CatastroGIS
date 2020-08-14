@@ -104,31 +104,31 @@
 
             <div class="form-group row">
 
-                <div class="col-md-2">
+                <div class="col-md-2 mt-2">
                         <label class="form-control-label" for="cantidad">Cantidad</label>
                         
                         <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="Ingrese cantidad" pattern="[0-9]{0,15}">
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-2  mt-2">
                         <label class="form-control-label" for="stock">Stock</label>
                         
-                        <input type="number" disabled id="stock" name="stock" class="form-control" placeholder="Ingrese el stock" pattern="[0-9]{0,15}">
+                        <input type="number" disabled id="stock" name="stock" class="form-control" placeholder="Stock" >
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-2  mt-2">
                         <label class="form-control-label" for="precio_venta">Precio Venta</label>
                         
-                        <input type="number" disabled id="precio_venta" name="precio_venta" class="form-control" placeholder="Ingrese precio de venta" >
+                        <input type="number" disabled id="precio_venta" name="precio_venta" class="form-control" placeholder="Precio de venta" >
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-2  mt-2">
                         <label class="form-control-label" for="descuento">Descuento (%)</label>
                         
                         <input type="number" id="descuento" name="descuento" class="form-control" placeholder="Ingrese el descuento">
                 </div>
 
-                <div class="col-md-4 mt-3">
+                <div class="col-md-4 mt-4">
                         
                     <button type="button" id="agregar" class="btn btn-primary rounded"><i class="fa fa-plus fa-2x"></i> Agregar detalle</button>
                 </div>
@@ -158,14 +158,14 @@
                 <tfoot>
 
                     <tr>
-                        <th  colspan="5"><p align="right">TOTAL:</p></th>
+                        <th  colspan="5"><p align="right">SUB TOTAL:</p></th>
                         <th><p align="right"><span id="total">$ 0.00</span> </p></th>
                     </tr>
 
-                    <tr>
-                    <th colspan="5"><p align="right">TOTAL IMPUESTO ({{ $negocio[0]->impuesto }}%):</p></th>
+                   <!-- <tr>
+                        <th colspan="5"><p align="right">TOTAL IMPUESTO ({{ $negocio[0]->impuesto }}%):</p></th>
                         <th><p align="right"><span id="total_impuesto">$ 0.00</span></p></th>
-                    </tr>
+                    </tr>-->
 
                     <tr>
                         <th  colspan="5"><p align="right">TOTAL PAGAR:</p></th>
@@ -238,7 +238,7 @@
           }
           precio_venta= $("#precio_venta").val();
           stock= $("#stock").val();
-          impuesto= $("#negocio").val();
+         // impuesto= $("#negocio").val();
           
           if(id_producto !="" && cantidad!="" && cantidad>0  && precio_venta!=""){
 
@@ -307,9 +307,10 @@
         $("#total").html("$ " + total.toFixed(2));
         //$("#total_venta").val(total.toFixed(2));
 
-        total_impuesto=total*impuesto/100;
-        total_pagar=total+total_impuesto;
-        $("#total_impuesto").html("$ " + total_impuesto.toFixed(2));
+       // total_impuesto=total*impuesto/100;
+       //total_pagar=total+total_impuesto;
+        total_pagar=total;
+       // $("#total_impuesto").html("$ " + total_impuesto.toFixed(2));
         $("#total_pagar_html").html("$ " + total_pagar.toFixed(2));
         $("#total_pagar").val(total_pagar.toFixed(2));
       }
@@ -342,11 +343,12 @@
        
 
         total=total-subtotal[index];
-        total_impuesto= total*20/100;
-        total_pagar_html = total + total_impuesto;
+        //total_impuesto= total*20/100;
+        //total_pagar_html = total + total_impuesto;
+        total_pagar_html = total;
 
         $("#total").html("$" + total);
-        $("#total_impuesto").html("$" + total_impuesto);
+       // $("#total_impuesto").html("$" + total_impuesto);
         $("#total_pagar_html").html("$" + total_pagar_html);
         $("#total_pagar").val(total_pagar_html.toFixed(2));
         

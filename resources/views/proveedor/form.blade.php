@@ -24,7 +24,6 @@
                                                 
                     <option value="" disabled>Seleccione</option>
                     <option value="DNI">DNI</option>
-                    <option value="CEDULA">CEDULA</option>
                     <option value="CUIL">CUIL</option>
 
                 </select>
@@ -37,7 +36,7 @@
      <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="num_documento">Número documento</label>
                 <div class="col-md-9">
-                    <input type="text" id="num_documento" name="num_documento" class="form-control" placeholder="Ingrese el número documento" pattern="[0-9]{0,15}">
+                    <input type="text" id="num_documento" name="num_documento" class="form-control" placeholder="Ingrese el documento sin puntos ni guiones..." >
                 </div>
     </div>
 

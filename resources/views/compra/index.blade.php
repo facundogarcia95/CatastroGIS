@@ -74,7 +74,7 @@
                                     <td>{{$comp->nombre}}</td>
                                     <td>${{number_format($comp->total,2)}}</td>
                                     <td>{{$comp->impuesto}}</td>
-                                    <td class="text-center">
+                                    <td class="">
                                       
                                       @if($comp->estado=="Registrado")
                                         <label class=" text-success h6">
@@ -94,7 +94,7 @@
                                     </td>
 
                                     @if ($usuarioRol == 1)
-                                    <td class="text-center">
+                                    <td class="">
 
                                       
 

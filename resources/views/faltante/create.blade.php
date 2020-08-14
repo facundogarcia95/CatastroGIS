@@ -7,10 +7,7 @@
  <div class="card-body">
 
  <h2>Agregar Ajuste</h2>
-
- <span><strong>(*) Campo obligatorio</strong></span><br/>
-
- <h3 class="text-left mt-5 mb-3">LLenar el formulario</h3>
+<br/>
 
     <form action="{{route('faltante.store')}}" method="POST">
     {{csrf_field()}}
@@ -78,7 +75,7 @@
 
                 <div class="col-md-3 mt-3">
                         
-                    <button type="button" id="agregar" class="btn btn-primary w-100 rounded mt-1"><i class="fa fa-plus fa-2x"></i> Agregar detalle</button>
+                    <button type="button" id="agregar" class="btn btn-primary rounded mt-1 mb-2"><i class="fa fa-plus fa-2x"></i> Agregar detalle</button>
                 </div>
 
 
@@ -91,7 +88,7 @@
               <h3 class="m-1">Lista de Ajustes Agregados</h3>
 
               <div class=" col-md-12 mt-1">
-                <table id="detalles" class="table table-responsive table-bordered table-striped table-sm">
+                <table id="detalles" class="table table-responsive table-bordered table-striped table-sm mt-1">
                 <thead>
                     <tr class="bg-dark text-light">
                         <th>Eliminar</th>

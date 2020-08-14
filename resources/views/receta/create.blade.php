@@ -80,7 +80,7 @@
 
                     <label class="form-control-label" for="nombre">Categoria</label>
 
-                        <select class="form-control selectpicker" name="idcategoria" id="idcategoria" data-live-search="true">
+                        <select class="form-control selectpicker" name="idcategoria" id="idcategoria" data-live-search="true" required>
                                                         
                         <option value="0">Seleccione</option>
                         
@@ -226,7 +226,7 @@
                
                 <div class="col-md-3 mt-3">
                         
-                    <button type="button" id="agregar" class="btn btn-primary"><i class="fa fa-plus fa-2x"></i> Agregar Insumo</button>
+                    <button type="button" id="agregar" class="btn btn-primary rounded"><i class="fa fa-plus fa-2x"></i> Agregar Insumo</button>
                 </div>
 
             </div>

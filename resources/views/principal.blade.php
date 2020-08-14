@@ -86,8 +86,8 @@
     </div>   
 
     <footer class="app-footer">
-        <span><a href="http://www.webtraining-it.com/">FGH</a> &copy; 2020</span>
-        <span class="ml-auto">Desarrollado por <a href="http://www.webtraining-it.com/">facundogarcia.com</a></span>
+        <span><a href="#">SISTEMA COVE</a> &copy; 2020</span>
+       <!-- <span class="ml-auto">Desarrollado por <a href="">facundogarcia.com</a></span>-->
     </footer>
 
     <!-- Bootstrap and necessary plugins -->
@@ -161,6 +161,8 @@
         var stock_modal_editar = button.data('stock')
         //var imagen_modal_editar = button.data('imagen1')
         var id_producto = button.data('id_producto')
+        var id_categoria = button.data('id_categoria')
+        var unidad_medida = button.data('unidad_medida')
         var id_tipoproductos = button.data('id_tipoproductos')
         var modal = $(this)
         // modal.find('.modal-title').text('New message to ' + recipient)
@@ -171,6 +173,8 @@
         modal.find('.modal-body #codigo').val(codigo_modal_editar);
         modal.find('.modal-body #stock').val(stock_modal_editar);
         modal.find('.modal-body #id_tipoproductos').val(id_tipoproductos);
+        modal.find('.modal-body #id_categoria').val(id_categoria);
+        modal.find('.modal-body #unidad_medida').val(unidad_medida);
        // modal.find('.modal-body #subirImagen').html("<img src="img/producto/imagen_modal_editar">");
         modal.find('.modal-body #id_producto').val(id_producto);
         tipoProducto(id_tipoproductos);
