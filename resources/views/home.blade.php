@@ -349,9 +349,9 @@
                                         { 
                                     
                                     setlocale(LC_TIME, 'es_ES', 'Spanish_Spain', 'Spanish'); 
-                                    $mes_traducido=strftime('%B',strtotime($reg->mes));
-                            
-                                    echo '"'. $mes_traducido.'",';} ?>],
+                                    //$mes_traducido=strftime('%B',strtotime($reg->mes));
+
+                                    echo '"'. $reg->mes.'",';} ?>],
                                     datasets: [{
                                         label: 'Compras',
                                         data: [<?php foreach ($comprasmes as $reg)
@@ -385,9 +385,9 @@
                                     labels: [<?php foreach ($ventasmes as $reg)
                                 {
                                     setlocale(LC_TIME, 'es_ES', 'Spanish_Spain', 'Spanish'); 
-                                    $mes_traducido=strftime('%B',strtotime($reg->mes));
+                                    //$mes_traducido=strftime('%B',strtotime($reg->mes));
                                     
-                                    echo '"'. $mes_traducido.'",';} ?>],
+                                    echo '"'. $reg->mes.'",';} ?>],
                                     datasets: [{
                                         label: 'Ventas',
                                         data: [<?php foreach ($ventasmes as $reg)
@@ -417,9 +417,9 @@
                                 labels: [<?php foreach ($faltantesmes as $reg)
                             {
                                 setlocale(LC_TIME, 'es_ES', 'Spanish_Spain', 'Spanish'); 
-                                $mes_traducido=strftime('%B',strtotime($reg->mes));
+                                //$mes_traducido=strftime('%B',strtotime($reg->mes));
                                 
-                                echo '"'. $mes_traducido.'",';} ?>],
+                                echo '"'. $reg->mes.'",';} ?>],
                                 datasets: [{
                                     label: 'Faltantes',
                                     data: [<?php foreach ($faltantesmes as $reg)
