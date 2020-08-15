@@ -33,7 +33,7 @@ class ProductoController extends Controller
             ->orwhere('p.codigo','LIKE','%'.$sql.'%')
             ->orwhere('c.nombre','LIKE','%'.$sql.'%')
             ->orderBy('p.id','desc')
-            ->paginate(10);
+            ->paginate(5);
            
             /*listar las categorias en ventana modal*/
             $categorias=DB::table('categorias')

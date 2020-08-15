@@ -1,7 +1,7 @@
     <div class="form-group row">
         <label class="col-md-3 form-control-label" for="text-input">Categoría</label>
         <div class="col-md-9">
-            <input type="text" name="nombre" id="nombre" class="form-control text-uppercase" placeholder="Nombre de categoría.." required pattern="^[a-zA-Z_áéíóúñ\s]{0,30}$">
+            <input type="text" name="nombre" id="nombre" class="form-control text-uppercase" placeholder="Nombre de categoría.." required >
         </div>
     </div>
 

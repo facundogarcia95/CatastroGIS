@@ -77,6 +77,8 @@
                           
                             @foreach($productosPorCategoria as $prodcat)
                             
+                            @if(count($prodcat['productos'])>0){
+
                                 <optgroup label="{{$prodcat['categoria']}}">
 
                                     @foreach ($prodcat['productos'] as $prod)
@@ -93,6 +95,8 @@
                                     @endforeach
 
                                 </optgroup>
+                                
+                            @endif
                                     
                             @endforeach
 
