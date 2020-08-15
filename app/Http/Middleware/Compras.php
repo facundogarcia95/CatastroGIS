@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class Vendedor
+class Compras
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,17 @@ class Vendedor
      */
     public function handle($request, Closure $next)
     {
-   
-        return $next($request);
+        
+        $rol = \Auth::user()->idrol;
+
+        if($rol == 1 || $rol == 3 || $rol == 4 ){
+
+            return $next($request);
+
+        }else{
+
+            abort(403,"No posee permisos suficientes.");
+        }
+        
     }
 }

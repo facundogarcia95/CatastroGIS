@@ -24,16 +24,20 @@ class LoginController extends Controller
              ->get();
 
              switch ($rol[0]->idrol) {
-                 case 1:
+                case 1:
                     return redirect('/home');
-                    break;
+                break;
 
                 case 2:
                     return redirect('/venta');
-                    break;
-
-                 default:
-                    return redirect('/compra');
+                break;
+                
+                case 3:
+                        return redirect('/compra');
+                break;
+                 
+                default:
+                    return redirect('/producto');
                 break;
              }
 

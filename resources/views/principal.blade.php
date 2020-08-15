@@ -42,7 +42,7 @@
         <ul class="nav navbar-nav ml-auto">
 
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle nav-link mr-4" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                     <img src="{{asset('storage/img/usuario/'.Auth::user()->imagen)}}" class="img-avatar" class="img-avatar" alt="admin@bootstrapmaster.com">
                     <span class="d-md-down-none">{{Auth::user()->usuario}}</span>
                 </a>
@@ -72,7 +72,7 @@
             @elseif (Auth::user()->idrol == 3)
                 @include('navbar.sidebarcomprador')
             @else
-
+                @include('navbar.sidebarvendedorcomprador')
             @endif
 
         @endif
