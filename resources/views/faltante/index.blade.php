@@ -58,7 +58,7 @@
                                 <tr>
                                     <td>
                                      
-                                     <a href="{{URL::action('FaltanteController@show',$faltante->id)}}">
+                                     <a href="{{URL::action('FaltanteController@show',$faltante->id)}}" style="text-decoration:none">
                                        <button type="button" class="btn btn-detalle btn-sm rounded text-light">
                                          <i class="fa fa-eye fa-2x"></i> Detalle
                                        </button> &nbsp;

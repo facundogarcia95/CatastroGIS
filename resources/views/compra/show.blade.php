@@ -5,10 +5,7 @@
 <main class="main">
 
  <div class="card-body">
-
-  
-
-    
+   
             <div class="form-group row border m-1 bg-light">
 
               <div class="col-md-12 border"> 
@@ -71,15 +68,19 @@
                         <th  colspan="3"><p align="right">TOTAL:</p></th>
                         <th><p align="right">${{number_format($compra->total,2)}}</p></th>
                     </tr>
-
+                    @if($compra->tipo_identificacion == "FACTURA") 
                     <tr>
-                        <th colspan="3"><p align="right">TOTAL IMPUESTO ({{$negocio[0]->impuesto}}%):</p></th>
+                        <th colspan="3"><p align="right">TOTAL IMPUESTO ( {{$negocio[0]->impuesto}} %):</p></th>
                         <th><p align="right">${{number_format($compra->total*($negocio[0]->impuesto)/100,2)}}</p></th>
                     </tr>
-
+                    @endif
                     <tr>
                         <th  colspan="3"><p align="right">TOTAL PAGAR:</p></th>
+                        @if($compra->tipo_identificacion == "FACTURA") 
                         <th><p align="right">${{number_format($compra->total+($compra->total*($negocio[0]->impuesto)/100),2)}}</p></th>
+                        @else
+                        <th><p align="right">${{number_format($compra->total,2)}}</p></th>
+                        @endif
                     </tr> 
 
                 </tfoot>

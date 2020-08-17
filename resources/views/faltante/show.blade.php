@@ -5,11 +5,14 @@
 <main class="main">
   @include('breadcrumb.bread')
  <div class="card-body">
-
-  <h2 class="text-center">Detalle de Ajuste</h2><br/><br/><br/>
-
     
-            <div class="form-group row ">
+            <div class="form-group row  border m-1 bg-light">
+              
+              <div class="col-md-12 border"> 
+
+                <h2 class="text-left text-uppercase p-3">Detalle de Compra</h2>
+            
+              </div>
 
                     <div class="col-md-3 border">  
 
@@ -41,13 +44,15 @@
             
             <br/><br/>
 
-           <div class="form-group row border">
+           <div class="form-group row border m-1  bg-light">
 
-              <h3>Detalle de Faltante</h3>
+              <h3 class="m-2">Detalle de Faltante</h3>
 
-              <div class="table-responsive col-md-12">
-                <table id="detalles" class="table table-bordered table-striped table-sm">
-                <thead>
+              <div class=" col-md-12">
+                
+                <table id="detalles" class="table table-responsive table-bordered table-striped table-sm">
+                
+                  <thead>
                     <tr class="bg-success">
 
                         <th>Producto</th>

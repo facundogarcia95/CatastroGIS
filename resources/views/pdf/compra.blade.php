@@ -185,14 +185,23 @@
                            <th colspan="3"><p align="right">TOTAL:</p></th>
                             <td><p align="right">${{number_format($c->total)}}<p></td>
                         </tr>
+
+                        @if($c->impuesto > 0)
                         <tr>
-                           <th colspan="3"><p align="right">TOTAL IMPUESTO (20%):</p></th>
-                            <td><p align="right">$ {{number_format($c->total*$c->impuesto,2)}}</p></td>
+                            <th colspan="3"><p align="right">TOTAL IMPUESTO ({{$c->impuesto}}%):</p></th>
+                            <td><p align="right">$ {{number_format($c->total*$c->impuesto/100,2)}}</p></td>
                         </tr>
+                        @endif
+
                         <tr>
-                           <th  colspan="3"><p align="right">TOTAL PAGAR:</p></th>
-                            <td><p align="right">$ {{number_format($c->total+($c->total*$c->impuesto),2)}}</p></td>
+                            <th  colspan="3"><p align="right">TOTAL PAGAR:</p></th>
+                            @if($c->impuesto > 0)
+                                <td><p align="right">$ {{number_format($c->total+($c->total*$c->impuesto/100),2)}}</p></td>
+                            @else
+                            <td><p align="right">$ {{number_format($c->total,2)}}</p></td>
+                            @endif
                         </tr>
+
                         @endforeach
                     </tfoot>
                 </table>
@@ -204,7 +213,20 @@
              <!--puedes poner un mensaje aqui-->
              <div id="datos">
                 <p id="encabezado">
-                    <b>nuestraempresa.com</b><br>Nombre de la empresa<br>Telefono:(+00)123456789<br>Email:nuestraempresa@gmail.com
+                    @foreach ($negocio as $neg => $val)
+                        
+                       @if($val != null && $neg != "id" && $neg != "impuesto" && $neg != "logo")
+                        
+                       @if($neg == "Nombre")
+                            {{$val}}<br>
+                        @else
+                            {{$neg}}: {{$val}}<br>
+                        @endif
+
+                       @endif
+
+                    @endforeach
+                   
                 </p>
             </div>
         </footer>

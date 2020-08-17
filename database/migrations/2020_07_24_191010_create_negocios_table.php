@@ -16,26 +16,30 @@ class CreateNegociosTable extends Migration
        
         Schema::create('negocio', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('razon_social');
-            $table->string('cuil');
-            $table->string('email');
+            $table->string('Nombre');
+            $table->string('Cuil');
+            $table->string('Email')->nullable();
+            $table->string('Instagram')->nullable();
+            $table->string('Facebook')->nullable();
             $table->float('impuesto');
-            $table->string('direccion');
-            $table->string('telefono');
-            $table->string('web');
+            $table->string('Direccion')->nullable();
+            $table->string('Telefono')->nullable();
+            $table->string('web')->nullable();
             $table->string('logo');
             //$table->timestamps();
         });
         
         
         $negocio = [
-                'razon_social' => 'Nombre negocio',
-                'cuil' => '20-12345678-7',
-                'email' => 'negocio@gmail.com', 
+                'Nombre' => 'Nombre negocio',
+                'Cuil' => '20-12345678-7',
+                'Email' => null, 
+                'Instagram' => '@mendozasushi', 
+                'Facebook' => 'mendoza.sushi', 
                 'impuesto' => '21', 
-                'direccion' => 'calle 234 - Mendoza', 
-                'telefono' => '2612678891', 
-                'web' => 'nuestraempresa.com', 
+                'Direccion' => null, 
+                'Telefono' => '2612678891', 
+                'web' => null, 
                 'logo' => '123456.png'
             ];
 

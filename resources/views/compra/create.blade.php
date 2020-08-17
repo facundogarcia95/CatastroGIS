@@ -39,9 +39,9 @@
 
                         <label class="form-control-label" for="documento">Documento</label>
                         
-                        <select class="form-control" name="tipo_identificacion" id="tipo_identificacion" required>
+                        <select class="form-control" name="tipo_identificacion" id="tipo_identificacion" onchange="tipo_remito(this)" required>
                                                         
-                            <option value="0" disabled>Seleccione</option>
+                            <option value="" selected>Seleccione</option>
                             <option value="FACTURA">Factura</option>
                             <option value="TICKET">Ticket</option>
                             
@@ -131,10 +131,10 @@
                         <th><p align="right"><span id="total">$ 0.00</span> </p></th>
                     </tr>
 
-                    <!--<tr>
+                    <tr class="collapse" id="impuesto">
                         <th colspan="4"><p align="right">TOTAL IMPUESTO ({{$negocio[0]->impuesto}}%):</p></th>
-                        <th><p align="right"><span id="total_impuesto">$ 0.00</span></p></th>
-                    </tr>-->
+                        <th><p align="right"><span id="total_impuesto">$ 0.00</span></p> <input type="hidden" name="impuestoHidden" id="impuestoHidden" value="21"></th>
+                    </tr>
 
                     <tr>
                         <th  colspan="4"><p align="right">TOTAL PAGAR:</p></th>
@@ -188,13 +188,14 @@
      function agregar(){
 
           id_producto= $("#id_producto").val();
+          tipo_identificacion= $("#tipo_identificacion").val();
           producto= $("#id_producto option:selected").text();
           cantidad= $("#cantidad").val();
           precio_compra= $("#precio_compra").val();
-          //impuesto={{ $negocio[0]->impuesto }};
+          impuesto=$("#impuestoHidden").val();
         
           
-          if(id_producto !="" && cantidad!="" && cantidad>0 && precio_compra!=""){
+          if(id_producto !="" && cantidad!="" && cantidad>0 && precio_compra!="" && tipo_identificacion != ""){
             
              subtotal[cont]=cantidad*precio_compra;
              total= total+subtotal[cont];
@@ -233,12 +234,13 @@
 
      function totales(){
 
+        impuesto=$("#impuestoHidden").val();
+
         $("#total").html("$ " + total.toFixed(2));
 
-       // total_impuesto=total*impuesto/100;
-        //total_pagar=total+total_impuesto;
-        total_pagar=total;
-       // $("#total_impuesto").html("$ " + total_impuesto.toFixed(2));
+        total_impuesto=total*impuesto/100;
+        total_pagar=total+total_impuesto;
+        $("#total_impuesto").html("$ " + total_impuesto.toFixed(2));
         $("#total_pagar_html").html("$ " + total_pagar.toFixed(2));
         $("#total_pagar").val(total_pagar.toFixed(2));
         
@@ -260,19 +262,37 @@
 
      function eliminar(index){
 
-        total=total-subtotal[index];
-       // total_impuesto= total*20/100;
-       //total_pagar_html = total + total_impuesto;
-        total_pagar_html = total;
+       impuesto=$("#impuestoHidden").val();
+
+       total=total-subtotal[index];
+       total_impuesto= total*impuesto/100;
+       total_pagar_html = total + total_impuesto;
+       total_pagar_html = total;
        
         $("#total").html("$" + total);
-       // $("#total_impuesto").html("$" + total_impuesto);
+        $("#total_impuesto").html("$" + total_impuesto);
         $("#total_pagar_html").html("$" + total_pagar_html);
         $("#total_pagar").val(total_pagar_html.toFixed(2));
        
         $("#fila" + index).remove();
         evaluar();
      }
+
+     function tipo_remito(tipo) {
+
+         let tipo_remito = $(tipo).val();
+
+         if(tipo_remito == "FACTURA"){
+             $("#impuesto").collapse("show");
+             impuesto=$("#impuestoHidden").val(21);
+         }else{
+            $("#impuesto").collapse("hide");
+            impuesto=$("#impuestoHidden").val(0);
+         }
+
+         totales();
+
+       }
 
  </script>
 @endpush

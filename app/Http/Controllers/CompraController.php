@@ -66,7 +66,6 @@ class CompraController extends Controller
  
              try{
  
-                $negocio=DB::table('negocio')->get();
 
                  DB::beginTransaction();
  
@@ -78,7 +77,7 @@ class CompraController extends Controller
                  $compra->tipo_identificacion = $request->tipo_identificacion;
                  $compra->num_compra = $request->num_compra??0;
                  $compra->fecha_compra = $mytime->toDateString();
-                 $compra->impuesto = $negocio[0]->impuesto;
+                 $compra->impuesto = $request->impuestoHidden??0;
                  $compra->total = $request->total_pagar;
                  $compra->estado = 'Registrado';
                  $compra->save();
@@ -175,7 +174,9 @@ class CompraController extends Controller
  
              $numcompra=Compra::select('num_compra')->where('id',$id)->get();
              
-             $pdf= \PDF::loadView('pdf.compra',['compra'=>$compra,'detalles'=>$detalles]);
+             $negocio=DB::table('negocio')->first();
+
+             $pdf= \PDF::loadView('pdf.compra',['compra'=>$compra,'detalles'=>$detalles,'negocio'=>$negocio]);
              return $pdf->download('compra-'.$numcompra[0]->num_compra.'.pdf');
          }
  
