@@ -119,7 +119,7 @@
                     <tbody>
                         <tr>
                             <th><p id="proveedor">Nombre: {{$v->nombre}}<br>
-                            {{$v->tipo_identificacion}}-COMPRA: {{$v->num_compra}}<br>
+                            {{$v->tipo_identificacion}}: {{$v->num_compra}}<br>
                             Dirección: {{$v->direccion}}<br>
                             Teléfono: {{$v->telefono}}<br>
                             Email: {{$v->email}}</</p></th>
@@ -218,7 +218,7 @@
                        @if($val != null && $neg != "id" && $neg != "impuesto" && $neg != "logo")
                         
                        @if($neg == "Nombre")
-                            {{$val}}<br>
+                            <b>{{$val}}</b><br>
                         @else
                             {{$neg}}: {{$val}}<br>
                         @endif

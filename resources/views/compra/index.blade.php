@@ -106,8 +106,8 @@
 
                                                 @else
 
-                                                <label class=" text-danger h6 m-1">
-                                                    <i class="fa fa-lock fa-2x"></i> 
+                                                <label class=" text-dark ml-2">
+                                                    <i class="fa fa-lock fa-2x"></i> BLOQUEADO 
                                                 </label>
 
                                             @endif                 

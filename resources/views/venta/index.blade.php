@@ -45,7 +45,7 @@
                                     <th>Total ($)</th>
                                     <th>Impuesto</th>
                                     <th>Estado</th>
-                                    @if ($usuarioRol == 1)
+                                    @if ($usuarioRol == 1 || $usuarioRol == 4)
                                     <th>Cambiar Estado</th>
                                     @endif
                                     <th>Reporte</th>
@@ -78,33 +78,43 @@
                                       
                                       @if($vent->estado=="Registrado")
                                      
-                                         <label class="text-success"> <i class="fa fa-check fa-2x"></i> Registrado </label>
+                                         <label class="text-success"> <i class="fa fa-check fa-2x"></i> Registrada </label>
                        
+
+                                      @elseif($vent->estado=="Anulado")
+
+                                      <label class="text-danger"> 
+                                          <i class="fa fa-times fa-2x"></i> Anulada
+                                        </label>
 
                                       @else
 
                                       <label class="text-danger"> 
-                                          <i class="fa fa-times fa-2x"></i> Anulado
-                                          </label>
+                                        <i class="fa fa-times fa-2x"></i> Cancelada
+                                      </label>
 
                                        @endif
                                        
                                     </td>
 
-                                    @if ($usuarioRol == 1)
+                                    @if ($usuarioRol == 1 || $usuarioRol == 4)
                                     <td >
 
                                        @if($vent->estado=="Registrado")
 
-                                        <button type="button" class="btn btn-danger btn-sm rounded" data-id_venta="{{$vent->id}}" data-toggle="modal" data-target="#cambiarEstadoVenta">
-                                            <i class="fa fa-times fa-2x"></i> Anular Venta
+                                        <button type="button" class="btn btn-danger btn-sm rounded mr-2" data-id_venta="{{$vent->id}}" data-toggle="modal" data-target="#cambiarEstadoVenta">
+                                            <i class="fa fa-times fa-2x"></i> Anular
+                                        </button>
+                                        
+                                        <button type="button" class="btn btn-danger btn-sm rounded ml-2" data-id_venta="{{$vent->id}}" data-toggle="modal" data-target="#cancelarVenta">
+                                            <i class="fa fa-times fa-2x"></i> Cancelar
                                         </button>
 
                                         @else
 
-                                      <label class="text-dark ml-2" >
-                                            <i class="fa fa-lock fa-2x "></i> 
-                                    </label>
+                                        <label class="text-dark ml-2" >
+                                                <i class="fa fa-lock fa-2x "></i> BLOQUEADO
+                                        </label>
 
                                         @endif
                                        
@@ -145,33 +155,69 @@
                         <div class="modal-header">
                             <h4 class="modal-title">Cambiar Estado de Venta</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
+                              <span aria-hidden="true" class="text-light">×</span>
                             </button>
                         </div>
 
-                    <div class="modal-body">
-                        <form action="{{route('venta.destroy','test')}}" method="POST">
-                          {{method_field('delete')}}
-                          {{csrf_field()}} 
+                        <div class="modal-body">
+                            <form action="{{route('venta.destroy','test')}}" method="POST">
+                            {{method_field('delete')}}
+                            {{csrf_field()}} 
 
-                            <input type="hidden" id="id_venta" name="id_venta" value="">
+                                <input type="hidden" id="id_venta" name="id_venta" value="">
 
-                                <p>¿Está seguro que desea cambiar el estado?</p>
-        
+                                    <p>¿Está seguro que desea cambiar el estado?</p>
+                                    <p><b>Esta opción contempla el retorno de stock</b></p>
 
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-success">Aceptar</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                            </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">Aceptar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                </div>
 
-                         </form>
-                    </div>
+                            </form>
+                        </div>
                     <!-- /.modal-content -->
                    </div>
                 <!-- /.modal-dialog -->
+            </div>
+         </div>
+        <!-- Fin del modal Eliminar -->
+         
+        <!-- Inicio del modal cancelar venta -->
+                <div class="modal fade" id="cancelarVenta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-dark" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Cambiar Estado de Venta</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true" class="text-light">×</span>
+                                </button>
+                            </div>
+    
+                            <div class="modal-body">
+                                <form action="{{url('cancelar')}}" method="POST">
+                                {{method_field('post')}}
+                                {{csrf_field()}} 
+    
+                                    <input type="hidden" id="id_ventaCancelada" name="id_venta" value="">
+    
+                                        <p>¿Está seguro que desea cambiar el estado?</p>
+                                        <p><b>Esta opción no contempla retorno de stock</b></p>
+                
+    
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success">Aceptar</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                    </div>
+    
+                                </form>
+                            </div>
+                        <!-- /.modal-content -->
+                       </div>
+                    <!-- /.modal-dialog -->
+                </div>
              </div>
             <!-- Fin del modal Eliminar -->
-           
             
         </main>
 @endsection

@@ -166,10 +166,10 @@
                         <th><p align="right"><span id="total">$ 0.00</span> </p></th>
                     </tr>
 
-                   <!-- <tr>
+                   <tr class="collapse" id="impuesto">
                         <th colspan="5"><p align="right">TOTAL IMPUESTO ({{ $negocio[0]->impuesto }}%):</p></th>
-                        <th><p align="right"><span id="total_impuesto">$ 0.00</span></p></th>
-                    </tr>-->
+                        <th><p align="right"><span id="total_impuesto">$ 0.00</span></p> <input type="hidden" name="impuestoHidden" id="impuestoHidden" value="21"></th>
+                    </tr>
 
                     <tr>
                         <th  colspan="5"><p align="right">TOTAL PAGAR:</p></th>
@@ -242,8 +242,8 @@
           }
           precio_venta= $("#precio_venta").val();
           stock= $("#stock").val();
-         // impuesto= $("#negocio").val();
-          
+          impuesto=$("#impuestoHidden").val();
+
           if(id_producto !="" && cantidad!="" && cantidad>0  && precio_venta!=""){
 
                 if(parseInt(stock)>=parseInt(cantidad)){
@@ -308,13 +308,15 @@
 
      function totales(){
 
-        $("#total").html("$ " + total.toFixed(2));
-        //$("#total_venta").val(total.toFixed(2));
+        impuesto=$("#impuestoHidden").val();
 
-       // total_impuesto=total*impuesto/100;
-       //total_pagar=total+total_impuesto;
-        total_pagar=total;
-       // $("#total_impuesto").html("$ " + total_impuesto.toFixed(2));
+
+        $("#total").html("$ " + total.toFixed(2));
+        $("#total_venta").val(total.toFixed(2));
+
+        total_impuesto=total*impuesto/100;
+        total_pagar=total+total_impuesto;
+        $("#total_impuesto").html("$ " + total_impuesto.toFixed(2));
         $("#total_pagar_html").html("$ " + total_pagar.toFixed(2));
         $("#total_pagar").val(total_pagar.toFixed(2));
       }
@@ -334,6 +336,8 @@
 
      function eliminar(index,item){
 
+        impuesto=$("#impuestoHidden").val();
+
         stock= item.getAttribute("stock");
         cantidad= item.getAttribute("cantidad");
         id_producto= item.getAttribute("idproducto");
@@ -347,12 +351,11 @@
        
 
         total=total-subtotal[index];
-        //total_impuesto= total*20/100;
-        //total_pagar_html = total + total_impuesto;
-        total_pagar_html = total;
+        total_impuesto= total*impuesto/100;
+        total_pagar_html = total + total_impuesto;
 
         $("#total").html("$" + total);
-       // $("#total_impuesto").html("$" + total_impuesto);
+        $("#total_impuesto").html("$" + total_impuesto);
         $("#total_pagar_html").html("$" + total_pagar_html);
         $("#total_pagar").val(total_pagar_html.toFixed(2));
         
@@ -362,12 +365,23 @@
 
      $("#tipo_identificacion").on("change",function(e){
 
-        if($(this).val() == "FACTURA" || $(this).val() == "CUENTA CORRIENTE"){
+        if($(this).val() == "FACTURA"){
+
+            $("#impuesto").collapse("show");
             $("#collapseNombreCliente").collapse('show');
+            impuesto=$("#impuestoHidden").val(21);
+
         }else{
+
             $("#collapseNombreCliente").collapse('hide');
+            $("#impuesto").collapse("hide");
+            impuesto=$("#impuestoHidden").val(0);
+
         }
-     });
+
+        totales();
+
+    });
 
  </script>
 @endpush

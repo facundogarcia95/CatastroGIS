@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth']], function () {
 
          Route::resource('cliente', 'ClienteController');
          Route::resource('venta', 'VentaController');
+         Route::post('/cancelar', 'VentaController@cancelar');
          Route::get('/pdfVenta/{id}', 'VentaController@pdf')->name('venta_pdf');
     
     });

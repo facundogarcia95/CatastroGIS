@@ -71,15 +71,21 @@
                         <th  colspan="4"><p align="right">TOTAL:</p></th>
                         <th><p align="right">${{number_format($venta->total,2)}}</p></th>
                     </tr>
-
-                    <tr>
-                    <th colspan="4"><p align="right">TOTAL IMPUESTO ({{$negocio[0]->impuesto}}%):</p></th>
-                        <th><p align="right">${{number_format($venta->total*($negocio[0]->impuesto)/100,2)}}</p></th>
-                    </tr>
-
+                    @if($venta->tipo_identificacion == "FACTURA") 
+                    
+                      <tr>
+                          <th colspan="4"><p align="right">TOTAL IMPUESTO ({{$negocio[0]->impuesto}}%):</p></th>
+                          <th><p align="right">${{number_format($venta->total*($negocio[0]->impuesto)/100,2)}}</p></th>
+                      </tr>
+                      
+                    @endif
                     <tr>
                         <th  colspan="4"><p align="right">TOTAL PAGAR:</p></th>
+                        @if($venta->tipo_identificacion == "FACTURA") 
                         <th><p align="right">${{number_format($venta->total+($venta->total*($negocio[0]->impuesto)/100),2)}}</p></th>
+                        @else
+                        <th><p align="right">${{number_format($venta->total,2)}}</p></th>
+                        @endif
                     </tr>  
                 </tfoot>
 

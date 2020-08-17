@@ -128,7 +128,7 @@
             </div>
             
             <div id="fact">
-                <p>&nbsp;{{$v->tipo_identificacion}}-VENTA &nbsp;<br>
+                <p>&nbsp;{{$v->tipo_identificacion}} &nbsp;<br>
                     &nbsp;N°: {{$v->num_venta}}&nbsp;</p>
             </div>
         </header>
@@ -166,15 +166,21 @@
                            <th colspan="4"><p align="right">TOTAL:</p></th>
                            <td><p align="right">${{number_format($v->total,2)}}</p></td>
                         </tr>
+                        
+                        @if($v->impuesto > 0)
+                            <tr>
+                                <th colspan="4"><p align="right">TOTAL IMPUESTO ({{$v->impuesto}}%):</p></th>
+                                <td><p align="right">${{number_format($v->total*($v->impuesto)/100,2)}}</p></td>
+                            </tr>
+                        @endif
 
                         <tr>
-                            <th colspan="4"><p align="right">TOTAL IMPUESTO ({{$v->impuesto}}%):</p></th>
-                            <td><p align="right">${{number_format($v->total*($v->impuesto)/100,2)}}</p></td>
-                        </tr>
-
-                        <tr>
-                            <th  colspan="4"><p align="right">TOTAL PAGAR:</p></th>
-                            <td><p align="right">${{number_format($v->total+($v->total*($v->impuesto)/100),2)}}</p></td>
+                            <th  colspan="4"><p align="right">TOTAL PAGAR:</p></th>            
+                            @if($v->impuesto > 0)
+                                <td><p align="right">${{number_format($v->total+($v->total*($v->impuesto)/100),2)}}</p></td>
+                            @else
+                                <td><p align="right">$ {{number_format($v->total,2)}}</p></td>
+                            @endif
                         </tr>
 
                         @endforeach
@@ -188,7 +194,20 @@
             <!--puedes poner un mensaje aqui-->
             <div id="datos">
                 <p id="encabezado">
-                <b>{{$negocio->web}}</b><br>{{$negocio->razon_social}}<br>Telefono: (+54 9) {{$negocio->telefono}}<br>Email: {{$negocio->email}}<br/>Dirección: {{$negocio->direccion}}
+                    @foreach ($negocio as $neg => $val)
+                        
+                       @if($val != null && $neg != "id" && $neg != "impuesto" && $neg != "logo")
+                        
+                       @if($neg == "Nombre")
+                            <b>{{$val}}</b><br>
+                        @else
+                            {{$neg}}: {{$val}}<br>
+                        @endif
+
+                       @endif
+
+                    @endforeach
+                   
                 </p>
             </div>
         </footer>

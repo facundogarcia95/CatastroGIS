@@ -39,7 +39,7 @@
 
                         <label class="form-control-label" for="documento">Documento</label>
                         
-                        <select class="form-control" name="tipo_identificacion" id="tipo_identificacion" onchange="tipo_remito(this)" required>
+                        <select class="form-control" name="tipo_identificacion" id="tipo_identificacion" required>
                                                         
                             <option value="" selected>Seleccione</option>
                             <option value="FACTURA">Factura</option>
@@ -267,7 +267,6 @@
        total=total-subtotal[index];
        total_impuesto= total*impuesto/100;
        total_pagar_html = total + total_impuesto;
-       total_pagar_html = total;
        
         $("#total").html("$" + total);
         $("#total_impuesto").html("$" + total_impuesto);
@@ -278,11 +277,9 @@
         evaluar();
      }
 
-     function tipo_remito(tipo) {
+     $("#tipo_identificacion").on("change",function(e){
 
-         let tipo_remito = $(tipo).val();
-
-         if(tipo_remito == "FACTURA"){
+         if($(this).val() == "FACTURA"){
              $("#impuesto").collapse("show");
              impuesto=$("#impuestoHidden").val(21);
          }else{
@@ -292,7 +289,7 @@
 
          totales();
 
-       }
+       });
 
  </script>
 @endpush

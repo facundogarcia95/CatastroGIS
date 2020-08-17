@@ -100,8 +100,6 @@ class VentaController extends Controller
             
              try{
 
- 
-                        $negocio = DB::table('negocio')->get();
 
                         DB::beginTransaction();
                         $mytime= Carbon::now('America/Argentina/Mendoza');
@@ -112,7 +110,7 @@ class VentaController extends Controller
                         $venta->tipo_identificacion = $request->tipo_identificacion;
                         $venta->num_venta = $request->num_venta??0;
                         $venta->fecha_venta = $mytime->toDateString();
-                        $venta->impuesto = $negocio[0]->impuesto;
+                        $venta->impuesto = $request->impuestoHidden??0;
                         $venta->total=$request->total_pagar;
                         $venta->estado = 'Registrado';
                         $venta->save();
@@ -225,6 +223,13 @@ class VentaController extends Controller
 
              return Redirect::to('venta');
  
+        }
+
+        public function cancelar(Request $request){
+
+            //Crear funcion para que cancele el pedido y no repertuca en el stock.
+
+            return Redirect::to('venta');
         }
 
         
