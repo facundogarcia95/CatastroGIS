@@ -41,7 +41,7 @@
                                     <th>Número Venta</th>
                                     <th>Cliente</th>
                                     <th>Tipo de Facturación</th>
-                                    <th>Vendedor</th>
+                                    <th>Usuario</th>
                                     <th>Total ($)</th>
                                     <th>Impuesto</th>
                                     <th>Estado</th>
@@ -145,8 +145,8 @@
                        
            
         <!-- Inicio del modal cambiar estado de venta -->
-         <div class="modal fade" id="cambiarEstadoVenta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-dark" role="document">
+        <div class="modal fade" id="cambiarEstadoVenta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-dark" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Cambiar Estado de Venta</h4>
@@ -155,31 +155,35 @@
                             </button>
                         </div>
 
-                        <div class="modal-body">
-                            <form action="{{route('venta.destroy','test')}}" method="POST">
+                        <form action="{{route('venta.destroy','test')}}" method="POST">
                             {{method_field('delete')}}
                             {{csrf_field()}} 
 
-                                <input type="hidden" id="id_venta" name="id_venta" value="">
+                                <div class="modal-body">
+                            
+                                    <input type="hidden" id="id_venta" name="id_venta" value="">
 
-                                    <p>¿Está seguro que desea cambiar el estado?</p>
-          
-                              
-                                    <input type="checkbox" name="retornoStock" checked="true"> <b> Anular venta con pérdida de stock</b>
+                                        <p>¿Está seguro que desea cambiar el estado?</p>
+            
+                                        <div class=" mb-3">
+                                            <input type="checkbox" name="retornoStock" checked="true" class="big-checkbox"> <b > Anular venta con pérdida de stock</b>
+                                        </div>
+
+                                        <label class="form-control-label" for="observacion">Observacion</label>
                                     
-
+                                        <textarea  name="observacion" class="form-control" placeholder="Agregar observacion" required></textarea>
+                                </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-success">Aceptar</button>
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                 </div>
-
-                            </form>
-                        </div>
+                       
+                        </form>
                     <!-- /.modal-content -->
                    </div>
                 <!-- /.modal-dialog -->
             </div>
-         </div>
+        </div>
         <!-- Fin del modal Eliminar -->
          
 

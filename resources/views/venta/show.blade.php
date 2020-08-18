@@ -40,10 +40,18 @@
                     </div>
 
                     <div class="col-md-3 border">
-                      <label class="form-control-label m-1" for="num_venta">Fecha</label>
+                      <label class="form-control-label m-1" for="fecha_venta">Fecha</label>
                       
                       <p class="m-1 font-weight-bold">{{$venta->fecha_venta}}</p>
                     </div>
+
+                    @if($venta->observacion)
+                    <div class="col-md-12 border">
+                      <label class="form-control-label m-1" for="observacion">Observacion</label>
+                      
+                      <p class="m-1 font-weight-bold">{{$venta->observacion}}</p>
+                    </div>
+                    @endif
 
             </div>
             

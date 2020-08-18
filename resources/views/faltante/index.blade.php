@@ -43,7 +43,7 @@
                                     
                                     <th>Ver Detalle</th>
                                     <th>Fecha Ajuste</th>
-                                    <th>Creado por</th>
+                                    <th>Usuario</th>
                                     <th>Observacion</th> 
                                     <th>Estado</th>
                                     @if ($usuarioRol == 1)

@@ -120,12 +120,12 @@ class CompraController extends Controller
              ->join('detalle_compras','compras.id','=','detalle_compras.idcompra')
              ->select('compras.id','compras.tipo_identificacion',
              'compras.num_compra','compras.created_at as fecha_compra','compras.impuesto',
-             'compras.estado',DB::raw('sum(detalle_compras.cantidad*precio) as total'),'proveedores.nombre')
+             'compras.estado',DB::raw('sum(detalle_compras.cantidad*precio) as total'),'proveedores.nombre','compras.observacion')
              ->where('compras.id','=',$id)
              ->orderBy('compras.id', 'desc')
              ->groupBy('compras.id','compras.tipo_identificacion',
              'compras.num_compra','compras.created_at','compras.impuesto',
-             'compras.estado','proveedores.nombre')
+             'compras.estado','proveedores.nombre','compras.observacion')
              ->first();
  
              /*mostrar detalles*/
@@ -144,6 +144,8 @@ class CompraController extends Controller
      
                  $compra = Compra::findOrFail($request->id_compra);
                  $compra->estado = 'Anulado';
+                 $compra->observacion = $request->observacion;
+                 $compra->idusuario = \Auth::user()->idrol;
                  $compra->save();
                  return Redirect::to('compra');
  

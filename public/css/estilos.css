@@ -24,3 +24,5 @@
 .btn-detalle:hover{
     background-color: #694317 !important;
 }
+
+.big-checkbox {width: 20px; height: 20px;}

@@ -41,7 +41,7 @@
                                     <th>N° Comprobante</th>
                                     <th>Proveedor</th>
                                     <th>Tipo de identificación</th>
-                                    <th>Comprador</th> 
+                                    <th>Usuario</th> 
                                     <th>Total ($)</th>
                                     <th>Impuesto</th>
                                     <th>Estado</th>
@@ -144,7 +144,7 @@
            
         <!-- Inicio del modal cambiar estado de compra -->
          <div class="modal fade" id="cambiarEstadoCompra" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-danger" role="document">
+              <div class="modal-dialog modal-danger" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Cambiar Estado de Compra</h4>
@@ -153,27 +153,33 @@
                             </button>
                         </div>
 
-                    <div class="modal-body">
                         <form action="{{route('compra.destroy','test')}}" method="POST">
                           {{method_field('delete')}}
                           {{csrf_field()}} 
-
+                          
+                          <div class="modal-body">
+                      
                             <input type="hidden" id="id_compra" name="id_compra" value="">
 
                                 <p>¿Está seguro que desea cambiar el estado?</p>
-        
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                
+                                <label class="form-control-label" for="observacion">Observacion</label>
+                                
+                                <textarea  name="observacion" class="form-control" placeholder="Agregar observacion" required></textarea>
+                          </div>
+                          <div class="modal-footer">
                                 <button type="submit" class="btn btn-success">Aceptar</button>
-                            </div>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 
-                         </form>
-                    </div>
+                          </div>
+
+                        </form>
+                  </div>
                     <!-- /.modal-content -->
-                   </div>
+              </div>
                 <!-- /.modal-dialog -->
-             </div>
+          </div>
             <!-- Fin del modal Eliminar -->
            
             

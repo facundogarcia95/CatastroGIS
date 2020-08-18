@@ -169,14 +169,14 @@ class VentaController extends Controller
              $venta = Venta::join('clientes','ventas.idcliente','=','clientes.id')
              ->join('detalle_ventas','ventas.id','=','detalle_ventas.idventa')
              ->select('ventas.id','ventas.tipo_identificacion',
-             'ventas.num_venta','ventas.created_at as fecha_venta','ventas.impuesto',
+             'ventas.num_venta','ventas.created_at as fecha_venta','ventas.impuesto', 'ventas.observacion',
              'ventas.estado','clientes.nombre',
              DB::raw('sum(detalle_ventas.cantidad*precio - detalle_ventas.cantidad*precio*descuento/100) as total')
              )
              ->where('ventas.id','=',$id)
              ->orderBy('ventas.id', 'desc')
              ->groupBy('ventas.id','ventas.tipo_identificacion',
-             'ventas.num_venta','ventas.created_at','ventas.impuesto',
+             'ventas.num_venta','ventas.created_at','ventas.impuesto', 'ventas.observacion',
              'ventas.estado','clientes.nombre')
              ->first();
  
@@ -195,6 +195,8 @@ class VentaController extends Controller
 
                 $venta = Venta::findOrFail($request->id_venta);
                 $venta->estado = 'Anulado';
+                $venta->idusuario = \Auth::user()->idrol;
+                $venta->observacion = $request->observacion;
                 $venta->save();
                 
                 $insumos = DB::table('detalle_ventas as dv')
@@ -227,6 +229,8 @@ class VentaController extends Controller
 
                 $venta = Venta::findOrFail($request->id_venta);
                 $venta->estado = 'Anulado con perdida';
+                $venta->idusuario = \Auth::user()->idrol;
+                $venta->observacion = $request->observacion;
                 $venta->save();
 
             }
