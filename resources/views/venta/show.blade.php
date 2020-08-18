@@ -17,7 +17,7 @@
                 
                 </div>
 
-                    <div class="col-md-4 border">  
+                    <div class="col-md-3 border">  
 
                         <label class="form-control-label m-1" for="nombre">Cliente</label>
                         
@@ -25,7 +25,7 @@
                             
                     </div>
 
-                    <div class="col-md-4 border">  
+                    <div class="col-md-3 border">  
 
                     <label class="form-control-label m-1" for="documento">Documento</label>
 
@@ -33,10 +33,16 @@
                     
                     </div>
 
-                    <div class="col-md-4 border">
+                    <div class="col-md-3 border">
                             <label class="form-control-label m-1" for="num_venta">Número Venta</label>
                             
                             <p class="m-1 font-weight-bold">{{$venta->num_venta}}</p>
+                    </div>
+
+                    <div class="col-md-3 border">
+                      <label class="form-control-label m-1" for="num_venta">Fecha</label>
+                      
+                      <p class="m-1 font-weight-bold">{{$venta->fecha_venta}}</p>
                     </div>
 
             </div>

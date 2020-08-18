@@ -40,6 +40,7 @@ class HomeController extends Controller
 
         $totales=DB::select('SELECT (select ifnull(sum(c.total),0) from compras c where MONTH(c.fecha_compra)= MONTH(curdate()) and c.estado="Registrado") as totalcompra, 
         (select ifnull(sum(v.total),0) from ventas v where MONTH(v.fecha_venta)=MONTH(curdate()) and v.estado="Registrado") as totalventa, 
+        (select ifnull(sum(v.total),0) from ventas v where MONTH(v.fecha_venta)=MONTH(curdate()) and v.estado="Anulado con perdida") as totalventaAnulada,
         (SELECT ifnull(SUM(perdida),0) FROM (SELECT ((MAX(dc.precio)) * df.cantidad) AS perdida FROM detalle_faltantes df INNER JOIN faltantes AS f ON f.id = df.idfaltante INNER JOIN detalle_compras AS dc ON dc.idproducto = df.idproducto WHERE MONTH(f.created_at) = MONTH(CURDATE()) AND f.condicion = 1 GROUP BY df.idfaltante, df.cantidad)AS t) AS ajustes');
 
         $comprasporproveedor = DB::select('SELECT p.nombre, SUM(total) AS total, MONTH(fecha_compra) AS mes FROM compras INNER JOIN proveedores AS p ON p.id = compras.idproveedor WHERE estado = "Registrado" AND YEAR(compras.fecha_compra) = YEAR(CURDATE()) GROUP BY idproveedor, MONTH(fecha_compra), p.nombre ORDER BY idproveedor,mes DESC LIMIT 12');
@@ -81,7 +82,23 @@ class HomeController extends Controller
         ->where('tipo_producto','!=','3')
         ->get();
 
-            return view('home',["comprasmes"=>$comprasmes,"ventasmes"=>$ventasmes,"faltantesmes"=>$faltantesmes,"ventasdia"=>$ventasdia,"productosvendidos"=>$productosvendidos,"productosmenosvendidos"=>$productosmenosvendidos,"totales"=>$totales,"comprasporproveedor" =>$datasetProveedoresCompras,'productos'=>$productos,"vendedores"=>$vendedores,"productosVentas"=>$productosVentas]);
+        $perdidaVentaMes=DB::select('SELECT monthname(v.fecha_venta) as mes, sum(v.total) as totalmes from ventas v where v.estado="Anulado con perdida" group by monthname(v.fecha_venta) order by month(v.fecha_venta) ASC limit 12');
+
+
+            return view('home',[
+                "comprasmes"=>$comprasmes,
+                "ventasmes"=>$ventasmes,
+                "faltantesmes"=>$faltantesmes,
+                "ventasdia"=>$ventasdia,
+                "productosvendidos"=>$productosvendidos,
+                "productosmenosvendidos"=>$productosmenosvendidos,
+                "totales"=>$totales,
+                "comprasporproveedor" =>$datasetProveedoresCompras,
+                'productos'=>$productos,
+                "vendedores"=>$vendedores,
+                "productosVentas"=>$productosVentas,
+                "perdidaVentaMes"=>$perdidaVentaMes
+                ]);
     
         }
 }

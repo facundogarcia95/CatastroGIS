@@ -26,12 +26,12 @@ class VentaController extends Controller
             ->join('users','ventas.idusuario','=','users.id')
             ->join('detalle_ventas','ventas.id','=','detalle_ventas.idventa')
              ->select('ventas.id','ventas.tipo_identificacion',
-             'ventas.num_venta','ventas.fecha_venta','ventas.impuesto',
+             'ventas.num_venta','ventas.created_at as fecha_venta','ventas.impuesto',
              'ventas.estado','ventas.total','clientes.nombre as cliente','users.nombre')
             ->where('ventas.num_venta','LIKE','%'.$sql.'%')
             ->orderBy('ventas.id','desc')
             ->groupBy('ventas.id','ventas.tipo_identificacion',
-            'ventas.num_venta','ventas.fecha_venta','ventas.impuesto',
+            'ventas.num_venta','ventas.created_at','ventas.impuesto',
             'ventas.estado','ventas.total','clientes.nombre','users.nombre')
             ->paginate(8);
 
@@ -169,14 +169,14 @@ class VentaController extends Controller
              $venta = Venta::join('clientes','ventas.idcliente','=','clientes.id')
              ->join('detalle_ventas','ventas.id','=','detalle_ventas.idventa')
              ->select('ventas.id','ventas.tipo_identificacion',
-             'ventas.num_venta','ventas.fecha_venta','ventas.impuesto',
+             'ventas.num_venta','ventas.created_at as fecha_venta','ventas.impuesto',
              'ventas.estado','clientes.nombre',
              DB::raw('sum(detalle_ventas.cantidad*precio - detalle_ventas.cantidad*precio*descuento/100) as total')
              )
              ->where('ventas.id','=',$id)
              ->orderBy('ventas.id', 'desc')
              ->groupBy('ventas.id','ventas.tipo_identificacion',
-             'ventas.num_venta','ventas.fecha_venta','ventas.impuesto',
+             'ventas.num_venta','ventas.created_at','ventas.impuesto',
              'ventas.estado','clientes.nombre')
              ->first();
  
@@ -191,47 +191,49 @@ class VentaController extends Controller
          
          public function destroy(Request $request){
  
-             $venta = Venta::findOrFail($request->id_venta);
-             $venta->estado = 'Anulado';
-             $venta->save();
-             
-             $insumos = DB::table('detalle_ventas as dv')
-             ->leftJoin('productos as p','dv.idproducto','=','p.id')
-             ->select('dv.idproducto','dv.cantidad','p.idreceta')
-             ->where('idventa','=',$request->id_venta)
-             ->get();
+            if(!$request->retornoStock){
 
-             foreach($insumos as $insumo){
+                $venta = Venta::findOrFail($request->id_venta);
+                $venta->estado = 'Anulado';
+                $venta->save();
                 
-                if($insumo->idreceta != null){
+                $insumos = DB::table('detalle_ventas as dv')
+                ->leftJoin('productos as p','dv.idproducto','=','p.id')
+                ->select('dv.idproducto','dv.cantidad','p.idreceta')
+                ->where('idventa','=',$request->id_venta)
+                ->get();
+
+                foreach($insumos as $insumo){
+                    
+                        if($insumo->idreceta != null){
+
+                            $producto= Producto::findOrFail($insumo->idproducto);
+                            $producto->stock = $producto->stock + $insumo->cantidad;
+                            $producto->save();
+                            
+                        $this->actualizarStockAnulado($insumo->idproducto,$insumo->cantidad);
+                    
+                        }else{
 
                         $producto= Producto::findOrFail($insumo->idproducto);
                         $producto->stock = $producto->stock + $insumo->cantidad;
                         $producto->save();
-                        
-                      $this->actualizarStockAnulado($insumo->idproducto,$insumo->cantidad);
+
+                        }
                 
-                    }else{
+                }
 
-                    $producto= Producto::findOrFail($insumo->idproducto);
-                    $producto->stock = $producto->stock + $insumo->cantidad;
-                    $producto->save();
+            }else{
 
-                    }
-              
-             }
+                $venta = Venta::findOrFail($request->id_venta);
+                $venta->estado = 'Anulado con perdida';
+                $venta->save();
+
+            }
 
              return Redirect::to('venta');
  
         }
-
-        public function cancelar(Request $request){
-
-            //Crear funcion para que cancele el pedido y no repertuca en el stock.
-
-            return Redirect::to('venta');
-        }
-
         
         private function actualizarStockAnulado($id, $cantidad) {
 
@@ -296,7 +298,7 @@ class VentaController extends Controller
              ->join('users','ventas.idusuario','=','users.id')
              ->join('detalle_ventas','ventas.id','=','detalle_ventas.idventa')
              ->select('ventas.id','ventas.impuesto','ventas.tipo_identificacion',
-             'ventas.num_venta','ventas.created_at','ventas.impuesto',
+             'ventas.num_venta','ventas.created_at as fecha_venta','ventas.impuesto',
              'ventas.estado',DB::raw('sum(detalle_ventas.cantidad*precio - detalle_ventas.cantidad*precio*descuento/100) as total'),'clientes.nombre','clientes.tipo_documento','clientes.num_documento',
              'clientes.direccion','clientes.email','clientes.telefono','users.usuario')
              ->where('ventas.id','=',$id)

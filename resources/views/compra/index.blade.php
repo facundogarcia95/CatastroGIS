@@ -93,10 +93,8 @@
                                        
                                     </td>
 
-                                    @if ($usuarioRol == 1)
-                                    <td class="">
-
-                                      
+                                    @if ($usuarioRol == 1 || $usuarioRol == 4)
+                                    <td >
 
                                             @if($comp->estado=="Registrado")
 

@@ -7,20 +7,17 @@
     @include('breadcrumb.bread')
             <div class="container-fluid">
                                     
-                                    
-                @foreach($totales as $total)
-                
                 <div class="row">
 
-                            <div class="col-lg-4 col-xs-6">
+                            <div class="col-lg-6 col-xs-12">
                                 <!-- small box -->
                                 <div class="card text-white bg-success">
                                     <div class="card-body pb-0">
                                         <button class="btn btn-transparent p-0 float-right" type="button">
                                         <i class="fa fa-shopping-cart fa-4x"></i>
                                         </button>
-                                        <div class="text-value h3"><strong>$ {{$total->totalcompra}} </strong>(<label class="text-uppercase">@php
-                                            echo strftime("%G");
+                                        <div class="text-value h3"><strong>$ {{$totales[0]->totalcompra}} </strong>(<label class="text-uppercase">@php
+                                            echo strftime("%B")." - ".strftime("%G");   
                                         @endphp </label>)</div>
                                         <div class="h2">Compras</div>
                                     </div>
@@ -31,15 +28,15 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-4 col-xs-6">
+                            <div class="col-lg-6 col-xs-12">
                                 <!-- small box -->
-                                <div class="card text-white bg-warning">
+                                <div class="card text-white bg-primary">
                                     <div class="card-body pb-0">
                                         <button class="btn btn-transparent p-0 float-right" type="button">
                                         <i class="fa fa-suitcase fa-4x"></i>
                                         </button>
-                                        <div class="text-value h3"><strong>$ {{$total->totalventa}} </strong>(<label class="text-uppercase">@php
-                                            echo strftime("%G");
+                                        <div class="text-value h3"><strong>$ {{$totales[0]->totalventa}} </strong>(<label class="text-uppercase">@php
+                                            echo strftime("%B")." - ".strftime("%G");
                                         @endphp </label>)</div>
                                         <div class="h2">Ventas</div>
                                     </div>
@@ -49,40 +46,19 @@
                                     
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-xs-6">
-                                <!-- small box -->
-                                <div class="card text-white" style="background-color: rgba(248,108,67, 1)">
-                                    <div class="card-body pb-0">
-                                        <button class="btn btn-transparent p-0 float-right" type="button">
-                                        <i class="fa fa-product-hunt fa-4x"></i>
-                                        </button>
-                                        <div class="text-value h3"><strong>$-{{round($total->ajustes,2)}} </strong>(<label class="text-uppercase">@php
-                                            echo strftime("%G");
-                                        @endphp </label>)</div>
-                                        <div class="h2">Ajustes Inventario</div>
-                                    </div>
-                                    <div class="chart-wrapper mt-3 mx-3" style="height:35px;">
-                                        <a href="{{url('faltante')}}" class="small-box-footer h4">Ajustes <i class="fa fa-arrow-circle-right"></i></a>
-                                    </div>
-                                    
-                                </div>
-                            </div>
+                            
 
                         </div>
-
-                @endforeach
 
 
                         <!-- Estadísticas gráficos -->
                         <div class="row">
-                            <div class="col-md-4 col-xs-12">
+                            <div class="col-md-6 col-xs-12">
                                 <!-- compras - meses -->
 
                                 <div class="card card-chart">
                                     <div class="card-header">
-                                        <h4 class="text-center">Compras - @php
-                                            echo strftime("%G");
-                                        @endphp </h4>
+                                        <h4 class="text-center">Compras </h4>
                                     </div>
                                     <div class="card-content">
                                         <div class="ct-chart">
@@ -95,15 +71,13 @@
 
                             </div><!--col-md-4-->
                         
-                            <div class="col-md-4 col-xs-12">
+                            <div class="col-md-6 col-xs-12">
                             
                                 <!-- ventas - meses -->
                                 
                                 <div class="card card-chart">
                                     <div class="card-header">
-                                        <h4 class="text-center">Ventas -  @php
-                                            echo strftime("%G");
-                                        @endphp</h4>
+                                        <h4 class="text-center">Ventas </h4>
                                     </div>
                                     <div class="card-content">
                                         <div class="ct-chart">
@@ -116,20 +90,84 @@
                             
 
                             </div><!-- col-md-4 -->
+                        
+                        </div>
 
-                            <div class="col-md-4 col-xs-12">
+                    <div class="row">
+
+                        <div class="col-lg-6 col-xs-12">
+                            <!-- small box -->
+                            <div class="card text-white" style="background-color: rgba(248,108,67, 1)">
+                                <div class="card-body pb-0">
+                                    <button class="btn btn-transparent p-0 float-right" type="button">
+                                    <i class="fa fa-product-hunt fa-4x"></i>
+                                    </button>
+                                    <div class="text-value h3"><strong>$-{{round($totales[0]->ajustes,2)}} </strong>(<label class="text-uppercase">@php
+                                        echo strftime("%B")." - ".strftime("%G");
+                                    @endphp </label>)</div>
+                                    <div class="h2">Ajustes de Inventario</div>
+                                </div>
+                                <div class="chart-wrapper mt-3 mx-3" style="height:35px;">
+                                    <a href="{{url('faltante')}}" class="small-box-footer h4">Ajustes <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-xs-12">
+                            <!-- Pérdidas por venta -->
+                            <div class="card text-white" style="background-color: rgba(248,108,67, 1)">
+                                <div class="card-body pb-0">
+                                    <button class="btn btn-transparent p-0 float-right" type="button">
+                                    <i class="fa fa-product-hunt fa-4x"></i>
+                                    </button>
+                                    <div class="text-value h3"><strong>$-{{round($totales[0]->totalventaAnulada,2)}} </strong>(<label class="text-uppercase">@php
+                                        echo strftime("%B")." - ".strftime("%G");
+                                    @endphp </label>)</div>
+                                    <div class="h2">Pérdidas Por Ventas Anuladas</div>
+                                </div>
+                                <div class="chart-wrapper mt-3 mx-3" style="height:35px;">
+                                    <a href="{{url('venta')}}" class="small-box-footer h4">Ventas <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                    </div>
+
+        <div class="row">
+                            <div class="col-md-6 col-xs-12">
                             
                                 <!-- faltantes - meses -->
                                 
                                 <div class="card card-chart">
                                     <div class="card-header">
-                                        <h4 class="text-center">Ajustes -  @php
-                                            echo strftime("%G");
-                                        @endphp</h4>
+                                        <h4 class="text-center">Ajustes </h4>
                                     </div>
                                     <div class="card-content">
                                         <div class="ct-chart">
                                             <canvas id="faltantes">                                                
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                                
+                                </div>
+                            
+
+                            </div><!-- col-md-4 -->
+
+
+                            <div class="col-md-6 col-xs-12">
+                            
+                                <!-- Pérdidas por venta - meses -->
+                                
+                                <div class="card card-chart">
+                                    <div class="card-header">
+                                        <h4 class="text-center">Pérdidas </h4>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="ct-chart">
+                                            <canvas id="perdidasPorVentasAnuladas">                                                
                                             </canvas>
                                         </div>
                                     </div>
@@ -358,7 +396,7 @@
                                             {echo ''. $reg->totalmes.',';} ?>],
                                         
                                         backgroundColor: 'rgba(77,189,116, 1)',
-                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                        borderColor: 'rgba(60, 160, 110, 1)',
                                         borderWidth:3
                                     }]
                                 },
@@ -392,8 +430,8 @@
                                         label: 'Ventas',
                                         data: [<?php foreach ($ventasmes as $reg)
                                         {echo ''. $reg->totalmes.',';} ?>],
-                                        backgroundColor: 'rgba(255,193,7, 1)',
-                                        borderColor: 'rgba(54, 162, 235, 0.5)',
+                                        backgroundColor: 'rgba(32, 168, 216, 1)',
+                                        borderColor: 'rgba(20, 140, 150, 0.5)',
                                         borderWidth: 1
                                     }]
                                 },
@@ -441,6 +479,40 @@
                         });
 
                         /*fin FALTANTES mes* */
+
+                        
+                              /**inicio de PERDIDAS POR VENTAS ANULADAS por mes */
+                            var varPerdidasVentas =document.getElementById('perdidasPorVentasAnuladas').getContext('2d');
+                            var charPerdidasVentas = new Chart(varPerdidasVentas, {
+                            type: 'bar',
+                            data: {
+                                labels: [<?php foreach ($perdidaVentaMes as $reg)
+                            {
+                                setlocale(LC_TIME, 'es_ES', 'Spanish_Spain', 'Spanish'); 
+                                //$mes_traducido=strftime('%B',strtotime($reg->mes));
+                                
+                                echo '"'. $reg->mes.'",';} ?>],
+                                datasets: [{
+                                    label: 'Pérdidas Por Ventas Anuladas',
+                                    data: [<?php foreach ($perdidaVentaMes as $reg)
+                                    {echo ''. $reg->totalmes.',';} ?>],
+                                    backgroundColor: 'rgba(248,108,67, 1)',
+                                    borderColor: 'rgba(54, 162, 235, 0.2)',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero:true
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+
+                        /*fin PERDIDAS POR VENTAS ANULADAS mes* */
 
                           /**inicio de Productos mas vendidos mes */
                           var varProductosMasVendidos=document.getElementById('productosMasVendidos').getContext('2d');

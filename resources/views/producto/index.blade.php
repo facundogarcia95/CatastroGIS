@@ -62,6 +62,7 @@
                                     <th>Producto</th>
                                     <th>Codigo</th>
                                     <th>Precio Venta ($)</th>
+                                    <th>Precio Costo ($)</th>
                                     <th>Stock</th>                
                                     <th>Imagen</th>
                       
@@ -90,6 +91,14 @@
                                             SIN PRECIO
                                         @else
                                             {{$prod->precio_venta}}
+                                        @endif
+                                       
+                                    </td>
+                                    <td>
+                                        @if ($productoControlador->costoProducto($prod->id) == null)
+                                            SIN COSTO
+                                        @else
+                                            {{$productoControlador->costoProducto($prod->id)}}
                                         @endif
                                        
                                     </td>

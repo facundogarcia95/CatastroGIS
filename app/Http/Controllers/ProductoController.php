@@ -24,6 +24,7 @@ class ProductoController extends Controller
         if($request){
 
             $sql=trim($request->get('buscarTexto'));
+
             $productos=DB::table('productos as p')
             ->join('categorias as c','p.idcategoria','=','c.id')
             ->join('tipo_productos as t','p.tipo_producto','=','t.id')
@@ -54,6 +55,68 @@ class ProductoController extends Controller
             //return $productos;
         }
        
+    }
+
+    public function costoProducto($id){
+
+        $producto = Producto::findOrFail($id);
+
+        if($producto->idreceta){
+
+            $productosDeReceta=DB::table('productos as p')
+            ->join('recetas as r','p.idreceta','=','r.id')
+            ->join('detalle_recetas as dr','r.id','=','dr.idreceta')
+            ->select('dr.idproducto','dr.cantidad')
+            ->where('r.id','=',$producto->idreceta)->get();
+
+          
+            $costoTotal = 0;
+
+            foreach($productosDeReceta as $producto){
+               
+                // precio_costo
+                $costo=DB::table('compras')
+                ->leftJoin('detalle_compras as dc','compras.id','=','dc.idcompra')
+                ->select(DB::raw('IFNULL(dc.precio,0) as precio'))
+                ->where('dc.idproducto','=',$producto->idproducto)
+                ->orderBy('compras.created_at','DESC')
+                ->first(); 
+
+                if(isset($costo->precio)){
+
+                    $costoTotal = $costoTotal + ($costo->precio * $producto->cantidad);
+
+                }
+
+            }
+            
+
+             return $costoTotal;
+
+        }else{
+            
+            // precio_costo
+            $costo=DB::table('compras')
+            ->join('detalle_compras as dc','compras.id','=','dc.idcompra')
+            ->select('dc.precio')
+            ->where('dc.idproducto','=',$id)
+            ->orderBy('compras.created_at','DESC')
+            ->first();  
+            
+            if(isset($costo->precio)){
+
+                return $costo->precio;
+
+            }else{
+
+                return null;
+
+            }
+            
+
+        }
+
+      
     }
 
     public function stock($id){

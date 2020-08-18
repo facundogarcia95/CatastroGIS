@@ -1,5 +1,6 @@
 @extends('principal')
 @section('contenido')
+@inject('productoControlador', 'App\Http\Controllers\ProductoController')
 
 
 <main class="main">
@@ -44,7 +45,7 @@
 
            <div class="form-group row border m-1  bg-light">
 
-              <h3>Lista de Insumos Utilizados</h3>
+              <h3 class="m-2">Lista de Insumos Utilizados</h3>
 
               <div class="col-md-12">
                 <table id="detalles" class="table table-responsive table-bordered table-striped table-sm">
@@ -52,19 +53,38 @@
                     <tr class="bg-dark text-light">
                         <th>Producto</th>
                         <th>Cantidad</th>
+                        <th>Costo</th>
              
                     </tr>
                 </thead>
 
                 <tbody>
-                   
+
+                   @php
+                   $totalCosto = 0;    
+                   @endphp
+
                    @foreach($detalles as $det)
 
                     <tr>
                      
                       <td><p class="h6">#{{$det->codigo}} - {{$det->producto}}</p></td>
                       <td><p class="h6">{{$det->cantidad}} {{$det->unidad}}</p></td>
+                      
+                      <td>
+                        <p class="h6">
 
+                          @if ($productoControlador->costoProducto($det->id) == null)
+                              $0
+                           
+                          @else
+                              ${{ ( $productoControlador->costoProducto($det->id) * $det->cantidad )}}
+                              @php $totalCosto += $productoControlador->costoProducto($det->id) * $det->cantidad; @endphp
+                          
+                            @endif
+                      </p>
+
+                    </td>
                       
                     </tr> 
 
@@ -72,6 +92,13 @@
                    @endforeach
                    
                 </tbody>
+
+                <tfoot class="bg-light">
+                    <tr>
+                        <th  colspan="2"><p align="right">COSTO TOTAL:</p></th>
+                        <th><p align="left">${{$totalCosto}}</p></th>
+                    </tr>
+                </tfoot>
                 
                 
                 </table>

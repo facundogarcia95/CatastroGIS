@@ -90,7 +90,7 @@
                                       @else
 
                                       <label class="text-danger"> 
-                                        <i class="fa fa-times fa-2x"></i> Cancelada
+                                        <i class="fa fa-times fa-2x"></i> Anulada con pérdida
                                       </label>
 
                                        @endif
@@ -103,11 +103,7 @@
                                        @if($vent->estado=="Registrado")
 
                                         <button type="button" class="btn btn-danger btn-sm rounded mr-2" data-id_venta="{{$vent->id}}" data-toggle="modal" data-target="#cambiarEstadoVenta">
-                                            <i class="fa fa-times fa-2x"></i> Anular
-                                        </button>
-                                        
-                                        <button type="button" class="btn btn-danger btn-sm rounded ml-2" data-id_venta="{{$vent->id}}" data-toggle="modal" data-target="#cancelarVenta">
-                                            <i class="fa fa-times fa-2x"></i> Cancelar
+                                            <i class="fa fa-times fa-2x"></i> Anular Venta
                                         </button>
 
                                         @else
@@ -167,7 +163,10 @@
                                 <input type="hidden" id="id_venta" name="id_venta" value="">
 
                                     <p>¿Está seguro que desea cambiar el estado?</p>
-                                    <p><b>Esta opción contempla el retorno de stock</b></p>
+          
+                              
+                                    <input type="checkbox" name="retornoStock" checked="true"> <b> Anular venta con pérdida de stock</b>
+                                    
 
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-success">Aceptar</button>
@@ -183,41 +182,6 @@
          </div>
         <!-- Fin del modal Eliminar -->
          
-        <!-- Inicio del modal cancelar venta -->
-                <div class="modal fade" id="cancelarVenta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                    <div class="modal-dialog modal-dark" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Cambiar Estado de Venta</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true" class="text-light">×</span>
-                                </button>
-                            </div>
-    
-                            <div class="modal-body">
-                                <form action="{{url('cancelar')}}" method="POST">
-                                {{method_field('post')}}
-                                {{csrf_field()}} 
-    
-                                    <input type="hidden" id="id_ventaCancelada" name="id_venta" value="">
-    
-                                        <p>¿Está seguro que desea cambiar el estado?</p>
-                                        <p><b>Esta opción no contempla retorno de stock</b></p>
-                
-    
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-success">Aceptar</button>
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                                    </div>
-    
-                                </form>
-                            </div>
-                        <!-- /.modal-content -->
-                       </div>
-                    <!-- /.modal-dialog -->
-                </div>
-             </div>
-            <!-- Fin del modal Eliminar -->
-            
+
         </main>
 @endsection

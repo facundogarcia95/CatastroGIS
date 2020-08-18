@@ -22,12 +22,12 @@ class CompraController extends Controller
             ->join('users','compras.idusuario','=','users.id')
             ->join('detalle_compras','compras.id','=','detalle_compras.idcompra')
              ->select('compras.id','compras.tipo_identificacion',
-             'compras.num_compra','compras.fecha_compra','compras.impuesto',
+             'compras.num_compra','compras.created_at as fecha_compra','compras.impuesto',
              'compras.estado','compras.total','proveedores.nombre as proveedor','users.nombre')
             ->where('compras.num_compra','LIKE','%'.$sql.'%')
             ->orderBy('compras.id','desc')
             ->groupBy('compras.id','compras.tipo_identificacion',
-            'compras.num_compra','compras.fecha_compra','compras.impuesto',
+            'compras.num_compra','compras.created_at','compras.impuesto',
             'compras.estado','compras.total','proveedores.nombre','users.nombre','users.idrol')
             ->paginate(8);
              
@@ -119,12 +119,12 @@ class CompraController extends Controller
              $compra = Compra::join('proveedores','compras.idproveedor','=','proveedores.id')
              ->join('detalle_compras','compras.id','=','detalle_compras.idcompra')
              ->select('compras.id','compras.tipo_identificacion',
-             'compras.num_compra','compras.fecha_compra','compras.impuesto',
+             'compras.num_compra','compras.created_at as fecha_compra','compras.impuesto',
              'compras.estado',DB::raw('sum(detalle_compras.cantidad*precio) as total'),'proveedores.nombre')
              ->where('compras.id','=',$id)
              ->orderBy('compras.id', 'desc')
              ->groupBy('compras.id','compras.tipo_identificacion',
-             'compras.num_compra','compras.fecha_compra','compras.impuesto',
+             'compras.num_compra','compras.created_at','compras.impuesto',
              'compras.estado','proveedores.nombre')
              ->first();
  

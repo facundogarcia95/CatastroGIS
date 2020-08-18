@@ -14,7 +14,7 @@
               
               </div>
 
-                    <div class="col-md-4 border">  
+                    <div class="col-md-3 border">  
 
                         <label class="form-control-label m-1" for="nombre">Proveedor</label>
                         
@@ -22,7 +22,7 @@
                             
                     </div>
 
-                    <div class="col-md-4 border">  
+                    <div class="col-md-3 border">  
 
                     <label class="form-control-label m-1" for="documento">Tipo Documento</label>
 
@@ -30,11 +30,18 @@
                     
                     </div>
 
-                    <div class="col-md-4 border">
+                    <div class="col-md-3 border">
                             <label class="form-control-label m-1" for="num_compra">Número Comprobante</label>
                             
                             <p class="m-1 font-weight-bold">{{$compra->num_compra}}</p>
                     </div>
+
+                    <div class="col-md-3 border">
+                      <label class="form-control-label m-1" for="num_compra">Fecha</label>
+                      
+                      <p class="m-1 font-weight-bold">{{$compra->fecha_compra}}</p>
+                    </div>
+
 
             </div>
 

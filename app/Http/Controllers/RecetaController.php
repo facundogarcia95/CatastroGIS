@@ -239,7 +239,7 @@ class RecetaController extends Controller
              /*mostrar detalles*/
              $detalles = DetalleReceta::join('productos','detalle_recetas.idproducto','=','productos.id')
              ->join('unidad_medidas','unidad_medidas.id','=','productos.unidad_medida')
-             ->select('productos.nombre as producto','productos.codigo','detalle_recetas.cantidad','unidad_medidas.unidad')
+             ->select('productos.id','productos.nombre as producto','productos.codigo','detalle_recetas.cantidad','unidad_medidas.unidad')
              ->where('detalle_recetas.idreceta','=',$id)
              ->orderBy('detalle_recetas.id', 'desc')->get();
              

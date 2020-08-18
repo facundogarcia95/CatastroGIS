@@ -127,7 +127,7 @@ function ventasPorProducto(){
                 Swal.fire({
                     type: 'error',
                     title: 'Oops...',
-                    text: 'El vendedor seleccionado no tiene ventas registradas',
+                    text: 'El producto seleccionado no tiene ventas registradas',
                   
                     })
            }
