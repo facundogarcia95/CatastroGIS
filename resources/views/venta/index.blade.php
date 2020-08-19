@@ -43,7 +43,6 @@
                                     <th>Tipo de Facturación</th>
                                     <th>Usuario</th>
                                     <th>Total ($)</th>
-                                    <th>Impuesto</th>
                                     <th>Estado</th>
                                     @if ($usuarioRol == 1 || $usuarioRol == 4)
                                     <th>Cambiar Estado</th>
@@ -73,7 +72,6 @@
                                     <td>{{$vent->tipo_identificacion}}</td>
                                     <td>{{$vent->nombre}}</td>
                                     <td>${{number_format($vent->total,2)}}</td>
-                                    <td>{{$vent->impuesto}}</td>
                                     <td>
                                       
                                       @if($vent->estado=="Registrado")

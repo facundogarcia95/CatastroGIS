@@ -32,7 +32,7 @@
    
     @endisset
 
-    method="POST">  
+    method="POST" enctype="multipart/form-data">  
 
     @isset($productoEditar[0])
         {{method_field('patch')}}

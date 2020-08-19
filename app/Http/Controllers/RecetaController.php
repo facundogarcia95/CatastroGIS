@@ -181,7 +181,7 @@ class RecetaController extends Controller
                 $fileNameToStore = time().'.'.$extension;
                 
                 //Upload Image
-                $path = $request->file('imagen')->storeAs('public/img/producto',$fileNameToStore);
+                $path = $request->file('imagen')->storeAs('producto',$fileNameToStore,'public');
 
             
                 } else{
@@ -316,7 +316,7 @@ class RecetaController extends Controller
                         entonces eliminaría la imagen anterior, eso es para evitar 
                         acumular imagenes en el servidor*/ 
                     if($producto->imagen != 'noimagen.jpg'){ 
-                        Storage::delete('public/img/producto/'.$producto->imagen);
+                        Storage::delete('public/storage/img/producto/'.$producto->imagen);
                     }
     
                     
@@ -333,9 +333,8 @@ class RecetaController extends Controller
                     $fileNameToStore = time().'.'.$extension;
                     
                     //Upload Image
-                    $path = $request->file('imagen')->storeAs('public/img/producto',$fileNameToStore);
-                    
-                    
+                    $path = $request->file('imagen')->storeAs('producto',$fileNameToStore,'public');
+                                       
                     
                     } else {
                         

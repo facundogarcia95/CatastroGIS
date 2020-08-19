@@ -7,7 +7,6 @@ use App\Producto;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use DB;
-use Illuminate\Support\Facades\App;
 
 class ProductoController extends Controller
 {
@@ -264,7 +263,7 @@ class ProductoController extends Controller
                     acumular imagenes en el servidor*/ 
                 if($producto->imagen != 'noimagen.jpg'){ 
 
-                    Storage::delete('public/img/producto/'.$producto->imagen);
+                    Storage::delete('public/storage/img/producto/'.$producto->imagen);
                 }
 
                 

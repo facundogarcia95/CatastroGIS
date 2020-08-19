@@ -1,6 +1,5 @@
 <?php
 
-error_reporting(E_ERROR ^ E_WARNING);
 
 /**
  * Laravel - A PHP Framework For Web Artisans
