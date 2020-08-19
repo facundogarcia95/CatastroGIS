@@ -74,7 +74,7 @@ class UserController extends Controller
                 $fileNameToStore = time().'.'.$extension;
                 
                 //Upload Image
-                $path = $request->file('imagen')->storeAs('public/img/usuario',$fileNameToStore);
+                $path = $request->file('imagen')->storeAs('usuario',$fileNameToStore,'public');
 
             
             } else{
@@ -86,6 +86,7 @@ class UserController extends Controller
 
             //fin registrar imagen
             $user->save();
+            
             return Redirect::to("user"); 
     }
 

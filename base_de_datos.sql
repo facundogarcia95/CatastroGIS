@@ -49,7 +49,7 @@ CREATE TABLE `clientes` (
 
 /*Data for the table `clientes` */
 
-insert  into `clientes`(`id`,`nombre`,`tipo_documento`,`num_documento`,`direccion`,`telefono`,`email`,`created_at`,`updated_at`) values (1,'SIN DEFINIR','DNI','00000000','SIN DEFINIR','SIN DEFINIR','SIN DEFINIR','2020-08-19 02:17:29',NULL);
+insert  into `clientes`(`id`,`nombre`,`tipo_documento`,`num_documento`,`direccion`,`telefono`,`email`,`created_at`,`updated_at`) values (1,'SIN DEFINIR','DNI','00000000','SIN DEFINIR','SIN DEFINIR','SIN DEFINIR','2020-08-19 18:16:19',NULL);
 
 /*Table structure for table `compras` */
 
@@ -182,11 +182,11 @@ CREATE TABLE `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `migrations` */
 
-insert  into `migrations`(`id`,`migration`,`batch`) values (1,'2014_10_12_100000_create_password_resets_table',1),(2,'2019_04_23_210438_create_categorias_table',1),(3,'2019_04_24_002426_create_tipo_productos_table',1),(4,'2019_04_24_002427_unidad_medidas',1),(5,'2019_04_25_203705_create_productos_table',1),(6,'2019_04_29_144035_create_proveedores_table',1),(7,'2019_04_29_172617_create_clientes_table',1),(8,'2019_04_30_135525_create_roles_table',1),(9,'2019_04_30_135526_create_users_table',1),(10,'2019_05_03_141422_create_compras_table',1),(11,'2019_05_03_141516_create_detalle_compras_table',1),(12,'2019_05_04_193824_create_ventas_table',1),(13,'2019_05_04_193920_create_detalle_ventas_table',1),(14,'2020_07_24_191010_create_negocios_table',1),(15,'2020_07_30_003421_create_faltantes_table',1),(16,'2020_07_30_003422_create_recetas_table',1),(17,'2020_07_30_003423_create_detalle_recetas_table',1),(18,'2020_07_30_003424_detalle_fatantes',1),(19,'2020_07_30_013854_tr_upd_stock_compra_anular',1),(20,'2020_07_30_013917_tr_upd_stock_compra',1),(21,'2020_07_30_013926_tr_upd_stock_faltante',1),(22,'2020_07_30_013939_tr_upd_stock_faltante_anular',1);
+insert  into `migrations`(`id`,`migration`,`batch`) values (19,'2020_07_30_013854_tr_upd_stock_compra_anular',1),(20,'2020_07_30_013917_tr_upd_stock_compra',1),(21,'2020_07_30_013926_tr_upd_stock_faltante',1),(22,'2020_07_30_013939_tr_upd_stock_faltante_anular',1),(23,'2014_10_12_100000_create_password_resets_table',2),(24,'2019_04_23_210438_create_categorias_table',2),(25,'2019_04_24_002426_create_tipo_productos_table',2),(26,'2019_04_24_002427_unidad_medidas',2),(27,'2019_04_25_203705_create_productos_table',2),(28,'2019_04_29_144035_create_proveedores_table',2),(29,'2019_04_29_172617_create_clientes_table',2),(30,'2019_04_30_135525_create_roles_table',2),(31,'2019_04_30_135526_create_users_table',2),(32,'2019_05_03_141422_create_compras_table',2),(33,'2019_05_03_141516_create_detalle_compras_table',2),(34,'2019_05_04_193824_create_ventas_table',2),(35,'2019_05_04_193920_create_detalle_ventas_table',2),(36,'2020_07_24_191010_create_negocios_table',2),(37,'2020_07_30_003421_create_faltantes_table',2),(38,'2020_07_30_003422_create_recetas_table',2),(39,'2020_07_30_003423_create_detalle_recetas_table',2),(40,'2020_07_30_003424_detalle_fatantes',2);
 
 /*Table structure for table `negocio` */
 
@@ -274,7 +274,7 @@ CREATE TABLE `proveedores` (
 
 /*Data for the table `proveedores` */
 
-insert  into `proveedores`(`id`,`nombre`,`tipo_documento`,`num_documento`,`direccion`,`telefono`,`email`,`created_at`,`updated_at`) values (1,'Proveedor 1','DNI','12345567','SIN CALLE','2612288191','administrador@gmail.com','2020-08-19 02:17:28',NULL);
+insert  into `proveedores`(`id`,`nombre`,`tipo_documento`,`num_documento`,`direccion`,`telefono`,`email`,`created_at`,`updated_at`) values (1,'Proveedor 1','DNI','12345567','SIN CALLE','2612288191','administrador@gmail.com','2020-08-19 18:16:18',NULL);
 
 /*Table structure for table `recetas` */
 
@@ -323,7 +323,7 @@ CREATE TABLE `tipo_productos` (
 
 /*Data for the table `tipo_productos` */
 
-insert  into `tipo_productos`(`id`,`nombre`,`created_at`,`updated_at`) values (1,'PRODUCTO ELABORADO','2020-08-19 02:17:19',NULL),(2,'PRODUCTO NO ELABORADO','2020-08-19 02:17:19',NULL),(3,'INSUMO','2020-08-19 02:17:19',NULL);
+insert  into `tipo_productos`(`id`,`nombre`,`created_at`,`updated_at`) values (1,'PRODUCTO ELABORADO','2020-08-19 18:16:13',NULL),(2,'PRODUCTO NO ELABORADO','2020-08-19 18:16:13',NULL),(3,'INSUMO','2020-08-19 18:16:13',NULL);
 
 /*Table structure for table `unidad_medidas` */
 
@@ -339,7 +339,7 @@ CREATE TABLE `unidad_medidas` (
 
 /*Data for the table `unidad_medidas` */
 
-insert  into `unidad_medidas`(`id`,`unidad`,`created_at`,`updated_at`) values (1,'U.','2020-08-19 02:17:20',NULL),(2,'kg.','2020-08-19 02:17:20',NULL),(3,'gr.','2020-08-19 02:17:20',NULL),(4,'mg.','2020-08-19 02:17:20',NULL),(5,'l.','2020-08-19 02:17:20',NULL),(6,'ml.','2020-08-19 02:17:20',NULL),(7,'m.','2020-08-19 02:17:20',NULL),(8,'cm.','2020-08-19 02:17:20',NULL),(9,'mm.','2020-08-19 02:17:20',NULL);
+insert  into `unidad_medidas`(`id`,`unidad`,`created_at`,`updated_at`) values (1,'U.','2020-08-19 18:16:14',NULL),(2,'kg.','2020-08-19 18:16:14',NULL),(3,'gr.','2020-08-19 18:16:14',NULL),(4,'mg.','2020-08-19 18:16:14',NULL),(5,'l.','2020-08-19 18:16:14',NULL),(6,'ml.','2020-08-19 18:16:14',NULL),(7,'m.','2020-08-19 18:16:14',NULL),(8,'cm.','2020-08-19 18:16:14',NULL),(9,'mm.','2020-08-19 18:16:14',NULL);
 
 /*Table structure for table `users` */
 
@@ -369,7 +369,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`nombre`,`tipo_documento`,`num_documento`,`direccion`,`telefono`,`email`,`usuario`,`password`,`condicion`,`idrol`,`imagen`,`remember_token`,`created_at`,`updated_at`) values (1,'Administrador','DNI','12345567','SIN CALLE','2612288191','administrador@gmail.com','administrador','$2y$10$NFbSwXGSjlUp6Zy1jFhxg.hkx1K7I/7ccvhSIkAHY1TBcFxBAFmN6',1,1,'1556656697.jpeg',NULL,NULL,NULL);
+insert  into `users`(`id`,`nombre`,`tipo_documento`,`num_documento`,`direccion`,`telefono`,`email`,`usuario`,`password`,`condicion`,`idrol`,`imagen`,`remember_token`,`created_at`,`updated_at`) values (1,'Administrador','DNI','12345567','SIN CALLE','2612288191','administrador@gmail.com','administrador','$2y$10$t3Zkk8gsuyM/iLqwBiFdUeOxKzNoGRAXSpu7iwlqojAMJh3ywgRJa',1,1,'1556656697.jpeg',NULL,NULL,NULL);
 
 /*Table structure for table `ventas` */
 
