@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Compra;
+use App\Producto;
 use App\DetalleCompra;
 use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
@@ -101,11 +102,18 @@ class CompraController extends Controller
                      $detalle->cantidad = $cantidad[$cont];
                      $detalle->precio = $precio[$cont];    
                      $detalle->save();
+                   
+                     
+                     $producto = Producto::findOrFail($id_producto[$cont]);
+                     $producto->stock = $producto->stock +$cantidad[$cont];
+                     $producto->save();
+
                      $cont=$cont+1;
+                     
                  }
                      
                  DB::commit();
- 
+
              } catch(Exception $e){
                  
                  DB::rollBack();
@@ -142,12 +150,31 @@ class CompraController extends Controller
          public function destroy(Request $request){
  
      
+            try{
+ 
+
+                DB::beginTransaction();
+
                  $compra = Compra::findOrFail($request->id_compra);
                  $compra->estado = 'Anulado';
                  $compra->observacion = $request->observacion;
                  $compra->idusuario = \Auth::user()->idrol;
                  $compra->save();
-                 return Redirect::to('compra');
+
+                DB::statement('UPDATE productos p
+                 JOIN detalle_compras di
+                 ON di.idproducto = p.id
+                 AND di.idcompra = :idcompra
+                 SET p.stock = p.stock - di.cantidad', array('idcompra' => $request->id_compra));
+
+                DB::commit();
+
+            } catch(Exception $e){
+                    
+                DB::rollBack();
+            }
+
+            return Redirect::to('compra');
  
      }
  

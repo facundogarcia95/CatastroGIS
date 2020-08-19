@@ -96,6 +96,11 @@ class FaltanteController extends Controller
                  $detalle->cantidad = $cantidad[$cont];
                  $detalle->motivo = $motivo[$cont];
                  $detalle->save();
+
+                 $producto = Producto::findOrFail($id_producto[$cont]);
+                 $producto->stock = $producto->stock - $cantidad[$cont];
+                 $producto->save();
+
                  $cont=$cont+1;
              }
                  
@@ -139,9 +144,30 @@ class FaltanteController extends Controller
 
     public function destroy(Request $request)
     {
-        $faltante = Faltante::findOrFail($request->idfaltante);
-        $faltante->condicion = 2;
-        $faltante->save();
+        try{
+ 
+
+            DB::beginTransaction();
+
+            $faltante = Faltante::findOrFail($request->idfaltante);
+            $faltante->condicion = 2;
+            $faltante->idusuario = \Auth::user()->idrol;
+            $faltante->save();
+
+            DB::statement('UPDATE productos p
+            JOIN detalle_faltantes df
+              ON df.idproducto = p.id
+             AND df.idfaltante= :idfaltante
+             SET p.stock = p.stock + df.cantidad', array('idfaltante' => $request->idfaltante));
+
+
+            DB::commit();
+
+        } catch(Exception $e){
+                
+            DB::rollBack();
+        }
+            
         return Redirect::to('faltante');
     }
 
