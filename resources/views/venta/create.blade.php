@@ -259,8 +259,9 @@
           precio_venta= $("#precio_venta").val();
           stock= $("#stock").val();
           impuesto=$("#impuestoHidden").val();
+          tipo_documento = $("#tipo_identificacion").val();
 
-          if(id_producto !="" && cantidad!="" && cantidad>0  && precio_venta!=""){
+          if(id_producto !="" && cantidad!="" && cantidad>0  && precio_venta!="" && tipo_documento != ""){
 
                 if(parseInt(stock)>=parseInt(cantidad)){
                     
