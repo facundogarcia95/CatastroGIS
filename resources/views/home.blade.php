@@ -17,7 +17,7 @@
                                         <i class="fa fa-shopping-cart fa-4x"></i>
                                         </button>
                                         <div class="text-value h3"><strong>$ {{$totales[0]->totalcompra}} </strong>(<label class="text-uppercase">@php
-                                            echo strftime("%B")." - ".strftime("%G");   
+                                            echo strftime("%B");   
                                         @endphp </label>)</div>
                                         <div class="h2">Compras</div>
                                     </div>
@@ -36,7 +36,7 @@
                                         <i class="fa fa-suitcase fa-4x"></i>
                                         </button>
                                         <div class="text-value h3"><strong>$ {{$totales[0]->totalventa}} </strong>(<label class="text-uppercase">@php
-                                            echo strftime("%B")." - ".strftime("%G");
+                                            echo strftime("%B");
                                         @endphp </label>)</div>
                                         <div class="h2">Ventas</div>
                                     </div>
@@ -103,7 +103,7 @@
                                     <i class="fa fa-product-hunt fa-4x"></i>
                                     </button>
                                     <div class="text-value h3"><strong>$-{{round($totales[0]->ajustes,2)}} </strong>(<label class="text-uppercase">@php
-                                        echo strftime("%B")." - ".strftime("%G");
+                                        echo strftime("%B");
                                     @endphp </label>)</div>
                                     <div class="h2">Ajustes de Inventario</div>
                                 </div>
@@ -122,7 +122,7 @@
                                     <i class="fa fa-product-hunt fa-4x"></i>
                                     </button>
                                     <div class="text-value h3"><strong>$-{{round($totales[0]->totalventaAnulada,2)}} </strong>(<label class="text-uppercase">@php
-                                        echo strftime("%B")." - ".strftime("%G");
+                                        echo strftime("%B");
                                     @endphp </label>)</div>
                                     <div class="h2">Pérdidas Por Ventas Anuladas</div>
                                 </div>
