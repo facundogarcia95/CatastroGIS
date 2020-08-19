@@ -27,6 +27,8 @@ CREATE TABLE `categorias` (
   UNIQUE KEY `categorias_nombre_unique` (`nombre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+/*Data for the table `categorias` */
+
 /*Table structure for table `clientes` */
 
 DROP TABLE IF EXISTS `clientes`;
@@ -44,6 +46,10 @@ CREATE TABLE `clientes` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `clientes_nombre_unique` (`nombre`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `clientes` */
+
+insert  into `clientes`(`id`,`nombre`,`tipo_documento`,`num_documento`,`direccion`,`telefono`,`email`,`created_at`,`updated_at`) values (1,'SIN DEFINIR','DNI','00000000','SIN DEFINIR','SIN DEFINIR','SIN DEFINIR','2020-08-19 02:17:29',NULL);
 
 /*Table structure for table `compras` */
 
@@ -69,6 +75,8 @@ CREATE TABLE `compras` (
   CONSTRAINT `compras_idusuario_foreign` FOREIGN KEY (`idusuario`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+/*Data for the table `compras` */
+
 /*Table structure for table `detalle_compras` */
 
 DROP TABLE IF EXISTS `detalle_compras`;
@@ -86,6 +94,8 @@ CREATE TABLE `detalle_compras` (
   CONSTRAINT `detalle_compras_idproducto_foreign` FOREIGN KEY (`idproducto`) REFERENCES `productos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+/*Data for the table `detalle_compras` */
+
 /*Table structure for table `detalle_faltantes` */
 
 DROP TABLE IF EXISTS `detalle_faltantes`;
@@ -102,6 +112,8 @@ CREATE TABLE `detalle_faltantes` (
   CONSTRAINT `detalle_faltantes_idfaltante_foreign` FOREIGN KEY (`idfaltante`) REFERENCES `faltantes` (`id`),
   CONSTRAINT `detalle_faltantes_idproducto_foreign` FOREIGN KEY (`idproducto`) REFERENCES `productos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `detalle_faltantes` */
 
 /*Table structure for table `detalle_recetas` */
 
@@ -121,6 +133,8 @@ CREATE TABLE `detalle_recetas` (
   CONSTRAINT `detalle_recetas_idreceta_foreign` FOREIGN KEY (`idreceta`) REFERENCES `recetas` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+/*Data for the table `detalle_recetas` */
+
 /*Table structure for table `detalle_ventas` */
 
 DROP TABLE IF EXISTS `detalle_ventas`;
@@ -139,6 +153,8 @@ CREATE TABLE `detalle_ventas` (
   CONSTRAINT `detalle_ventas_idventa_foreign` FOREIGN KEY (`idventa`) REFERENCES `ventas` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+/*Data for the table `detalle_ventas` */
+
 /*Table structure for table `faltantes` */
 
 DROP TABLE IF EXISTS `faltantes`;
@@ -155,6 +171,8 @@ CREATE TABLE `faltantes` (
   CONSTRAINT `faltantes_idusuario_foreign` FOREIGN KEY (`idusuario`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+/*Data for the table `faltantes` */
+
 /*Table structure for table `migrations` */
 
 DROP TABLE IF EXISTS `migrations`;
@@ -165,6 +183,10 @@ CREATE TABLE `migrations` (
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `migrations` */
+
+insert  into `migrations`(`id`,`migration`,`batch`) values (1,'2014_10_12_100000_create_password_resets_table',1),(2,'2019_04_23_210438_create_categorias_table',1),(3,'2019_04_24_002426_create_tipo_productos_table',1),(4,'2019_04_24_002427_unidad_medidas',1),(5,'2019_04_25_203705_create_productos_table',1),(6,'2019_04_29_144035_create_proveedores_table',1),(7,'2019_04_29_172617_create_clientes_table',1),(8,'2019_04_30_135525_create_roles_table',1),(9,'2019_04_30_135526_create_users_table',1),(10,'2019_05_03_141422_create_compras_table',1),(11,'2019_05_03_141516_create_detalle_compras_table',1),(12,'2019_05_04_193824_create_ventas_table',1),(13,'2019_05_04_193920_create_detalle_ventas_table',1),(14,'2020_07_24_191010_create_negocios_table',1),(15,'2020_07_30_003421_create_faltantes_table',1),(16,'2020_07_30_003422_create_recetas_table',1),(17,'2020_07_30_003423_create_detalle_recetas_table',1),(18,'2020_07_30_003424_detalle_fatantes',1),(19,'2020_07_30_013854_tr_upd_stock_compra_anular',1),(20,'2020_07_30_013917_tr_upd_stock_compra',1),(21,'2020_07_30_013926_tr_upd_stock_faltante',1),(22,'2020_07_30_013939_tr_upd_stock_faltante_anular',1);
 
 /*Table structure for table `negocio` */
 
@@ -185,6 +207,10 @@ CREATE TABLE `negocio` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+/*Data for the table `negocio` */
+
+insert  into `negocio`(`id`,`Nombre`,`Cuil`,`Email`,`Instagram`,`Facebook`,`impuesto`,`Direccion`,`Telefono`,`web`,`logo`) values (1,'Nombre negocio','20-12345678-7',NULL,'@mendozasushi','mendoza.sushi',21.00,NULL,'2612678891',NULL,'123456.png');
+
 /*Table structure for table `password_resets` */
 
 DROP TABLE IF EXISTS `password_resets`;
@@ -195,6 +221,8 @@ CREATE TABLE `password_resets` (
   `created_at` timestamp NULL DEFAULT NULL,
   KEY `password_resets_email_index` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `password_resets` */
 
 /*Table structure for table `productos` */
 
@@ -224,6 +252,8 @@ CREATE TABLE `productos` (
   CONSTRAINT `productos_unidad_medida_foreign` FOREIGN KEY (`unidad_medida`) REFERENCES `unidad_medidas` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+/*Data for the table `productos` */
+
 /*Table structure for table `proveedores` */
 
 DROP TABLE IF EXISTS `proveedores`;
@@ -242,6 +272,10 @@ CREATE TABLE `proveedores` (
   UNIQUE KEY `proveedores_nombre_unique` (`nombre`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+/*Data for the table `proveedores` */
+
+insert  into `proveedores`(`id`,`nombre`,`tipo_documento`,`num_documento`,`direccion`,`telefono`,`email`,`created_at`,`updated_at`) values (1,'Proveedor 1','DNI','12345567','SIN CALLE','2612288191','administrador@gmail.com','2020-08-19 02:17:28',NULL);
+
 /*Table structure for table `recetas` */
 
 DROP TABLE IF EXISTS `recetas`;
@@ -256,6 +290,8 @@ CREATE TABLE `recetas` (
   CONSTRAINT `recetas_idusuario_foreign` FOREIGN KEY (`idusuario`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+/*Data for the table `recetas` */
+
 /*Table structure for table `roles` */
 
 DROP TABLE IF EXISTS `roles`;
@@ -269,6 +305,10 @@ CREATE TABLE `roles` (
   UNIQUE KEY `roles_nombre_unique` (`nombre`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+/*Data for the table `roles` */
+
+insert  into `roles`(`id`,`nombre`,`descripcion`,`condicion`) values (1,'Administrador','Administrador',1),(2,'Vendedor','Vendedor',1),(3,'Comprador','Comprador',1),(4,'Supervisor','Supervisor',1);
+
 /*Table structure for table `tipo_productos` */
 
 DROP TABLE IF EXISTS `tipo_productos`;
@@ -281,6 +321,10 @@ CREATE TABLE `tipo_productos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+/*Data for the table `tipo_productos` */
+
+insert  into `tipo_productos`(`id`,`nombre`,`created_at`,`updated_at`) values (1,'PRODUCTO ELABORADO','2020-08-19 02:17:19',NULL),(2,'PRODUCTO NO ELABORADO','2020-08-19 02:17:19',NULL),(3,'INSUMO','2020-08-19 02:17:19',NULL);
+
 /*Table structure for table `unidad_medidas` */
 
 DROP TABLE IF EXISTS `unidad_medidas`;
@@ -292,6 +336,10 @@ CREATE TABLE `unidad_medidas` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `unidad_medidas` */
+
+insert  into `unidad_medidas`(`id`,`unidad`,`created_at`,`updated_at`) values (1,'U.','2020-08-19 02:17:20',NULL),(2,'kg.','2020-08-19 02:17:20',NULL),(3,'gr.','2020-08-19 02:17:20',NULL),(4,'mg.','2020-08-19 02:17:20',NULL),(5,'l.','2020-08-19 02:17:20',NULL),(6,'ml.','2020-08-19 02:17:20',NULL),(7,'m.','2020-08-19 02:17:20',NULL),(8,'cm.','2020-08-19 02:17:20',NULL),(9,'mm.','2020-08-19 02:17:20',NULL);
 
 /*Table structure for table `users` */
 
@@ -319,6 +367,10 @@ CREATE TABLE `users` (
   CONSTRAINT `users_idrol_foreign` FOREIGN KEY (`idrol`) REFERENCES `roles` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+/*Data for the table `users` */
+
+insert  into `users`(`id`,`nombre`,`tipo_documento`,`num_documento`,`direccion`,`telefono`,`email`,`usuario`,`password`,`condicion`,`idrol`,`imagen`,`remember_token`,`created_at`,`updated_at`) values (1,'Administrador','DNI','12345567','SIN CALLE','2612288191','administrador@gmail.com','administrador','$2y$10$NFbSwXGSjlUp6Zy1jFhxg.hkx1K7I/7ccvhSIkAHY1TBcFxBAFmN6',1,1,'1556656697.jpeg',NULL,NULL,NULL);
+
 /*Table structure for table `ventas` */
 
 DROP TABLE IF EXISTS `ventas`;
@@ -343,67 +395,7 @@ CREATE TABLE `ventas` (
   CONSTRAINT `ventas_idusuario_foreign` FOREIGN KEY (`idusuario`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-/* Trigger structure for table `compras` */
-
-DELIMITER $$
-
-/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_updStockCompraAnular` */$$
-
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tr_updStockCompraAnular` AFTER UPDATE ON `compras` FOR EACH ROW BEGIN
-            UPDATE productos p
-                JOIN detalle_compras di
-                ON di.idproducto = p.id
-                AND di.idcompra = new.id
-                SET p.stock = p.stock - di.cantidad;
-            END */$$
-
-
-DELIMITER ;
-
-/* Trigger structure for table `detalle_compras` */
-
-DELIMITER $$
-
-/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_updStockCompra` */$$
-
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tr_updStockCompra` AFTER INSERT ON `detalle_compras` FOR EACH ROW BEGIN
-        UPDATE productos SET stock = stock + NEW.cantidad 
-        WHERE productos.id = NEW.idproducto;
-       END */$$
-
-
-DELIMITER ;
-
-/* Trigger structure for table `detalle_faltantes` */
-
-DELIMITER $$
-
-/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_updStockFaltante` */$$
-
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tr_updStockFaltante` AFTER INSERT ON `detalle_faltantes` FOR EACH ROW BEGIN
-        UPDATE productos SET stock = stock - NEW.cantidad 
-        WHERE productos.id = NEW.idproducto;
-        END */$$
-
-
-DELIMITER ;
-
-/* Trigger structure for table `faltantes` */
-
-DELIMITER $$
-
-/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `tr_updStockFaltanteAnular` */$$
-
-/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `tr_updStockFaltanteAnular` AFTER UPDATE ON `faltantes` FOR EACH ROW BEGIN
-        UPDATE productos p
-          JOIN detalle_faltantes df
-            ON df.idproducto = p.id
-           AND df.idfaltante= new.id
-           SET p.stock = p.stock + df.cantidad;
-        END */$$
-
-
-DELIMITER ;
+/*Data for the table `ventas` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

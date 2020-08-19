@@ -26,13 +26,13 @@ class HomeController extends Controller
     {
         DB::select('SET lc_time_names = "es_ES"');
 
-        $comprasmes=DB::select('SELECT monthname(c.fecha_compra) as mes, sum(c.total) as totalmes from compras c where c.estado="Registrado" group by monthname(c.fecha_compra) order by month(c.fecha_compra) ASC limit 12');
+        $comprasmes=DB::select('SELECT monthname(c.fecha_compra) as mes, sum(c.total) as totalmes from compras c where c.estado="Registrado" group by mes,month(c.fecha_compra) order by month(c.fecha_compra) ASC limit 12');
        
-        $ventasmes=DB::select('SELECT monthname(v.fecha_venta) as mes, sum(v.total) as totalmes from ventas v where v.estado="Registrado" group by monthname(v.fecha_venta) order by month(v.fecha_venta) ASC limit 12');
+        $ventasmes=DB::select('SELECT monthname(v.fecha_venta) as mes, sum(v.total) as totalmes from ventas v where v.estado="Registrado" group by mes,month(v.fecha_venta) order by month(v.fecha_venta) ASC limit 12');
 
-        $faltantesmes=DB::select('SELECT MONTHNAME(t.created_at) AS mes, SUM(total) AS totalmes FROM (SELECT (MAX(dc.precio) * df.cantidad) AS total, f.`created_at` FROM detalle_faltantes df INNER JOIN faltantes AS f ON f.id = df.idfaltante INNER JOIN detalle_compras AS dc  ON dc.idproducto = df.idproducto  AND f.condicion = 1 GROUP BY f.id, df.cantidad, f.created_at) AS t GROUP BY MONTHNAME(t.created_at) ORDER BY MONTH(t.created_at) ASC LIMIT 12');
+        $faltantesmes=DB::select('SELECT MONTHNAME(t.created_at) AS mes, SUM(total) AS totalmes FROM (SELECT (MAX(dc.precio) * df.cantidad) AS total, f.`created_at` FROM detalle_faltantes df INNER JOIN faltantes AS f ON f.id = df.idfaltante INNER JOIN detalle_compras AS dc  ON dc.idproducto = df.idproducto  AND f.condicion = 1 GROUP BY f.id, df.cantidad, f.created_at) AS t GROUP BY MONTHNAME(t.created_at), MONTH(t.created_at) ORDER BY MONTH(t.created_at) ASC LIMIT 12');
         
-        $ventasdia=DB::select('SELECT DATE_FORMAT(v.fecha_venta,"%d/%m/%Y") as dia, sum(v.total) as totaldia from ventas v where v.estado="Registrado" group by v.fecha_venta order by day(v.fecha_venta) desc limit 15');
+        $ventasdia=DB::select('SELECT DATE_FORMAT(v.fecha_venta,"%d/%m/%Y") as dia, sum(v.total) as totaldia from ventas v where v.estado="Registrado" group by v.fecha_venta, day(v.fecha_venta) order by day(v.fecha_venta) desc limit 15');
 
         $productosvendidos=DB::select('SELECT p.nombre as producto, sum(dv.cantidad) as cantidad from productos p inner join detalle_ventas dv on p.id=dv.idproducto inner join ventas v on dv.idventa=v.id where v.estado="Registrado" and month(v.fecha_venta)=month(curdate()) AND YEAR(v.fecha_venta) = YEAR(CURDATE())   group by p.nombre order by sum(dv.cantidad) desc limit 5');
 
@@ -82,7 +82,7 @@ class HomeController extends Controller
         ->where('tipo_producto','!=','3')
         ->get();
 
-        $perdidaVentaMes=DB::select('SELECT monthname(v.fecha_venta) as mes, sum(v.total) as totalmes from ventas v where v.estado="Anulado con perdida" group by monthname(v.fecha_venta) order by month(v.fecha_venta) ASC limit 12');
+        $perdidaVentaMes=DB::select('SELECT monthname(v.fecha_venta) as mes, sum(v.total) as totalmes from ventas v where v.estado="Anulado con perdida" group by monthname(v.fecha_venta), month(v.fecha_venta) order by month(v.fecha_venta) ASC limit 12');
 
 
             return view('home',[
