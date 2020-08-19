@@ -23,6 +23,18 @@ class AjaxController extends Controller
             
             case 'ventas_por_producto':
                 $this->ventas_por_producto($request->idproducto);
+            break; 
+
+            case 'productos_venta':
+                $this->productos_venta();
+            break;  
+
+            case 'productos_compra':
+                $this->productos_compra();
+            break;  
+
+            case 'productos_faltante':
+                $this->productos_faltante();
             break;  
 
             default:
@@ -78,6 +90,82 @@ class AjaxController extends Controller
         echo json_encode($ventas);
         
     }
+
+    public function productos_venta(){
+        
+        $respuesta = DB::table('productos as p')
+        ->select('p.id', 'p.nombre')
+        ->where('p.tipo_producto','!=',3)
+        ->where('p.stock','>',0)
+        ->orderBy('p.nombre','ASC')
+        ->get();
+
+        $productos = array();
+        
+        foreach($respuesta as $res){
+
+            $producto = array(
+                'value'=> utf8_encode($res->nombre),
+                'id'=> $res->id
+                );
+                array_push($productos,$producto);
+        }
+
+        
+        echo json_encode($productos);
+
+    }
+
+    public function productos_compra(){
+        
+        $respuesta = DB::table('productos as p')
+        ->select('p.id', 'p.nombre')
+        ->where('p.tipo_producto','!=',1)
+        ->orderBy('p.nombre','ASC')
+        ->get();
+
+        $productos = array();
+        
+        foreach($respuesta as $res){
+
+            $producto = array(
+                'value'=> utf8_encode($res->nombre),
+                'id'=> $res->id
+                );
+                array_push($productos,$producto);
+        }
+
+        
+        echo json_encode($productos);
+
+    }
+
+
+    public function productos_faltante(){
+        
+        $respuesta = DB::table('productos as p')
+        ->select('p.id', 'p.nombre')
+        ->where('p.tipo_producto','!=',1)
+        ->where('p.stock','>',0)
+        ->orderBy('p.nombre','ASC')
+        ->get();
+
+        $productos = array();
+        
+        foreach($respuesta as $res){
+
+            $producto = array(
+                'value'=> utf8_encode($res->nombre),
+                'id'=> $res->id
+                );
+                array_push($productos,$producto);
+        }
+
+        
+        echo json_encode($productos);
+
+    }
+    
 
 
 }

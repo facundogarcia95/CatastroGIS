@@ -66,18 +66,29 @@
 
             <div class="form-group row">
 
-                 <div class="col-md-8">  
+                <div class="col-md-4">
+                    
+                    <div class="form-group">
 
-                        <label class="form-control-label" for="nombre">Producto </label>
+                        <label  for="autocompletad_pv">Buscar Producto </label>
+                    
+                        <input type="text" class="form-control" placeholder="Ingresar nombre..." id="autocompletad_pv">
+                    
+                    </div>
+
+                </div>
+
+                 <div class="col-md-4">  
+
+                        <label class="form-control-label" for="nombre">Producto Seleccionado</label>
 
                             <select class="form-control selectpicker" name="id_producto" id="id_producto" data-live-search="true">
                                                             
                             <option value="" selected>Seleccione</option>
                             
-                          
                             @foreach($productosPorCategoria as $prodcat)
                             
-                            @if(count($prodcat['productos'])>0){
+                            @if(count($prodcat['productos'])>0)
 
                                 <optgroup label="{{$prodcat['categoria']}}">
 
@@ -85,11 +96,11 @@
                                         
                                             @if($prod->idreceta)
 
-                                            <option idProducto="{{$prod->id}}" value="{{$prod->id}}_{{round($productoControlador->stock($prod->id),2)}}_{{$prod->precio_venta}}">{{$prod->producto}}</option>
+                                            <option idproducto="{{$prod->id}}" value="{{$prod->id}}" stock="{{round($productoControlador->stock($prod->id),2)}}" precio="{{$prod->precio_venta}}">{{$prod->producto}}</option>
 
                                             @else
 
-                                            <option  idProducto="{{$prod->id}}" value="{{$prod->id}}_{{$prod->stock}}_{{$prod->precio_venta}}">{{$prod->producto}}</option>
+                                            <option  idproducto="{{$prod->id}}" value="{{$prod->id}}" stock="{{round($prod->stock,2)}}" precio="{{$prod->precio_venta}}">{{$prod->producto}}</option>
 
                                             @endif
                                     @endforeach
@@ -213,7 +224,11 @@
          agregar();
      });
 
+     autoCompleteProductosVentas();
+
   });
+
+  
 
    var cont=0;
    total=0;
@@ -223,17 +238,18 @@
 
      function mostrarValores(){
 
-         datosProducto = document.getElementById('id_producto').value.split('_');
-         $("#precio_venta").val(datosProducto[2]);
-         $("#stock").val(datosProducto[1]);
+         datosProducto = $("#id_producto option:selected");
+
+         $("#precio_venta").val(datosProducto.attr("precio"));
+         $("#stock").val(datosProducto.attr("stock"));
      
      }
 
      function agregar(){
 
-         datosProducto = document.getElementById('id_producto').value.split('_');
+         datosProducto = $("#id_producto option:selected");
 
-          id_producto= datosProducto[0];
+          id_producto= datosProducto.attr("idproducto");
           producto= $("#id_producto option:selected").text();
           cantidad= $("#cantidad").val();
           descuento= $("#descuento").val();

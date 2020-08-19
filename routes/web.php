@@ -39,7 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
          Route::resource('cliente', 'ClienteController');
          Route::resource('venta', 'VentaController');
          Route::get('/pdfVenta/{id}', 'VentaController@pdf')->name('venta_pdf');
-    
+         Route::post('ajax-consultas','AjaxController@index');
     });
 
     Route::group(['middleware' => ['Administrador']], function () {
@@ -49,7 +49,7 @@ Route::group(['middleware' => ['auth']], function () {
       
       Route::resource('faltante','FaltanteController');
       Route::get('/listarFaltantesPdf', 'FaltanteController@listarPdf')->name('faltantes_pdf');
-      Route::post('ajax-consultas','AjaxController@index');
+      
       // Route::resource('rol', 'RolController');
       Route::resource('receta','RecetaController');
       

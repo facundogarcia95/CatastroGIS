@@ -62,7 +62,19 @@
 
             <div class="form-group row">
 
-                 <div class="col-md-8">  
+                <div class="col-md-4">
+                    
+                    <div class="form-group">
+
+                        <label  for="autocompletad_pv">Buscar Producto </label>
+                    
+                        <input type="text" class="form-control" placeholder="Ingresar nombre..." id="autocompletad_pv">
+                    
+                    </div>
+
+                </div>
+
+                 <div class="col-md-4">  
 
                         <label class="form-control-label" for="nombre">Producto</label>
 
@@ -177,6 +189,8 @@
 
          agregar();
      });
+
+     autoCompleteProductosCompras();
 
   });
 

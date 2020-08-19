@@ -53,7 +53,7 @@ class FaltanteController extends Controller
          ->join('unidad_medidas as uni','prod.unidad_medida', '=','uni.id')
          ->select(DB::raw('CONCAT(prod.codigo," - ",prod.nombre) AS producto'),'prod.id', 'uni.unidad','prod.stock')
          ->where('prod.condicion','=','1')
-         ->where('prod.idreceta','=',null)
+         ->where('prod.tipo_producto','!=',1)
          ->where('prod.stock','>','0')
          ->get();
 

@@ -14,6 +14,7 @@
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/simple-line-icons.min.css')}}" rel="stylesheet">
     <!-- Main styles for this application -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.css" rel="stylesheet"/>
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
     <link href="{{asset('css/estilos.css')}}" rel="stylesheet">
 
@@ -92,9 +93,11 @@
 
     <!-- Bootstrap and necessary plugins -->
     <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="{{asset('js/solicitudesAjax.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
     @stack('scripts')
+    <script src="{{asset('js/solicitudesAjax.js')}}"></script>
     <script src="{{asset('js/popper.min.js')}}"></script>
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <script src="{{asset('js/pace.min.js')}}"></script>

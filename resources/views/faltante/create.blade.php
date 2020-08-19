@@ -46,7 +46,19 @@
                     </div>
         
 
-                 <div class="col-md-8 mb-2">  
+                <div class="col-md-4 mb-1 ml-1">
+                    
+                        <div class="form-group">
+    
+                            <label  for="autocompletad_pv">Buscar Producto </label>
+                        
+                            <input type="text" class="form-control" placeholder="Ingresar nombre..." id="autocompletad_pv">
+                        
+                        </div>
+    
+                </div>
+
+                 <div class="col-md-4 mb-2">  
 
                         <label class="form-control-label" for="nombre">Producto</label>
 
@@ -133,6 +145,8 @@
          agregar();
      });
 
+     autoCompleteProductosAjustes();
+
      $("#id_producto").change(mostrarStockMaximo);
 
   });
@@ -153,7 +167,7 @@
           producto= $("#id_producto option:selected").text();
           stock= $("#id_producto option:selected").attr('stock');
           cantidad= $("#cantidad").val();
-          motivo= $("#motivo option:selected").text();
+          motivo= $("#motivo option:selected").val();
 
           
           if(id_producto !="" && cantidad!="" && cantidad>0 && motivo != "" ){
@@ -170,7 +184,7 @@
                 Swal.fire({
                 type: 'error',
                 //title: 'Oops...',
-                text: 'La cantidad no puede supertar el stock',
+                text: 'La cantidad no puede superar el stock',
               
                 })
             }
@@ -182,7 +196,7 @@
                 Swal.fire({
                 type: 'error',
                 //title: 'Oops...',
-                text: 'Rellene todos los campos del detalle de la compras',
+                text: 'Rellene todos los campos del detalle de faltante',
               
                 })
             
