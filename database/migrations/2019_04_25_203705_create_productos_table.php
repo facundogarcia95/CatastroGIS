@@ -19,7 +19,7 @@ class CreateProductosTable extends Migration
             $table->increments('id');
             $table->integer('idcategoria')->unsigned();
             $table->integer('codigo')->nullable();
-            $table->string('nombre',100)->unique();
+            $table->string('nombre',100);
             $table->decimal('precio_venta',11,2)->default(0);
             $table->decimal('stock', 11, 2)->default(0);
             $table->boolean('condicion')->default(1);

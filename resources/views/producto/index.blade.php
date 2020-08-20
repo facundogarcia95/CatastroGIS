@@ -54,12 +54,14 @@
                             {{Form::close()}}
                             </div>
                         </div>
+
                         <table class="table-responsive table table-bordered table-striped table-sm">
                             <thead>
                                 <tr class="bg-dark text-light">
-                                    <th>
+                                    <th class="th-sm">
                                         {!!Form::open(array('url'=>'producto','method'=>'GET','id'=>'orderTipo1','autocomplete'=>'off','role'=>'search'))!!} 
                                         <input type="hidden" name="orderby" value="tipo_producto">
+                                        <input type="hidden" name="page" value="{{$page}}">
                                         <input type="hidden" name="orden" value="{{$orden}}">
                                          <a href="#" class="text-light" onclick="document.getElementById('orderTipo1').submit();">Tipo</a>
                                         {{Form::close()}}
@@ -67,6 +69,7 @@
                                     <th>
                                         {!!Form::open(array('url'=>'producto','method'=>'GET','id'=>'orderTipo2','autocomplete'=>'off','role'=>'search'))!!} 
                                         <input type="hidden" name="orderby" value="idcategoria">
+                                        <input type="hidden" name="page" value="{{$page}}">
                                         <input type="hidden" name="orden" value="{{$orden}}">
                                          <a href="#" class="text-light" onclick="document.getElementById('orderTipo2').submit();">Categoria</a>
                                         {{Form::close()}}
@@ -74,6 +77,7 @@
                                     <th>  
                                         {!!Form::open(array('url'=>'producto','method'=>'GET','id'=>'orderTipo3','autocomplete'=>'off','role'=>'search'))!!} 
                                         <input type="hidden" name="orderby" value="nombre">
+                                        <input type="hidden" name="page" value="{{$page}}">
                                         <input type="hidden" name="orden" value="{{$orden}}">
                                          <a href="#" class="text-light" onclick="document.getElementById('orderTipo3').submit();">Producto</a>
                                         {{Form::close()}}
@@ -81,6 +85,7 @@
                                     <th>  
                                         {!!Form::open(array('url'=>'producto','method'=>'GET','id'=>'orderTipo4','autocomplete'=>'off','role'=>'search'))!!} 
                                         <input type="hidden" name="orderby" value="codigo">
+                                        <input type="hidden" name="page" value="{{$page}}">
                                         <input type="hidden" name="orden" value="{{$orden}}">
                                          <a href="#" class="text-light" onclick="document.getElementById('orderTipo4').submit();">Codigo</a>
                                         {{Form::close()}}
@@ -88,16 +93,18 @@
                                     <th>
                                         {!!Form::open(array('url'=>'producto','method'=>'GET','id'=>'orderTipo5','autocomplete'=>'off','role'=>'search'))!!} 
                                         <input type="hidden" name="orderby" value="precio_venta">
+                                        <input type="hidden" name="page" value="{{$page}}">
                                         <input type="hidden" name="orden" value="{{$orden}}">
-                                         <a href="#" class="text-light" onclick="document.getElementById('orderTipo5').submit();"> Precio Venta ($)</a>
+                                         <a href="#" class="text-light" onclick="document.getElementById('orderTipo5').submit();"> Precio Venta</a>
                                         {{Form::close()}}
                                     </th>
                                     <th>
-                                        Precio Costo ($)
+                                        Precio Costo
                                     </th>
                                     <th>
                                         {!!Form::open(array('url'=>'producto','method'=>'GET','id'=>'orderTipo6','autocomplete'=>'off','role'=>'search'))!!} 
                                         <input type="hidden" name="orderby" value="stock">
+                                        <input type="hidden" name="page" value="{{$page}}">
                                         <input type="hidden" name="orden" value="{{$orden}}">
                                          <a href="#" class="text-light" onclick="document.getElementById('orderTipo6').submit();"> Stock</a>
                                         {{Form::close()}}
@@ -128,7 +135,7 @@
                                         @if ($prod->precio_venta == 0)
                                             SIN PRECIO
                                         @else
-                                            {{$prod->precio_venta}}
+                                            ${{$prod->precio_venta}}
                                         @endif
                                        
                                     </td>
@@ -136,7 +143,7 @@
                                         @if ($productoControlador->costoProducto($prod->id) == null)
                                             SIN COSTO
                                         @else
-                                            {{$productoControlador->costoProducto($prod->id)}}
+                                            ${{$productoControlador->costoProducto($prod->id)}}
                                         @endif
                                        
                                     </td>

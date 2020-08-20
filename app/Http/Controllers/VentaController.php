@@ -29,6 +29,7 @@ class VentaController extends Controller
              'ventas.num_venta','ventas.created_at as fecha_venta','ventas.impuesto',
              'ventas.estado','ventas.total','clientes.nombre as cliente','users.nombre')
             ->where('ventas.num_venta','LIKE','%'.$sql.'%')
+            ->orWhere('ventas.created_at','LIKE','%'.$sql.'%')
             ->orderBy('ventas.id','desc')
             ->groupBy('ventas.id','ventas.tipo_identificacion',
             'ventas.num_venta','ventas.created_at','ventas.impuesto',
@@ -213,7 +214,7 @@ class VentaController extends Controller
                             $producto->stock = $producto->stock + $insumo->cantidad;
                             $producto->save();
                             
-                        $this->actualizarStockAnulado($insumo->idproducto,$insumo->cantidad);
+                            $this->actualizarStockAnulado($insumo->idproducto, $insumo->cantidad);
                     
                         }else{
 
@@ -253,8 +254,20 @@ class VentaController extends Controller
                 foreach($detalles as $detalle){
 
                     $producto= Producto::findOrFail($detalle->id);
-                    $producto->stock = $producto->stock + ($detalle->cantidad * $cantidad);
-                    $producto->save();
+
+                    if(!$producto->idreceta){
+
+                        $producto->stock = $producto->stock + ($detalle->cantidad * $cantidad);
+                        $producto->save();
+
+                    }else{
+
+                            $cantidad = $detalle->cantidad * $cantidad;
+                            $this->actualizarStockAnulado($producto->id, $cantidad);
+
+                    }
+
+                    
 
                 }
 
@@ -288,7 +301,8 @@ class VentaController extends Controller
 
                         }else{
 
-                            $this->actualizarStock($producto->id,$detalle->cantidad);
+                            $cantidad = $detalle->cantidad * $cantidad;
+                            $this->actualizarStock($producto->id, $cantidad);
 
                         }
                     }

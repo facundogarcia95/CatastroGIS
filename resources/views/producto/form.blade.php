@@ -82,7 +82,7 @@
             <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="codigo">Código</label>
                         <div class="col-md-9">
-                            <input type="text" id="codigo" name="codigo" class="form-control" placeholder="Ingrese el Código" required pattern="[0-9]{0,15}">
+                            <input type="number" id="codigo" name="codigo" class="form-control" placeholder="Ingrese el Código" required >
                         
                         </div>
             </div>

@@ -43,7 +43,6 @@
                                     <th>Tipo de identificación</th>
                                     <th>Usuario</th> 
                                     <th>Total ($)</th>
-                                    <th>Impuesto</th>
                                     <th>Estado</th>
                                     @if ($usuarioRol == 1)
                                     <th>Cambiar Estado</th> 
@@ -73,7 +72,6 @@
                                     <td>{{$comp->tipo_identificacion}}</td>
                                     <td>{{$comp->nombre}}</td>
                                     <td>${{number_format($comp->total,2)}}</td>
-                                    <td>{{$comp->impuesto}}</td>
                                     <td class="">
                                       
                                       @if($comp->estado=="Registrado")

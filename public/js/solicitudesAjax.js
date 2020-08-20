@@ -255,7 +255,7 @@ function autoCompleteProductosRecetas(){
     token =  $("meta[name='csrf-token']").attr("content");
 
         $.ajax({
-            url: "../../../ajax-consultas",
+            url: "../ajax-consultas",
             dataType: "json",
             type: 'post',
             data: {_token: token, funcion: 'productos_receta'},
@@ -282,3 +282,37 @@ function autoCompleteProductosRecetas(){
             }
         });
     }
+
+
+    function autoCompleteProductosRecetasEdit(){
+
+        token =  $("meta[name='csrf-token']").attr("content");
+    
+            $.ajax({
+                url: "../../ajax-consultas",
+                dataType: "json",
+                type: 'post',
+                data: {_token: token, funcion: 'productos_receta'},
+                async: false,
+                success: function (response) {
+    
+                    $("#autocompletad_pv").autocomplete({				
+                        autoFocus: false,
+                        minLength: 1,
+                        source: response,
+                    // appendTo: buscBarrioDialog,
+                        open: function () {
+                            setTimeout(function () {
+                                $('.ui-autocomplete').css('z-index', 100);
+                            }, 0);
+                        },
+                        select: function (event, ui) {
+                            $("#id_insumo").val(ui.item.id);
+                            $(this).val("");
+                            return false;
+                        }
+                    });
+    
+                }
+            });
+        }

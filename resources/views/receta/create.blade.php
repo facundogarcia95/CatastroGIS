@@ -141,11 +141,11 @@
 
                             @isset($productoEditar[0])
                                 
-                                <input type="text" id="codigo" value="{{$productoEditar[0]->codigo}}" name="codigo" class="form-control" placeholder="Ingrese el Código" required pattern="[0-9]{0,15}">
+                                <input type="number" id="codigo" value="{{$productoEditar[0]->codigo}}" name="codigo" class="form-control" placeholder="Ingrese el Código" required >
 
                             @else
 
-                                <input type="text" id="codigo" name="codigo" class="form-control" placeholder="Ingrese el Código" required pattern="[0-9]{0,15}">
+                                <input type="number" id="codigo" name="codigo" class="form-control" placeholder="Ingrese el Código" required >
 
                             @endisset
 
@@ -239,7 +239,7 @@
                 <div class="col-md-3">
                         <label class="form-control-label" for="cantidad">Cantidad</label>
                         
-                        <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="Ingrese cantidad" pattern="[a-zA-Z0-9_áéíóúñ\s]{0,100}">
+                        <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="Ingrese cantidad">
                 </div>
                
                 <div class="col-md-3 mt-3">

@@ -20,10 +20,11 @@ class ProductoController extends Controller
     {
         //
 
+ 
+
         if($request){
 
             $sql=trim($request->get('buscarTexto'));
-
             
             if(isset($request->orderby) && ($request->orden == "ASC" || $request->orden == "DESC")){
                 
@@ -79,7 +80,7 @@ class ProductoController extends Controller
             ->get();
 
 
-            return view('producto.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql,"tipoProductos"=>$tipoProductos, "unidades" => $unidades,"orden"=>$orden]);
+            return view('producto.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql,"tipoProductos"=>$tipoProductos, "unidades" => $unidades,"orden"=>$orden,'page'=>$request->page??1]);
      
             //return $productos;
         }
