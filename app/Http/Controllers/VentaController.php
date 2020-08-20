@@ -264,36 +264,45 @@ class VentaController extends Controller
 
          private function actualizarStock($id, $cantidad) {
 
-            $detalles = DB::table('productos as p')
-                        ->join('recetas','p.idreceta','=','recetas.id')
-                        ->join('detalle_recetas as d','recetas.id','=','d.idreceta')
-                        ->join('productos as prod', 'd.idproducto','=','prod.id')
-                        ->select('prod.id','d.cantidad')
-                        ->where('p.id','=',$id)->get();
+                $detalles = DB::table('productos as p')
+                            ->join('recetas','p.idreceta','=','recetas.id')
+                            ->join('detalle_recetas as d','recetas.id','=','d.idreceta')
+                            ->join('productos as prod', 'd.idproducto','=','prod.id')
+                            ->select('prod.id','d.cantidad')
+                            ->where('p.id','=',$id)->get();
 
-            if(isset($detalles[0])){
+                if(isset($detalles[0])){
 
-                        $producto= Producto::findOrFail($id);
-                        $producto->stock = $producto->stock - $cantidad;
-                        $producto->save();
+                    $producto= Producto::findOrFail($id);
+                    $producto->stock = $producto->stock - $cantidad;
+                    $producto->save();
 
-                foreach($detalles as $detalle){
+                    foreach($detalles as $detalle){
 
-                    $producto= Producto::findOrFail($detalle->id);
-                    $producto->stock = $producto->stock - ($detalle->cantidad * $cantidad);
+                        $producto= Producto::findOrFail($detalle->id);
+
+                        if(!$producto->idreceta){
+
+                            $producto->stock = $producto->stock - ($detalle->cantidad * $cantidad);
+                            $producto->save();
+
+                        }else{
+
+                            $this->actualizarStock($producto->id,$detalle->cantidad);
+
+                        }
+                    }
+
+                }else{
+
+                    
+                    $producto= Producto::findOrFail($id);
+                    $producto->stock = $producto->stock - $cantidad;
                     $producto->save();
 
                 }
 
-            }else{
-
-                
-                $producto= Producto::findOrFail($id);
-                $producto->stock = $producto->stock - $cantidad;
-                $producto->save();
-
-            }
-
+        
          }
  
          public function pdf(Request $request,$id){

@@ -16,7 +16,7 @@
                                         <button class="btn btn-transparent p-0 float-right" type="button">
                                         <i class="fa fa-shopping-cart fa-4x"></i>
                                         </button>
-                                        <div class="text-value h3"><strong>$ {{$totales[0]->totalcompra}} </strong>(<label class="text-uppercase">@php
+                                        <div class="text-value h4"><strong>$ {{$totales[0]->totalcompra}} </strong>(<label class="text-uppercase">@php
                                             echo strftime("%B");   
                                         @endphp </label>)</div>
                                         <div class="h2">Compras</div>
@@ -35,7 +35,7 @@
                                         <button class="btn btn-transparent p-0 float-right" type="button">
                                         <i class="fa fa-suitcase fa-4x"></i>
                                         </button>
-                                        <div class="text-value h3"><strong>$ {{$totales[0]->totalventa}} </strong>(<label class="text-uppercase">@php
+                                        <div class="text-value h4"><strong>$ {{$totales[0]->totalventa}} </strong>(<label class="text-uppercase">@php
                                             echo strftime("%B");
                                         @endphp </label>)</div>
                                         <div class="h2">Ventas</div>
@@ -102,7 +102,7 @@
                                     <button class="btn btn-transparent p-0 float-right" type="button">
                                     <i class="fa fa-product-hunt fa-4x"></i>
                                     </button>
-                                    <div class="text-value h3"><strong>$-{{round($totales[0]->ajustes,2)}} </strong>(<label class="text-uppercase">@php
+                                    <div class="text-value h4"><strong>$-{{round($totales[0]->ajustes,2)}} </strong>(<label class="text-uppercase">@php
                                         echo strftime("%B");
                                     @endphp </label>)</div>
                                     <div class="h2">Ajustes de Inventario</div>
@@ -121,7 +121,7 @@
                                     <button class="btn btn-transparent p-0 float-right" type="button">
                                     <i class="fa fa-product-hunt fa-4x"></i>
                                     </button>
-                                    <div class="text-value h3"><strong>$-{{round($totales[0]->totalventaAnulada,2)}} </strong>(<label class="text-uppercase">@php
+                                    <div class="text-value h4"><strong>$-{{round($totales[0]->totalventaAnulada,2)}} </strong>(<label class="text-uppercase">@php
                                         echo strftime("%B");
                                     @endphp </label>)</div>
                                     <div class="h2">Pérdidas Por Ventas Anuladas</div>

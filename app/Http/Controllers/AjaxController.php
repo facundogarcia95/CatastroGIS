@@ -37,6 +37,10 @@ class AjaxController extends Controller
                 $this->productos_faltante();
             break;  
 
+            case 'productos_receta':
+                $this->productos_receta();
+            break;  
+
             default:
                 return response()->json(['error'=>'Acción no encontrada, intente nuevamente']);
             break;
@@ -96,6 +100,7 @@ class AjaxController extends Controller
         $respuesta = DB::table('productos as p')
         ->select('p.id', 'p.nombre')
         ->where('p.tipo_producto','!=',3)
+        ->where('p.condicion','=',1)
         ->where('p.stock','>',0)
         ->orderBy('p.nombre','ASC')
         ->get();
@@ -121,6 +126,7 @@ class AjaxController extends Controller
         $respuesta = DB::table('productos as p')
         ->select('p.id', 'p.nombre')
         ->where('p.tipo_producto','!=',1)
+        ->where('p.condicion','=',1)
         ->orderBy('p.nombre','ASC')
         ->get();
 
@@ -147,6 +153,30 @@ class AjaxController extends Controller
         ->select('p.id', 'p.nombre')
         ->where('p.tipo_producto','!=',1)
         ->where('p.stock','>',0)
+        ->orderBy('p.nombre','ASC')
+        ->get();
+
+        $productos = array();
+        
+        foreach($respuesta as $res){
+
+            $producto = array(
+                'value'=> utf8_encode($res->nombre),
+                'id'=> $res->id
+                );
+                array_push($productos,$producto);
+        }
+
+        
+        echo json_encode($productos);
+
+    }
+
+    public function productos_receta(){
+        
+        $respuesta = DB::table('productos as p')
+        ->select('p.id', 'p.nombre')
+        ->where('p.condicion','=',1)
         ->orderBy('p.nombre','ASC')
         ->get();
 
