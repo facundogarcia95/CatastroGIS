@@ -57,13 +57,51 @@
                         <table class="table-responsive table table-bordered table-striped table-sm">
                             <thead>
                                 <tr class="bg-dark text-light">
-                                    <th>Tipo</th>
-                                    <th>Categoria</th>
-                                    <th>Producto</th>
-                                    <th>Codigo</th>
-                                    <th>Precio Venta ($)</th>
-                                    <th>Precio Costo ($)</th>
-                                    <th>Stock</th>                
+                                    <th>
+                                        {!!Form::open(array('url'=>'producto','method'=>'GET','id'=>'orderTipo1','autocomplete'=>'off','role'=>'search'))!!} 
+                                        <input type="hidden" name="orderby" value="tipo_producto">
+                                        <input type="hidden" name="orden" value="{{$orden}}">
+                                         <a href="#" class="text-light" onclick="document.getElementById('orderTipo1').submit();">Tipo</a>
+                                        {{Form::close()}}
+                                    </th>
+                                    <th>
+                                        {!!Form::open(array('url'=>'producto','method'=>'GET','id'=>'orderTipo2','autocomplete'=>'off','role'=>'search'))!!} 
+                                        <input type="hidden" name="orderby" value="idcategoria">
+                                        <input type="hidden" name="orden" value="{{$orden}}">
+                                         <a href="#" class="text-light" onclick="document.getElementById('orderTipo2').submit();">Categoria</a>
+                                        {{Form::close()}}
+                                    </th>
+                                    <th>  
+                                        {!!Form::open(array('url'=>'producto','method'=>'GET','id'=>'orderTipo3','autocomplete'=>'off','role'=>'search'))!!} 
+                                        <input type="hidden" name="orderby" value="nombre">
+                                        <input type="hidden" name="orden" value="{{$orden}}">
+                                         <a href="#" class="text-light" onclick="document.getElementById('orderTipo3').submit();">Producto</a>
+                                        {{Form::close()}}
+                                    </th>
+                                    <th>  
+                                        {!!Form::open(array('url'=>'producto','method'=>'GET','id'=>'orderTipo4','autocomplete'=>'off','role'=>'search'))!!} 
+                                        <input type="hidden" name="orderby" value="codigo">
+                                        <input type="hidden" name="orden" value="{{$orden}}">
+                                         <a href="#" class="text-light" onclick="document.getElementById('orderTipo4').submit();">Codigo</a>
+                                        {{Form::close()}}
+                                    </th>
+                                    <th>
+                                        {!!Form::open(array('url'=>'producto','method'=>'GET','id'=>'orderTipo5','autocomplete'=>'off','role'=>'search'))!!} 
+                                        <input type="hidden" name="orderby" value="precio_venta">
+                                        <input type="hidden" name="orden" value="{{$orden}}">
+                                         <a href="#" class="text-light" onclick="document.getElementById('orderTipo5').submit();"> Precio Venta ($)</a>
+                                        {{Form::close()}}
+                                    </th>
+                                    <th>
+                                        Precio Costo ($)
+                                    </th>
+                                    <th>
+                                        {!!Form::open(array('url'=>'producto','method'=>'GET','id'=>'orderTipo6','autocomplete'=>'off','role'=>'search'))!!} 
+                                        <input type="hidden" name="orderby" value="stock">
+                                        <input type="hidden" name="orden" value="{{$orden}}">
+                                         <a href="#" class="text-light" onclick="document.getElementById('orderTipo6').submit();"> Stock</a>
+                                        {{Form::close()}}
+                                    </th>                
                                     <th>Imagen</th>
                       
                                     <th>Editar</th>

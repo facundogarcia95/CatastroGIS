@@ -18,7 +18,7 @@ class CreateProductosTable extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idcategoria')->unsigned();
-            $table->string('codigo',50)->nullable();
+            $table->integer('codigo')->nullable();
             $table->string('nombre',100)->unique();
             $table->decimal('precio_venta',11,2)->default(0);
             $table->decimal('stock', 11, 2)->default(0);

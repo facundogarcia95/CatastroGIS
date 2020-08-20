@@ -24,6 +24,34 @@ class ProductoController extends Controller
 
             $sql=trim($request->get('buscarTexto'));
 
+            
+            if(isset($request->orderby) && ($request->orden == "ASC" || $request->orden == "DESC")){
+                
+            $productos=DB::table('productos as p')
+            ->join('categorias as c','p.idcategoria','=','c.id')
+            ->join('tipo_productos as t','p.tipo_producto','=','t.id')
+            ->join('unidad_medidas as uni','p.unidad_medida','=','uni.id')
+            ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
+            ->where('p.nombre','LIKE','%'.$sql.'%')
+            ->orwhere('p.codigo','LIKE','%'.$sql.'%')
+            ->orwhere('c.nombre','LIKE','%'.$sql.'%')
+            ->orderBy('p.'.$request->orderby,$request->orden)
+            ->paginate(5);
+
+                if($request->orden == "ASC"){
+                    
+                    $orden = "DESC";
+
+                }else{
+
+                    $orden = "ASC";
+
+                }
+
+            }else{
+
+            $orden = "DESC";
+
             $productos=DB::table('productos as p')
             ->join('categorias as c','p.idcategoria','=','c.id')
             ->join('tipo_productos as t','p.tipo_producto','=','t.id')
@@ -34,6 +62,8 @@ class ProductoController extends Controller
             ->orwhere('c.nombre','LIKE','%'.$sql.'%')
             ->orderBy('p.id','desc')
             ->paginate(5);
+
+            }
            
             /*listar las categorias en ventana modal*/
             $categorias=DB::table('categorias')
@@ -49,7 +79,7 @@ class ProductoController extends Controller
             ->get();
 
 
-            return view('producto.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql,"tipoProductos"=>$tipoProductos, "unidades" => $unidades]);
+            return view('producto.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql,"tipoProductos"=>$tipoProductos, "unidades" => $unidades,"orden"=>$orden]);
      
             //return $productos;
         }
