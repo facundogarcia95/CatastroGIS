@@ -5,10 +5,8 @@
 @section('contenido')
 <main class="main">
     @include('breadcrumb.bread')
-            <div class="container-fluid">
-                                    
+            <div class="container-fluid">   
                 <div class="row">
-
                             <div class="col-lg-6 col-xs-12">
                                 <!-- small box -->
                                 <div class="card text-white bg-success">

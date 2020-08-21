@@ -8,5 +8,16 @@ class Negocio extends Model
 {
     protected $table = 'negocio';
 
-    protected $fillable=['razon_social','cuil','email','impuesto','direccion','telefono'];
+    protected $fillable=[
+        'Nombre',
+        'Cuil',
+        'Email',
+        'Instagram',
+        'Facebook',
+        'impuesto',
+        'Direccion',
+        'Telefono',
+        'web',
+        'logo'
+    ];
 }

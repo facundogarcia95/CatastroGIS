@@ -52,6 +52,13 @@
                     <div class="dropdown-header text-center">
                         <strong>Cuenta</strong>
                     </div>
+
+                    @if(Auth::check())
+                        @if (Auth::user()->idrol == 1)
+                            @include('negocio.boton')
+                        @endif
+                    @endif    
+
                     <a class="dropdown-item" href="{{route('logout')}}" 
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fa fa-lock"></i> Cerrar sesión</a>
@@ -79,12 +86,34 @@
 
         @endif
       
-        
+        @if ($errors->any())
+                <script>
+                        var text = "";
+                    @foreach ($errors->all() as $error)
+                        text = text + "<li>"+ {{ $error }} + "</li> <br/>"
+                    @endforeach
+
+                        Swal.fire({
+                        type: 'error',
+                        //title: 'Oops...',
+                        html: text,
+                    
+                        })
+
+                </script>
+            <div class="alert alert-danger">
+                <ul>
+                    
+                </ul>
+            </div>
+        @endif
         <!-- Contenido Principal -->
            
            @yield('contenido')
 
+           @include('negocio.modal')
         <!-- /Fin del contenido principal -->
+
     </div>   
 
     <footer class="app-footer">
@@ -350,6 +379,42 @@
         /*FIN ventana modal para cambiar estado de la venta*/
     
 
+  /*EDITAR NEGOCIO EN VENTANA MODAL*/
+  $('#abrirmodalEditarNegocio').on('show.bs.modal', function (event) {
+        
+        //console.log('modal abierto');
+        /*el button.data es lo que está en el button de editar*/
+        var button = $(event.relatedTarget)
+        /*este id_categoria_modal_editar selecciona la categoria*/
+        var negocio_id = button.data('id')
+        var negocio_nombre = button.data('nombre')
+        var negocio_cuil = button.data('cuil')
+        var negocio_email = button.data('email')
+        var negocio_instagram = button.data('instagram')
+        var negocio_facebook = button.data('facebook')
+        //var imagen_modal_editar = button.data('imagen1')
+        var negocio_impuesto = button.data('impuesto')
+        var negocio_direccion = button.data('direccion')
+        var negocio_telefono = button.data('telefono')
+        var negocio_web = button.data('web')
+        var modal = $(this)
+
+        // modal.find('.modal-title').text('New message to ' + recipient)
+        /*los # son los id que se encuentran en el formulario*/
+        modal.find('.modal-body #negocio_id').val(negocio_id);
+        modal.find('.modal-body #negocio_nombre').val(negocio_nombre);
+        modal.find('.modal-body #negocio_cuil').val(negocio_cuil);
+        modal.find('.modal-body #negocio_email').val(negocio_email);
+        modal.find('.modal-body #negocio_instagram').val(negocio_instagram);
+        modal.find('.modal-body #negocio_facebook').val(negocio_facebook);
+        modal.find('.modal-body #negocio_impuesto').val(negocio_impuesto);
+        modal.find('.modal-body #negocio_direccion').val(negocio_direccion);
+        modal.find('.modal-body #negocio_telefono').val(negocio_telefono);
+        modal.find('.modal-body #negocio_web').val(negocio_web);
+       // modal.find('.modal-body #subirImagen').html("<img src="img/producto/imagen_modal_editar">");
+        modal.find('.modal-body #negocio_id').val(negocio_id);
+        
+        })
         
     
     </script>

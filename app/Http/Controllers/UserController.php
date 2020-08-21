@@ -114,7 +114,7 @@ class UserController extends Controller
                     entonces eliminaría la imagen anterior, eso es para evitar 
                     acumular imagenes en el servidor*/ 
                 if($user->imagen != 'noimagen.jpg'){ 
-                    Storage::delete('public/img/usuario/'.$user->imagen);
+                    Storage::delete('public/storage/usuario/'.$user->imagen);
                 }
 
                 

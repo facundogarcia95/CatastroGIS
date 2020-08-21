@@ -17,7 +17,7 @@ class CreateNegociosTable extends Migration
         Schema::create('negocio', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('Nombre');
-            $table->string('Cuil');
+            $table->string('Cuil')->nullable();
             $table->string('Email')->nullable();
             $table->string('Instagram')->nullable();
             $table->string('Facebook')->nullable();
@@ -25,8 +25,8 @@ class CreateNegociosTable extends Migration
             $table->string('Direccion')->nullable();
             $table->string('Telefono')->nullable();
             $table->string('web')->nullable();
-            $table->string('logo');
-            //$table->timestamps();
+            $table->string('logo')->nullable();
+            $table->timestamps();
         });
         
         
