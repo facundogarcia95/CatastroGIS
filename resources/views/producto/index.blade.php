@@ -139,22 +139,18 @@
                                        
                                     </td>
                                     <td>
-                                        @if ($productoControlador->costoProducto($prod->id) == null)
-                                            SIN COSTO
-                                        @else
-                                            ${{$productoControlador->costoProducto($prod->id)}}
-                                        @endif
+                                            {{$prod->costo}}
                                        
                                     </td>
                                 <td> 
 
                                     @if($prod->idreceta)
 
-                                    {{round($productoControlador->stock($prod->id),2)}}  {{$prod->unidad}}<br/> (Según Insumos)
+                                    {{round($prod->stock,3)}}  {{$prod->unidad}}<br/> (Según Insumos)
 
                                     @else
 
-                                    {{$prod->stock}} {{$prod->unidad}}
+                                    {{round($prod->stock,3)}} {{$prod->unidad}}
 
                                     @endif
                                 </td>

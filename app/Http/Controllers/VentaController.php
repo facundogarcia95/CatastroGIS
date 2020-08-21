@@ -17,6 +17,15 @@ class VentaController extends Controller
     //
     
     public function index(Request $request){
+
+        $productosRecetas = DB::table('productos')->where('productos.idreceta','!=',null)->get();
+
+        foreach($productosRecetas as $producto){
+
+               $p = new ProductoController();
+               $p->stock($producto->id); 
+
+        }
       
         if($request){
 
@@ -29,7 +38,6 @@ class VentaController extends Controller
              'ventas.num_venta','ventas.created_at as fecha_venta','ventas.impuesto',
              'ventas.estado','ventas.total','clientes.nombre as cliente','users.nombre')
             ->where('ventas.num_venta','LIKE','%'.$sql.'%')
-            ->orWhere('ventas.created_at','LIKE','%'.$sql.'%')
             ->orderBy('ventas.id','desc')
             ->groupBy('ventas.id','ventas.tipo_identificacion',
             'ventas.num_venta','ventas.created_at','ventas.impuesto',
@@ -214,7 +222,7 @@ class VentaController extends Controller
                             $producto->stock = $producto->stock + $insumo->cantidad;
                             $producto->save();
                             
-                            $this->actualizarStockAnulado($insumo->idproducto, $insumo->cantidad);
+                        $this->actualizarStockAnulado($insumo->idproducto,$insumo->cantidad);
                     
                         }else{
 
@@ -261,7 +269,7 @@ class VentaController extends Controller
                         $producto->save();
 
                     }else{
-
+                        
                             $cantidad = $detalle->cantidad * $cantidad;
                             $this->actualizarStockAnulado($producto->id, $cantidad);
 
@@ -286,9 +294,6 @@ class VentaController extends Controller
 
                 if(isset($detalles[0])){
 
-                    $producto= Producto::findOrFail($id);
-                    $producto->stock = $producto->stock - $cantidad;
-                    $producto->save();
 
                     foreach($detalles as $detalle){
 
@@ -302,6 +307,9 @@ class VentaController extends Controller
                         }else{
 
                             $cantidad = $detalle->cantidad * $cantidad;
+                            $producto->stock = $producto->stock - ($cantidad);
+                            $producto->save();
+
                             $this->actualizarStock($producto->id, $cantidad);
 
                         }

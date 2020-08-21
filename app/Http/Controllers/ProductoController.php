@@ -78,6 +78,18 @@ class ProductoController extends Controller
             $unidades = DB::table('unidad_medidas')
             ->get();
 
+            foreach($productos as $producto){
+                
+                $costo = $this->costoProducto($producto->id);
+                $producto->costo = "$".$costo??'SIN COSTO';
+
+                if($producto->idreceta){
+                    $stock = $this->stock($producto->id);
+                    $producto->stock = $stock??0;
+                }
+                
+            }
+
 
             return view('producto.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql,"tipoProductos"=>$tipoProductos, "unidades" => $unidades,"orden"=>$orden,'page'=>$request->page??1]);
      
@@ -156,8 +168,8 @@ class ProductoController extends Controller
         ->join('productos as prod', 'd.idproducto','=','prod.id')
         ->select(DB::raw('min(prod.stock / d.cantidad) as stock') )
         ->where('p.id','=',$id)->first();
-
-        $producto= Producto::findOrFail($id);
+        
+        $producto = Producto::findOrFail($id);
         $producto->stock = $respuesta->stock;
         $producto->save();
 
