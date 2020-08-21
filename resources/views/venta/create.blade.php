@@ -122,7 +122,7 @@
                 <div class="col-md-2 mt-2">
                         <label class="form-control-label" for="cantidad">Cantidad</label>
                         
-                        <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="Ingrese cantidad" pattern="[0-9]{0,15}">
+                        <input type="number" id="cantidad" min="0" name="cantidad" class="form-control" placeholder="Ingrese cantidad" pattern="[0-9]{0,15}">
                 </div>
 
                 <div class="col-md-2  mt-2">
@@ -140,7 +140,7 @@
                 <div class="col-md-2  mt-2">
                         <label class="form-control-label" for="descuento">Descuento (%)</label>
                         
-                        <input type="number" id="descuento" name="descuento" class="form-control" placeholder="Ingrese el descuento">
+                        <input type="number" id="descuento" name="descuento" max="100" min="0" class="form-control" placeholder="Ingrese el descuento">
                 </div>
 
                 <div class="col-md-4 mt-4">

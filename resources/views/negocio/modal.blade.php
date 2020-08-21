@@ -59,7 +59,7 @@
                    <div class="form-group row">
                       <label class="col-md-3 form-control-label" for="impuesto">Impuesto</label>
                       <div class="col-md-9">
-                          <input type="number" id="negocio_impuesto" name="impuesto" stop="100" class="form-control" placeholder="Ingrese su Impuesto" required >
+                          <input type="number" id="negocio_impuesto" max="100" min="0" name="impuesto" stop="100" class="form-control" placeholder="Ingrese su Impuesto" required >
                       </div>
                    </div>
 
