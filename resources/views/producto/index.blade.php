@@ -54,11 +54,10 @@
                             {{Form::close()}}
                             </div>
                         </div>
-
                         <table class="table-responsive table table-bordered table-striped table-sm">
                             <thead>
                                 <tr class="bg-dark text-light">
-                                    <th class="th-sm">
+                                    <th>
                                         {!!Form::open(array('url'=>'producto','method'=>'GET','id'=>'orderTipo1','autocomplete'=>'off','role'=>'search'))!!} 
                                         <input type="hidden" name="orderby" value="tipo_producto">
                                         <input type="hidden" name="page" value="{{$page}}">
@@ -124,7 +123,7 @@
                                         @if($prod->idreceta)
                                         <br/>
                                         <a style="text-decoration:none" href="{{ action('RecetaController@show', ['id' => $prod->idreceta]) }}" class="btn btn-detalle text-light rounded btn-sm">
-                                            <i class="fa fa-eye fa-2x"></i> RECETA
+                                            <i class="fa fa-eye "></i> RECETA
                                         </a>
                                     @endif
                                     </td>

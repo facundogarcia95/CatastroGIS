@@ -20,11 +20,10 @@ class ProductoController extends Controller
     {
         //
 
- 
-
         if($request){
 
             $sql=trim($request->get('buscarTexto'));
+
             
             if(isset($request->orderby) && ($request->orden == "ASC" || $request->orden == "DESC")){
                 
