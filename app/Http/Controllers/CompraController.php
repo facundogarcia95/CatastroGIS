@@ -31,7 +31,7 @@ class CompraController extends Controller
             ->groupBy('compras.id','compras.tipo_identificacion',
             'compras.num_compra','compras.created_at','compras.impuesto',
             'compras.estado','compras.total','proveedores.nombre','users.nombre','users.idrol')
-            ->paginate(8);
+            ->paginate(10);
              
             $usuarioRol = \Auth::user()->idrol;
  

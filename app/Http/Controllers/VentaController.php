@@ -43,7 +43,7 @@ class VentaController extends Controller
             ->groupBy('ventas.id','ventas.tipo_identificacion',
             'ventas.num_venta','ventas.created_at','ventas.impuesto',
             'ventas.estado','ventas.total','clientes.nombre','users.nombre')
-            ->paginate(8);
+            ->paginate(10);
 
             $usuarioRol = \Auth::user()->idrol;
  

@@ -31,7 +31,7 @@ class FaltanteController extends Controller
             ->orderBy('faltantes.id','desc')
             ->groupBy('faltantes.id','faltantes.created_at',
             'users.nombre','faltantes.observacion','faltantes.condicion')
-            ->paginate(8);
+            ->paginate(10);
              
             $usuarioRol = \Auth::user()->idrol;
  

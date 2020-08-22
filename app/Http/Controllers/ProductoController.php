@@ -36,7 +36,7 @@ class ProductoController extends Controller
             ->orwhere('p.codigo','LIKE','%'.$sql.'%')
             ->orwhere('c.nombre','LIKE','%'.$sql.'%')
             ->orderBy('p.'.$request->orderby,$request->orden)
-            ->paginate(5);
+            ->paginate(10);
 
                 if($request->orden == "ASC"){
                     
@@ -61,7 +61,7 @@ class ProductoController extends Controller
             ->orwhere('p.codigo','LIKE','%'.$sql.'%')
             ->orwhere('c.nombre','LIKE','%'.$sql.'%')
             ->orderBy('p.id','desc')
-            ->paginate(5);
+            ->paginate(10);
 
             }
            
