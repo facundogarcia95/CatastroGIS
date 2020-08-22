@@ -81,7 +81,7 @@ class ProductoController extends Controller
             foreach($productos as $producto){
                 
                 $costo = $this->costoProducto($producto->id);
-                $producto->costo = "$".$costo??'SIN COSTO';
+                $producto->costo = $costo;
 
                 if($producto->idreceta){
                     $stock = $this->stock($producto->id);
