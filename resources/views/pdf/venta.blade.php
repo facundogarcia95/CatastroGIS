@@ -28,8 +28,8 @@
  
         #encabezado{
         text-align: center;
-        margin-left: 35%;
-        margin-right: 35%;
+        margin-left: 15%;
+        margin-right: 15%;
         font-size: 15px;
         }
  
@@ -196,7 +196,7 @@
                 <p id="encabezado">
                     @foreach ($negocio as $neg => $val)
                         
-                       @if($val != null && $neg != "id" && $neg != "impuesto" && $neg != "logo")
+                       @if($val != null && $neg != "id" && $neg != "impuesto" && $neg != "logo" && $neg != "created_at" && $neg != "updated_at")
                         
                        @if($neg == "Nombre")
                             <b>{{$val}}</b><br>

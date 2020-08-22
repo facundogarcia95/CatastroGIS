@@ -1,4 +1,5 @@
 @extends('auth.contenido')
+@inject('NegocioControlador', 'App\Http\Controllers\NegocioController')
 
 @section('login')
 <div class="row justify-content-center">
@@ -8,7 +9,10 @@
           <form class="form-horizontal was-validated" method="POST" action="{{route('login')}}">
           {{ csrf_field() }}
               <div class="card-body">
-              <h3 class="text-center bg-dark text-light p-2">COVE  <span class="h6 m-2  "></span></h3>
+                @php
+                  $negocio = $NegocioControlador->create();
+                @endphp
+              <h3 class="text-center bg-dark text-light p-2">{{$negocio->Nombre}}  <span class="h6 m-2  "></span></h3>
              
               <div class="form-group mb-3{{$errors->has('usuario' ? 'is-invalid' : '')}}">
                 <span class="input-group-addon"><i class="icon-user"></i></span>

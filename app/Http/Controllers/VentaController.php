@@ -353,7 +353,7 @@ class VentaController extends Controller
              $negocio = DB::table('negocio')->first();
              
              $pdf= \PDF::loadView('pdf.venta',['venta'=>$venta,'detalles'=>$detalles,'negocio'=>$negocio]);
-             return $pdf->download('venta-'.$id.'.pdf');
+             return $pdf->stream();
          }
  
      

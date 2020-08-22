@@ -28,7 +28,7 @@
                 <label class="col-md-3 form-control-label" for="nombre">Nombre</label>
             
                 <div class="col-md-9">
-                    <input type="text" id="nombre" name="nombre" class="form-control text-uppercase" placeholder="Ingrese la nombre" required pattern="^[a-zA-Z0-9_áéíóúñ\s]{0,100}$">
+                    <input type="text" id="nombre" name="nombre" value="{{old('nombre')}}" class="form-control text-uppercase" placeholder="Ingrese la nombre" required pattern="^[a-zA-Z0-9_áéíóúñ\s]{0,100}$">
                 </div>
             
             </div>
@@ -82,7 +82,7 @@
             <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="codigo">Código</label>
                         <div class="col-md-9">
-                            <input type="number" id="codigo" name="codigo" class="form-control" placeholder="Ingrese el Código" required >
+                            <input type="number" id="codigo" value="{{old('codigo')}}" name="codigo" class="form-control" placeholder="Ingrese el Código" required >
                         
                         </div>
             </div>
@@ -91,7 +91,7 @@
                 <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="nombre">Precio Venta</label>
                         <div class="col-md-9">
-                            <input type="number" id="precio_venta" name="precio_venta" class="form-control" placeholder="Ingrese el precio venta" pattern="^{0,100}$">
+                            <input type="number" id="precio_venta" value="{{old('precio_venta')}}" name="precio_venta" class="form-control" placeholder="Ingrese el precio venta" pattern="^{0,100}$">
                         </div>
                 </div>
             </div>

@@ -206,7 +206,7 @@ class CompraController extends Controller
              $negocio=DB::table('negocio')->first();
 
              $pdf= \PDF::loadView('pdf.compra',['compra'=>$compra,'detalles'=>$detalles,'negocio'=>$negocio]);
-             return $pdf->download('compra-'.$numcompra[0]->num_compra.'.pdf');
+             return $pdf->stream();
          }
  
  
