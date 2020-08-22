@@ -26,6 +26,7 @@ class CompraController extends Controller
              'compras.num_compra','compras.created_at as fecha_compra','compras.impuesto',
              'compras.estado','compras.total','proveedores.nombre as proveedor','users.nombre')
             ->where('compras.num_compra','LIKE','%'.$sql.'%')
+            ->orWhere('compras.created_at','LIKE','%'.$sql.'%')
             ->orderBy('compras.id','desc')
             ->groupBy('compras.id','compras.tipo_identificacion',
             'compras.num_compra','compras.created_at','compras.impuesto',
