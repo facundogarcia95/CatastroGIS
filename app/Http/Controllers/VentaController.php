@@ -38,6 +38,7 @@ class VentaController extends Controller
              'ventas.num_venta','ventas.created_at as fecha_venta','ventas.impuesto',
              'ventas.estado','ventas.total','clientes.nombre as cliente','users.nombre')
             ->where('ventas.num_venta','LIKE','%'.$sql.'%')
+            ->orWhere('ventas.created_at','LIKE','%'.$sql.'%')
             ->orderBy('ventas.id','desc')
             ->groupBy('ventas.id','ventas.tipo_identificacion',
             'ventas.num_venta','ventas.created_at','ventas.impuesto',

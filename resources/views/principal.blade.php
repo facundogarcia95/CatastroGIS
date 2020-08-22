@@ -137,7 +137,7 @@
     <!-- GenesisUI main scripts -->
     <script src="{{asset('js/template.js')}}"></script>
     <script src="{{asset('js/sweetalert2.all.min.js')}}"></script>
-
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
     
          /*EDITAR CATEGORIA EN VENTANA MODAL*/

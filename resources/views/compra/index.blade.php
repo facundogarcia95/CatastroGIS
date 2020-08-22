@@ -24,8 +24,11 @@
                             <div class="col-md-6">
                             {!! Form::open(array('url'=>'compra','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!} 
                                 <div class="input-group">
-                                   
-                                    <input type="text" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
+                                    <button type="button" class="btn btn-primary date">
+                                        <i class="fa fa-calendar-check-o"></i>     
+                                    </button>
+                                    <input id="fecha" type="date"  class="form-control d-none" >
+                                    <input type="text" id="buscarPorTexto" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
                                     <button type="submit"  class="btn btn-primary "><i class="fa fa-search"></i> Buscar</button> &nbsp;
                                     <a href={{url('compra')}}  class="btn btn-primary">Limpiar</a>
                                 </div>
@@ -182,4 +185,41 @@
            
             
         </main>
+        @push('scripts')
+        <script>
+            var booleanoDate = false;
+        
+            $(".date").on("click",function(){
+                if(!booleanoDate){
+                    $("#fecha").removeClass("d-none");
+                    $("#buscarPorTexto").addClass("d-none");
+                    booleanoDate = true;
+                }else{
+                    $("#fecha").addClass("d-none");
+                    $("#buscarPorTexto").removeClass("d-none");
+                    booleanoDate = false;
+                }
+                   
+            })
+        
+            $('#fecha').on("change",function(){
+               if(booleanoDate){
+                    var fecha = GetFormattedDate($(this).val());
+                    console.log(fecha);
+                    $("#buscarPorTexto").val(fecha);
+               }
+            })
+        
+            
+            function GetFormattedDate(fecha) {
+                    fecha = fecha.split("-")
+                var year = fecha[0];
+                var month = fecha[1];
+                var day = fecha[2]
+                return year + "-" + month + "-" + day;
+            }
+        
+        </script>
+        @endpush
+
 @endsection
