@@ -117,8 +117,8 @@
     </div>   
 
     <footer class="app-footer">
-        <span><a href="#">SISTEMA COVE</a> &copy; 2020</span>
-       <!-- <span class="ml-auto">Desarrollado por <a href="">facundogarcia.com</a></span>-->
+    <span class="">Versión: <a href="{{url('version')}}">1.2.2 </a></span>
+        <span class="ml-auto"><a href="#">SISTEMA COVE</a> &copy; 2020</span>
     </footer>
 
     <!-- Bootstrap and necessary plugins -->
