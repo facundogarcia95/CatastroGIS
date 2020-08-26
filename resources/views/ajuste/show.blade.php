@@ -18,15 +18,15 @@
 
                         <label class="form-control-label h6" for="nombre">Creado por:</label>
                         
-                        <p>{{$faltante->nombre}}</p>
+                        <p>{{$ajuste->nombre}}</p>
                             
                     </div>
 
                     <div class="col-md-6 border">
                             <label class="form-control-label h6" for="observacion">Observacion</label>
                             
-                            @isset($faltante->observacion)
-                              <p>{{$faltante->observacion}}</p>
+                            @isset($ajuste->observacion)
+                              <p>{{$ajuste->observacion}}</p>
                             @else    
                               <p>SIN OBSERVACIÓN</p>
                             @endisset
@@ -36,7 +36,7 @@
                     <div class="col-md-3 border">
                       <label class="form-control-label h6" for="fecha_creacion">Fecha Creación</label>
                       
-                      <p>{{$faltante->created_at}}</p>
+                      <p>{{$ajuste->created_at}}</p>
                     </div>
 
             </div>
@@ -46,7 +46,7 @@
 
            <div class="form-group row border m-1  bg-light">
 
-              <h3 class="m-2">Detalle de Faltante</h3>
+              <h3 class="m-2">Detalle de Ajuste</h3>
 
               <div class=" col-md-12">
                 

@@ -16,8 +16,13 @@
                         </tr>
                     </thead>
                     <tbody>
-
-                     
+                        @foreach ($versiones as $version)
+                            <tr>
+                            <td><a href="{{url('version',$version->id)}}">{{$version->version}}</a></td>
+                                <td>{{$version->fecha}}</td>
+                                <td>{{$version->descripcion}}</td>
+                            </tr>
+                        @endforeach
                        
                     </tbody>
                 </table>

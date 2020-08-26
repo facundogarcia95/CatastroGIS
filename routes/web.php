@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('version', 'VersionController@index');
+    Route::get('version/{id}', 'VersionController@show');
 
   
     Route::group(['middleware' => ['Compras']], function () {
@@ -48,8 +49,8 @@ Route::group(['middleware' => ['auth']], function () {
       Route::get('/home', 'HomeController@index');   
       Route::resource('user', 'UserController');
       
-      Route::resource('faltante','FaltanteController');
-      Route::get('/listarFaltantesPdf', 'FaltanteController@listarPdf')->name('faltantes_pdf');
+      Route::resource('ajuste','AjusteController');
+      Route::get('/listarAjustesPdf', 'AjusteController@listarPdf')->name('ajustes_pdf');
       
       // Route::resource('rol', 'RolController');
       Route::resource('receta','RecetaController');

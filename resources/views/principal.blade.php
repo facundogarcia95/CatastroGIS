@@ -1,3 +1,4 @@
+@inject('versionController', 'App\Http\Controllers\VersionController')
 <!DOCTYPE html>
 <html lang="es">
 
@@ -117,7 +118,7 @@
     </div>   
 
     <footer class="app-footer">
-    <span class="">Versión: <a href="{{url('version')}}">1.2.2 </a></span>
+    <span class="">Versión: <a href="{{url('version')}}"> {{ $versionController->version()}} </a></span>
         <span class="ml-auto"><a href="#">SISTEMA COVE</a> &copy; 2020</span>
     </footer>
 
@@ -348,16 +349,16 @@
 
          /*INICIO ventana modal para cambiar estado de Compra*/
         
-         $('#cambiarEstadoFaltante').on('show.bs.modal', function (event) {
+         $('#cambiarEstadoAjuste').on('show.bs.modal', function (event) {
        
        //console.log('modal abierto');
        
        var button = $(event.relatedTarget) 
-       var idfaltante = button.data('idfaltante')
+       var idajuste = button.data('idajuste')
        var modal = $(this)
        // modal.find('.modal-title').text('New message to ' + recipient)
        
-       modal.find('.modal-body #idfaltante').val(idfaltante);
+       modal.find('.modal-body #idajuste').val(idajuste);
        })
 
        /*FIN ventana modal para cambiar estado de la compra*/

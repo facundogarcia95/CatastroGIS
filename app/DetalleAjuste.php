@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DetalleFaltante extends Model
+class DetalleAjuste extends Model
 {
-    protected $table = 'detalle_faltantes';
+    protected $table = 'detalle_ajustes';
     protected $fillable = [
-        'idfaltante', 
+        'idajuste', 
         'idproducto',
         'cantidad'
           

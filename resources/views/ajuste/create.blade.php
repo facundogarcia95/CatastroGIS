@@ -9,7 +9,7 @@
  <h2>Agregar Ajuste</h2>
 <br/>
 
-    <form action="{{route('faltante.store')}}" method="POST">
+    <form action="{{route('ajuste.store')}}" method="POST">
     {{csrf_field()}}
 
             <div class="form-group row">

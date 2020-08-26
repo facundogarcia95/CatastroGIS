@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class VersionController extends Controller
 {
@@ -15,7 +16,9 @@ class VersionController extends Controller
     public function index()
     {
 
-        return view('version.listado');
+        $versiones = DB::table('versiones')->get();
+
+        return view('version.listado',["versiones"=>$versiones]);
     }
 
     /**
@@ -34,9 +37,14 @@ class VersionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function version()
     {
-        //
+        $respuesta = DB::table('versiones')
+        ->select('version')
+        ->orderBy('fecha','DESC')
+        ->first();
+
+        return $respuesta->version;
     }
 
     /**
@@ -47,7 +55,21 @@ class VersionController extends Controller
      */
     public function show($id)
     {
-        //
+        $version = DB::table('versiones')
+        ->select('version','descripcion','fecha')
+        ->where('id','=',$id)
+        ->orderBy('fecha','DESC')
+        ->first();
+
+        
+        $detalles = DB::table('detalle_versiones')
+        ->join('versiones','detalle_versiones.idversion','=','versiones.id')
+        ->select('detalle_versiones.titulo','detalle_versiones.descripcion')
+        ->where('detalle_versiones.idversion','=',$id)
+        ->get();
+
+
+        return view('version.versiones',["version"=>$version,"detalles"=>$detalles]);
     }
 
     /**

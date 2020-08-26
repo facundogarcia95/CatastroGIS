@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Faltante extends Model
+class Ajuste extends Model
 {
     //
-    protected $table = 'faltantes';
+    protected $table = 'ajustes';
         
         protected $fillable = [
             'idusuario',

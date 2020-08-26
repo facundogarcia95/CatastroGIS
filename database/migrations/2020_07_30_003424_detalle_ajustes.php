@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DetalleFatantes extends Migration
+class DetalleAjustes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class DetalleFatantes extends Migration
      */
     public function up()
     {
-        Schema::create('detalle_faltantes', function (Blueprint $table) {
+        Schema::create('detalle_ajustes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idfaltante')->unsigned();
+            $table->integer('idajuste')->unsigned();
             $table->integer('idproducto')->unsigned();
             $table->decimal('cantidad',11,2);
             $table->string('motivo')->nullable(false);
 
-            $table->foreign('idfaltante')->references('id')->on('faltantes');
+            $table->foreign('idajuste')->references('id')->on('ajustes');
             $table->foreign('idproducto')->references('id')->on('productos');
         });
     }
@@ -32,6 +32,6 @@ class DetalleFatantes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detalle_faltantes');
+        Schema::dropIfExists('detalle_ajustes');
     }
 }
