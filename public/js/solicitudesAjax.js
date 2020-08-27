@@ -212,7 +212,7 @@ function autoCompleteProductosCompras(){
 
 
 
-function autoCompleteProductosAjustes(){
+function autoCompleteProductosFaltantes(){
 
     token =  $("meta[name='csrf-token']").attr("content");
 
@@ -238,6 +238,43 @@ function autoCompleteProductosAjustes(){
                         $("#id_producto").val(ui.item.id);
                         $(this).val("");
                         mostrarStockMaximo();
+                        return false;
+                    }
+                });
+
+            }
+        });
+     
+
+}
+
+
+function autoCompleteProductosAgregacion(){
+
+    token =  $("meta[name='csrf-token']").attr("content");
+
+        $.ajax({
+            url: "../ajax-consultas",
+            dataType: "json",
+            type: 'post',
+            data: {_token: token, funcion: 'productos_agregacion'},
+            async: false,
+            success: function (response) {
+
+                $("#autocompletad_pv_agregacion").autocomplete({				
+                    autoFocus: false,
+                    minLength: 1,
+                    source: response,
+                // appendTo: buscBarrioDialog,
+                    open: function () {
+                        setTimeout(function () {
+                            $('.ui-autocomplete').css('z-index', 100);
+                        }, 0);
+                    },
+                    select: function (event, ui) {
+                        $("#id_producto_agregacion").val(ui.item.id);
+                        $(this).val("");
+                        stockActualAgregacion();
                         return false;
                     }
                 });

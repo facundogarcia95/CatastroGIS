@@ -35,7 +35,7 @@ class AjusteController extends Controller
              
             $usuarioRol = \Auth::user()->idrol;
  
-            return view('ajustes.index',["ajustes"=>$ajustes,"usuarioRol"=>$usuarioRol,"buscarTexto"=>$sql]);
+            return view('ajuste.index',["ajustes"=>$ajustes,"usuarioRol"=>$usuarioRol,"buscarTexto"=>$sql]);
             
             //return $compras;
         }
@@ -46,10 +46,9 @@ class AjusteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-         /*listar los productos en ventana modal*/
-         $productos=DB::table('productos as prod')
+    public function create(){
+  
+         $productosFaltante=DB::table('productos as prod')
          ->join('unidad_medidas as uni','prod.unidad_medida', '=','uni.id')
          ->select(DB::raw('CONCAT(prod.codigo," - ",prod.nombre) AS producto'),'prod.id', 'uni.unidad','prod.stock')
          ->where('prod.condicion','=','1')
@@ -57,7 +56,14 @@ class AjusteController extends Controller
          ->where('prod.stock','>','0')
          ->get();
 
-         return view('ajuste.create',["productos"=>$productos]);
+          $productosAgregacion=DB::table('productos as prod')
+          ->join('unidad_medidas as uni','prod.unidad_medida', '=','uni.id')
+          ->select(DB::raw('CONCAT(prod.codigo," - ",prod.nombre) AS producto'),'prod.id', 'uni.unidad','prod.stock')
+          ->where('prod.condicion','=','1')
+          ->where('prod.tipo_producto','!=',1)
+          ->get();
+
+         return view('ajuste.create',["productosFaltante"=>$productosFaltante,"productosAgregacion"=>$productosAgregacion]);
     }
 
     /**
@@ -76,6 +82,7 @@ class AjusteController extends Controller
              $ajuste->idusuario = \Auth::user()->id;
              $ajuste->observacion = $request->observacion;
              $ajuste->condicion = 1;
+             $ajuste->tipo_ajuste = $request->tipo_ajuste;
              $ajuste->save();
 
              $id_producto=$request->id_producto;
@@ -97,9 +104,15 @@ class AjusteController extends Controller
                  $detalle->motivo = $motivo[$cont];
                  $detalle->save();
 
-                 $producto = Producto::findOrFail($id_producto[$cont]);
-                 $producto->stock = $producto->stock - $cantidad[$cont];
-                 $producto->save();
+                 if(intval($request->tipo_ajuste) == 1){
+                    $producto = Producto::findOrFail($id_producto[$cont]);
+                    $producto->stock = $producto->stock - $cantidad[$cont];
+                    $producto->save();
+                 }else if(intval($request->tipo_ajuste) == 2){
+                    $producto = Producto::findOrFail($id_producto[$cont]);
+                    $producto->stock = $producto->stock + $cantidad[$cont];
+                    $producto->save();
+                 }
 
                  $cont=$cont+1;
              }

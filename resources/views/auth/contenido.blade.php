@@ -9,7 +9,7 @@
     <meta name="keyword" content="Sistema ventas Laravel Vue Js, Sistema compras Laravel Vue Js">
    
     
-    <title>Proyecto</title>
+    <title>Sistema COVE</title>
 
     <!-- Icons -->
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">

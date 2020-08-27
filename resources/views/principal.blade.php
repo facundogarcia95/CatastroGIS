@@ -11,6 +11,7 @@
     <meta name="csrf-token" content="{{csrf_token()}}">
     <title>Sistema COVE</title>
 
+    @stack('css')
     <!-- Icons -->
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/simple-line-icons.min.css')}}" rel="stylesheet">
@@ -122,6 +123,7 @@
         <span class="ml-auto"><a href="#">SISTEMA COVE</a> &copy; 2020</span>
     </footer>
 
+    
     <!-- Bootstrap and necessary plugins -->
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script src="{{asset('js/jquery-ui.js')}}"></script>

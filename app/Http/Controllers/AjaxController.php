@@ -37,6 +37,10 @@ class AjaxController extends Controller
                 $this->productos_faltante();
             break;  
 
+            case 'productos_agregacion':
+                $this->productos_agregacion();
+            break;  
+
             case 'productos_receta':
                 $this->productos_receta();
             break;  
@@ -171,6 +175,31 @@ class AjaxController extends Controller
         echo json_encode($productos);
 
     }
+
+    public function productos_agregacion(){
+        
+        $respuesta = DB::table('productos as p')
+        ->select('p.id', 'p.nombre')
+        ->where('p.tipo_producto','!=',1)
+        ->orderBy('p.nombre','ASC')
+        ->get();
+
+        $productos = array();
+        
+        foreach($respuesta as $res){
+
+            $producto = array(
+                'value'=> utf8_encode($res->nombre),
+                'id'=> $res->id
+                );
+                array_push($productos,$producto);
+        }
+
+        
+        echo json_encode($productos);
+
+    }
+
 
     public function productos_receta(){
         

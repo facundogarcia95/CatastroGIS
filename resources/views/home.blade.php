@@ -103,7 +103,7 @@
                                     <div class="text-value h4"><strong>$-{{round($totales[0]->ajustes,2)}} </strong>(<label class="text-uppercase">@php
                                         echo strftime("%B");
                                     @endphp </label>)</div>
-                                    <div class="h2">Ajustes de Inventario</div>
+                                    <div class="h2">Faltantes de Inventario</div>
                                 </div>
                                 <div class="chart-wrapper mt-3 mx-3" style="height:35px;">
                                     <a href="{{url('faltante')}}" class="small-box-footer h4">Ajustes <i class="fa fa-arrow-circle-right"></i></a>
@@ -140,7 +140,7 @@
                                 
                                 <div class="card card-chart">
                                     <div class="card-header">
-                                        <h4 class="text-center">Ajustes </h4>
+                                        <h4 class="text-center">Faltantes </h4>
                                     </div>
                                     <div class="card-content">
                                         <div class="ct-chart">

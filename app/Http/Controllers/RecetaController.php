@@ -76,7 +76,7 @@ class RecetaController extends Controller
          ->join('unidad_medidas','prod.unidad_medida','=','unidad_medidas.id')
          ->select('prod.nombre as producto','prod.id', 'unidad_medidas.unidad')
          ->where('prod.condicion','=','1')
-         ->where('prod.tipo_producto','=','3')
+         ->where('prod.id','!=',$id)
          ->get();
 
         
@@ -210,7 +210,7 @@ class RecetaController extends Controller
 
         }
 
-         return Redirect::to("producto")->with('mensaje', 'Producto Agregado!');
+         return Redirect::to("catalogo")->with('mensaje', 'Producto Agregado!');
     }
 
     /**
@@ -350,7 +350,7 @@ class RecetaController extends Controller
     
             }
                     
-         return Redirect::to("producto")->with('mensaje', 'Producto Modificado!');   
+         return Redirect::to("catalogo")->with('mensaje', 'Producto Modificado!');   
 
     }
 

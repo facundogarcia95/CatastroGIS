@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use DB;
 
-class ProductoController extends Controller
+
+class CatalogoController extends Controller
 {
+    
     //
      /**
      * Display a listing of the resource.
@@ -19,7 +21,8 @@ class ProductoController extends Controller
     public function index(Request $request)
     {
         //
-        $paginate = 100;
+
+        $paginate = 20;
         
         if($request){
 
@@ -37,13 +40,14 @@ class ProductoController extends Controller
                     ->join('unidad_medidas as uni','p.unidad_medida','=','uni.id')
                     ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
                     ->where('p.condicion','=',$condicion) 
-                    ->where('p.tipo_producto','!=',1) 
+                    ->where('p.tipo_producto','=',1) 
                     ->where('p.nombre','LIKE','%'.$sql.'%')
                     ->orwhere('p.codigo','LIKE','%'.$sql.'%')
                     ->orwhere('c.nombre','LIKE','%'.$sql.'%')
                     ->orderBy('p.'.$request->orderby,$request->orden)
                     ->paginate($paginate);
 
+                    
                 }else{
 
                     $productos=DB::table('productos as p')
@@ -52,12 +56,12 @@ class ProductoController extends Controller
                     ->join('unidad_medidas as uni','p.unidad_medida','=','uni.id')
                     ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
                     ->where('p.condicion','=',$condicion) 
-                    ->where('p.tipo_producto','!=',1) 
+                    ->where('p.tipo_producto','=',1) 
                     ->orderBy('p.'.$request->orderby,$request->orden)
                     ->paginate($paginate);
-
+    
                 }
-           
+               
 
                 if($request->orden == "ASC"){
                     
@@ -74,29 +78,27 @@ class ProductoController extends Controller
                 $orden = "DESC";
 
                 if($sql != ""){
-
-                    $productos=DB::table('productos as p')
-                    ->join('categorias as c','p.idcategoria','=','c.id')
-                    ->join('tipo_productos as t','p.tipo_producto','=','t.id')
-                    ->join('unidad_medidas as uni','p.unidad_medida','=','uni.id')
-                    ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
-                    ->where('p.condicion','=',$condicion) 
-                    ->where('p.tipo_producto','!=',1) 
-                    ->where('p.nombre','LIKE','%'.$sql.'%')
-                    ->orwhere('p.codigo','LIKE','%'.$sql.'%')
-                    ->orwhere('c.nombre','LIKE','%'.$sql.'%')
-                    ->orderBy('p.id','desc')
-                    ->paginate($paginate);
-
+                        $productos=DB::table('productos as p')
+                        ->join('categorias as c','p.idcategoria','=','c.id')
+                        ->join('tipo_productos as t','p.tipo_producto','=','t.id')
+                        ->join('unidad_medidas as uni','p.unidad_medida','=','uni.id')
+                        ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
+                        ->where('p.condicion','=',$condicion) 
+                        ->where('p.tipo_producto','=',1) 
+                        ->where('p.nombre','LIKE','%'.$sql.'%')
+                        ->orwhere('p.codigo','LIKE','%'.$sql.'%')
+                        ->orwhere('c.nombre','LIKE','%'.$sql.'%')
+                        ->orderBy('p.id','desc')
+                        ->paginate($paginate);
                 }else{
-
+                    
                     $productos=DB::table('productos as p')
                     ->join('categorias as c','p.idcategoria','=','c.id')
                     ->join('tipo_productos as t','p.tipo_producto','=','t.id')
                     ->join('unidad_medidas as uni','p.unidad_medida','=','uni.id')
                     ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
                     ->where('p.condicion','=',$condicion) 
-                    ->where('p.tipo_producto','!=',1) 
+                    ->where('p.tipo_producto','=',1) 
                     ->orderBy('p.id','desc')
                     ->paginate($paginate);
 
@@ -138,7 +140,7 @@ class ProductoController extends Controller
             }
 
 
-            return view('producto.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql,"tipoProductos"=>$tipoProductos, "unidades" => $unidades,"orden"=>$orden,'page'=>$request->page??1,'condicionProducto'=>$condicion]);
+            return view('catalogo.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql,"tipoProductos"=>$tipoProductos, "unidades" => $unidades,"orden"=>$orden,'page'=>$request->page??1,'condicionProducto'=>$condicion]);
      
             //return $productos;
         }
@@ -296,17 +298,17 @@ class ProductoController extends Controller
                   
             }else{
 
-                    return Redirect::to("producto")->with('error', 'El código de producto ingresado ya existe!');
+                    return Redirect::to("catalogo")->with('error', 'El código de producto ingresado ya existe!');
 
             }
 
         } catch(Exception $e){
                     
             DB::rollBack();
-            return Redirect::to("producto")->with('error', 'Hubo un error, vuelva a intentar!');
+            return Redirect::to("catalogo")->with('error', 'Hubo un error, vuelva a intentar!');
         }
         
-        return Redirect::to("producto")->with('mensaje', 'Producto Agregado!');
+        return Redirect::to("catalogo")->with('mensaje', 'Producto Agregado!');
 
     }
 
@@ -395,18 +397,18 @@ class ProductoController extends Controller
 
             }else{
 
-                    return Redirect::to("producto")->with('error', 'El código de producto ingresado ya existe!');
+                    return Redirect::to("catalogo")->with('error', 'El código de producto ingresado ya existe!');
 
             }
 
         } catch(Exception $e){
                     
             DB::rollBack();
-            return Redirect::to("producto")->with('error', 'Hubo un error, vuelva a intentar!');
+            return Redirect::to("catalogo")->with('error', 'Hubo un error, vuelva a intentar!');
 
         }
 
-        return Redirect::to("producto")->with('mensaje', 'Producto Modificado!');
+        return Redirect::to("catalogo")->with('mensaje', 'Producto Modificado!');
     }
 
     /**
@@ -443,6 +445,7 @@ class ProductoController extends Controller
             $productos = Producto::join('categorias','productos.idcategoria','=','categorias.id')
             ->select('productos.id','productos.idcategoria','productos.codigo','productos.nombre','categorias.nombre as nombre_categoria','productos.stock','productos.condicion', 'productos.condicion', 'productos.precio_venta')
             ->where('productos.condicion', '=', '1')
+            ->where('productos.tipo_producto', '=', '1')
             ->orderBy('productos.nombre', 'desc')->get(); 
 
 

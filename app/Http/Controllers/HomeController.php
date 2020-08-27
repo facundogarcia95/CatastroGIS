@@ -30,7 +30,7 @@ class HomeController extends Controller
        
         $ventasmes=DB::select('SELECT monthname(v.fecha_venta) as mes, sum(v.total) as totalmes from ventas v where v.estado="Registrado" group by mes,month(v.fecha_venta) order by month(v.fecha_venta) ASC limit 12');
 
-        $faltantesmes=DB::select('SELECT MONTHNAME(t.created_at) AS mes, SUM(total) AS totalmes FROM (SELECT (MAX(dc.precio) * df.cantidad) AS total, f.`created_at` FROM detalle_faltantes df INNER JOIN faltantes AS f ON f.id = df.idfaltante INNER JOIN detalle_compras AS dc  ON dc.idproducto = df.idproducto  AND f.condicion = 1 GROUP BY f.id, df.cantidad, f.created_at) AS t GROUP BY MONTHNAME(t.created_at), MONTH(t.created_at) ORDER BY MONTH(t.created_at) ASC LIMIT 12');
+        $faltantesmes=DB::select('SELECT MONTHNAME(t.created_at) AS mes, SUM(total) AS totalmes FROM (SELECT (MAX(dc.precio) * df.cantidad) AS total, f.`created_at` FROM detalle_ajustes df INNER JOIN ajustes AS f ON f.id = df.idajuste INNER JOIN detalle_compras AS dc  ON dc.idproducto = df.idproducto  AND f.condicion = 1 AND f.tipo_ajuste = 1 GROUP BY f.id, df.cantidad, f.created_at) AS t GROUP BY MONTHNAME(t.created_at), MONTH(t.created_at) ORDER BY MONTH(t.created_at) ASC LIMIT 12');
         
         $ventasdia=DB::select('SELECT DATE_FORMAT(v.fecha_venta,"%d/%m/%Y") as dia, sum(v.total) as totaldia from ventas v where v.estado="Registrado" group by v.fecha_venta, day(v.fecha_venta) order by day(v.fecha_venta) desc limit 15');
 
@@ -41,7 +41,7 @@ class HomeController extends Controller
         $totales=DB::select('SELECT (select ifnull(sum(c.total),0) from compras c where MONTH(c.fecha_compra)= MONTH(curdate()) and c.estado="Registrado") as totalcompra, 
         (select ifnull(sum(v.total),0) from ventas v where MONTH(v.fecha_venta)=MONTH(curdate()) and v.estado="Registrado") as totalventa, 
         (select ifnull(sum(v.total),0) from ventas v where MONTH(v.fecha_venta)=MONTH(curdate()) and v.estado="Anulado con perdida") as totalventaAnulada,
-        (SELECT ifnull(SUM(perdida),0) FROM (SELECT ((MAX(dc.precio)) * df.cantidad) AS perdida FROM detalle_faltantes df INNER JOIN faltantes AS f ON f.id = df.idfaltante INNER JOIN detalle_compras AS dc ON dc.idproducto = df.idproducto WHERE MONTH(f.created_at) = MONTH(CURDATE()) AND f.condicion = 1 GROUP BY df.idfaltante, df.cantidad)AS t) AS ajustes');
+        (SELECT ifnull(SUM(perdida),0) FROM (SELECT ((MAX(dc.precio)) * df.cantidad) AS perdida FROM detalle_ajustes df INNER JOIN ajustes AS f ON f.id = df.idajuste INNER JOIN detalle_compras AS dc ON dc.idproducto = df.idproducto WHERE MONTH(f.created_at) = MONTH(CURDATE()) AND f.condicion = 1 AND f.tipo_ajuste = 1 GROUP BY df.idajuste, df.cantidad)AS t) AS ajustes');
 
         $comprasporproveedor = DB::select('SELECT p.nombre, SUM(total) AS total, MONTH(fecha_compra) AS mes FROM compras INNER JOIN proveedores AS p ON p.id = compras.idproveedor WHERE estado = "Registrado" AND YEAR(compras.fecha_compra) = YEAR(CURDATE()) GROUP BY idproveedor, MONTH(fecha_compra), p.nombre ORDER BY idproveedor,mes DESC LIMIT 12');
         

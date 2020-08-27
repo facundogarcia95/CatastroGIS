@@ -11,12 +11,10 @@
                     <div class="card-header">
 
                         <div class="col-sm-12">
-                            <h2>Listado de Productos</h2><br/>
+                            <h2>Listado de Catálogo</h2><br/>
                       
-                            <button class="btn btn-primary btn-lg m-2 rounded" type="button" data-toggle="modal" data-target="#abrirmodal">
-                                <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Producto
-                            </button>  
-                            <a href="{{url('listarProductoPdf')}}" target="_blank">
+                             
+                            <a href="{{url('listarCatalogoPdf')}}" target="_blank">
                                 <button type="button" class="btn btn-report btn-lg m-2 text-light rounded">
                                     <i class="fa fa-file fa-2x"></i>&nbsp;&nbsp;Reporte PDF
                                     
@@ -53,11 +51,11 @@
                         <div class="form-group row">
                          
                             <div class="col-md-6">
-                            {!!Form::open(array('url'=>'producto','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!} 
+                            {!!Form::open(array('url'=>'catalogo','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!} 
                                 <div class="input-group">
                                     
                                     <input type="text" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
-                                    <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button> &nbsp;<a href={{url('producto')}}  class="btn btn-primary">Limpiar</a>
+                                    <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button> &nbsp;<a href={{url('catalogo')}}  class="btn btn-primary">Limpiar</a>
                                 </div>
                             {{Form::close()}}
                             </div>
@@ -205,11 +203,11 @@
                         <div class="modal-body">
                              
 
-                            <form action="{{route('producto.store')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
+                            <form action="{{route('catalogo.store')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
                                
                                 {{csrf_field()}}
                                 
-                                @include('producto.form')
+                                @include('catalogo.form')
 
                             </form>
                         </div>
@@ -236,14 +234,14 @@
                         <div class="modal-body">
                              
 
-                            <form action="{{route('producto.update','test')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
+                            <form action="{{route('catalogo.update','test')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
                                 
                                 {{method_field('patch')}}
                                 {{csrf_field()}}
 
                                 <input type="hidden" id="id_producto" name="idproducto" value="">
                                 
-                                @include('producto.form')
+                                @include('catalogo.form')
 
                             </form>
                         </div>
@@ -270,7 +268,7 @@
                         <div class="modal-body">
                              
 
-                            <form action="{{route('producto.destroy','test')}}" method="post" class="form-horizontal">
+                            <form action="{{route('catalogo.destroy','test')}}" method="post" class="form-horizontal">
                                 
                                 {{method_field('delete')}}
                                 {{csrf_field()}}
@@ -297,14 +295,14 @@
             <!--Fin del modal-->
            
             <!-- FORMULARIO PARA SORTER TABLA-->
-            {!!Form::open(array('url'=>'producto','method'=>'GET','id'=>'orderTipo','autocomplete'=>'off','role'=>'search'))!!} 
+            {!!Form::open(array('url'=>'catalogo','method'=>'GET','id'=>'orderTipo','autocomplete'=>'off','role'=>'search'))!!} 
                     <input type="hidden" id="orderBy" name="orderby" value="">
                     <input type="hidden" name="page" value="{{$page}}">
                     <input type="hidden" name="orden" value="{{$orden}}">
             {{Form::close()}}
 
             <!-- FORMULARIO CONDICION PRODUCTO-->
-            {!!Form::open(array('url'=>'producto','id'=>'filtrar_condicion','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!}                                      
+            {!!Form::open(array('url'=>'catalogo','id'=>'filtrar_condicion','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!}                                      
                 <input type="hidden" name="condicionProducto" id="condicionProducto" value="{{$condicionProducto}}">    
             {{Form::close()}}
             

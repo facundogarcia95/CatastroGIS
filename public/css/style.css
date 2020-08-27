@@ -7257,7 +7257,7 @@ button {
   color: #fff; }
 
 .card-header .btn {
-  margin-top: -0.5rem; }
+ /* margin-top: -0.5rem;*/ } /*----------------- LO EDITE YO PARA EL BOTON DE DESACTIVADO DE PRODUCTOS*/
 
 .card-header .btn-sm, .card-header .btn-group-sm > .btn {
   margin-top: -0.25rem; }

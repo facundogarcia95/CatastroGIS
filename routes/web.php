@@ -56,6 +56,9 @@ Route::group(['middleware' => ['auth']], function () {
       Route::resource('receta','RecetaController');
       Route::resource('negocio','NegocioController');
       
+      Route::resource('catalogo', 'CatalogoController');
+      Route::get('/listarCatalogoPdf', 'CatalogoController@listarPdf')->name('catalogo_pdf');
+
     });
 
 

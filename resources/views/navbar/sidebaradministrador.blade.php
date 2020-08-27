@@ -29,10 +29,15 @@
                             @csrf
                             </form>
                     </li>
-                      
-               
 
-            
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('catalogo')}}" onclick="event.preventDefault(); document.getElementById('catalogo-form').submit();"><i class="fa text-light fa fa-book"></i> Catálogo</a>
+                            
+                            <form id="catalogo-form" action="{{url('catalogo')}}" method="GET" style="display: none;">
+                            @csrf
+                            </form>
+                    </li>                    
+               
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('compra')}}" onclick="event.preventDefault(); document.getElementById('compra-form').submit();"><i class="fa text-light fa-shopping-cart"></i> Compras</a>
                         <form id="compra-form" action="{{url('compra')}}" method="GET" style="display: none;">
@@ -49,8 +54,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('faltante')}}" onclick="event.preventDefault(); document.getElementById('faltante-form').submit();"><i class="fa text-light fa-trash"></i> Ajuste de Inventario</a>
-                        <form id="faltante-form" action="{{url('faltante')}}" method="GET" style="display: none;">
+                        <a class="nav-link" href="{{url('ajuste')}}" onclick="event.preventDefault(); document.getElementById('faltante-form').submit();"><i class="fa text-light fa-trash"></i> Ajuste de Inventario</a>
+                        <form id="faltante-form" action="{{url('ajuste')}}" method="GET" style="display: none;">
                             @csrf
                          </form>
                     </li>

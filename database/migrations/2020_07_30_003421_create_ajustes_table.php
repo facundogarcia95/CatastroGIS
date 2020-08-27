@@ -18,6 +18,7 @@ class CreateAjustesTable extends Migration
             $table->integer('idusuario')->unsigned();
             $table->string('observacion')->nullable();
             $table->boolean('condicion')->default(1);
+            $table->integer('tipo_ajuste')->default(1);
             $table->timestamps();
 
             $table->foreign('idusuario')->references('id')->on('users');
