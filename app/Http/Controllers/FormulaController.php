@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use DB;
 
 
-class CatalogoController extends Controller
+class FormulaController extends Controller
 {
     
     //
@@ -140,7 +140,7 @@ class CatalogoController extends Controller
             }
 
 
-            return view('catalogo.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql,"tipoProductos"=>$tipoProductos, "unidades" => $unidades,"orden"=>$orden,'page'=>$request->page??1,'condicionProducto'=>$condicion]);
+            return view('formula.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql,"tipoProductos"=>$tipoProductos, "unidades" => $unidades,"orden"=>$orden,'page'=>$request->page??1,'condicionProducto'=>$condicion]);
      
             //return $productos;
         }
@@ -298,17 +298,17 @@ class CatalogoController extends Controller
                   
             }else{
 
-                    return Redirect::to("catalogo")->with('error', 'El código de producto ingresado ya existe!');
+                    return Redirect::to("formula")->with('error', 'El código de producto ingresado ya existe!');
 
             }
 
         } catch(Exception $e){
                     
             DB::rollBack();
-            return Redirect::to("catalogo")->with('error', 'Hubo un error, vuelva a intentar!');
+            return Redirect::to("formula")->with('error', 'Hubo un error, vuelva a intentar!');
         }
         
-        return Redirect::to("catalogo")->with('mensaje', 'Producto Agregado!');
+        return Redirect::to("formula")->with('mensaje', 'Producto Agregado!');
 
     }
 
@@ -324,91 +324,6 @@ class CatalogoController extends Controller
     {
         //
 
-        try{
-
-        $validar = DB::table('productos')
-        ->select('codigo')
-        ->where("id","=",$request->idproducto)
-        ->get();
-
-
-        if ($validar[0]->codigo != $request->codigo){
-
-            $existencia = DB::table('productos')
-            ->where("codigo","=",$request->codigo)
-            ->get();
-            
-        }
-
-        if(!isset($existencia[0]->codigo)){
-                 
-            if($request->idTipoProductos == 3){$request->precio_venta = 0;}
-
-
-                $producto= Producto::findOrFail($request->idproducto);
-                $producto->idcategoria = $request->idcategoria;
-                $producto->codigo = $request->codigo;
-                $producto->nombre = strtoupper($request->nombre);
-                $producto->precio_venta = $request->precio_venta;
-                $producto->tipo_producto = $request->idTipoProductos;
-                $producto->idreceta = $request->id_receta??null;
-                $producto->unidad_medida = $request->unidad_medida;
-                $producto->condicion = '1';
-
-                //Handle File Upload
-            
-                if($request->hasFile('imagen')){
-
-                    /*si la imagen que subes es distinta a la que está por defecto 
-                    entonces eliminaría la imagen anterior, eso es para evitar 
-                    acumular imagenes en el servidor*/ 
-                if($producto->imagen != 'noimagen.jpg'){ 
-
-                    Storage::delete('public/storage/img/producto/'.$producto->imagen);
-                }
-
-                
-                    //Get filename with the extension
-                $filenamewithExt = $request->file('imagen')->getClientOriginalName();
-                
-                //Get just filename
-                $filename = pathinfo($filenamewithExt,PATHINFO_FILENAME);
-                
-                //Get just ext
-                $extension = $request->file('imagen')->guessClientExtension();
-                
-                //FileName to store
-                $fileNameToStore = time().'.'.$extension;
-                
-                //Upload Image
-                $path = $request->file('imagen')->storeAs('producto',$fileNameToStore,'public');
-                
-                
-                } else {
-                    
-                    $fileNameToStore = $producto->imagen; 
-                }
-
-                $producto->imagen=$fileNameToStore;
-        
-                $producto->save();
-
-               
-
-            }else{
-
-                    return Redirect::to("catalogo")->with('error', 'El código de producto ingresado ya existe!');
-
-            }
-
-        } catch(Exception $e){
-                    
-            DB::rollBack();
-            return Redirect::to("catalogo")->with('error', 'Hubo un error, vuelva a intentar!');
-
-        }
-
-        return Redirect::to("catalogo")->with('mensaje', 'Producto Modificado!');
     }
 
     /**

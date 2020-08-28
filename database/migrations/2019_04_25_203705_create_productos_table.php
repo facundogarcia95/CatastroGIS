@@ -23,6 +23,7 @@ class CreateProductosTable extends Migration
             $table->decimal('precio_venta',11,2)->default(0);
             $table->decimal('stock', 11, 2)->default(0);
             $table->boolean('condicion')->default(1);
+            $table->boolean('enventa')->default(0);
             $table->integer('tipo_producto')->unsigned()->default(1);
             $table->integer('idreceta')->nullable();
             $table->string('imagen')->default('noImagen.jpg');

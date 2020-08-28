@@ -321,7 +321,7 @@ function autoCompleteProductosRecetas(){
     }
 
 
-    function autoCompleteProductosRecetasEdit(){
+    function autoCompleteProductosRecetasEditar(id){
 
         token =  $("meta[name='csrf-token']").attr("content");
     
@@ -329,7 +329,7 @@ function autoCompleteProductosRecetas(){
                 url: "../../ajax-consultas",
                 dataType: "json",
                 type: 'post',
-                data: {_token: token, funcion: 'productos_receta'},
+                data: {_token: token, funcion: 'productos_receta_edit',idproducto: id},
                 async: false,
                 success: function (response) {
     

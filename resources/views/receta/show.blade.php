@@ -12,13 +12,13 @@
 
                   <div class="col-md-12 border"> 
 
-                    <h2 class="text-left text-uppercase p-3">Detalle de Receta</h2>
+                    <h2 class="text-left text-uppercase p-3">Detalle de Fórmula</h2>
                 
                 </div>
 
                     <div class="col-md-4 border">  
 
-                        <label class="form-control-label m-1" for="nombre">Nombre Receta:</label>
+                        <label class="form-control-label m-1" for="nombre">Nombre Fórmula:</label>
                         
                         <p class="m-1 font-weight-bold">{{$receta->nombre}}</p>
                             

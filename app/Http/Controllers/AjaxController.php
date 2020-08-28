@@ -45,6 +45,10 @@ class AjaxController extends Controller
                 $this->productos_receta();
             break;  
 
+            case 'productos_receta_edit':
+                $this->productos_receta_edit($request->idproducto);
+            break;  
+
             default:
                 return response()->json(['error'=>'Acción no encontrada, intente nuevamente']);
             break;
@@ -226,5 +230,29 @@ class AjaxController extends Controller
     }
     
 
+    function productos_receta_edit($id){
 
+        $respuesta = DB::table('productos as p')
+        ->select('p.id', 'p.nombre')
+        ->where('p.condicion','=',1)
+        ->where('p.id','!=',$id)
+        ->orderBy('p.nombre','ASC')
+        ->get();
+
+        $productos = array();
+        
+        foreach($respuesta as $res){
+
+            $producto = array(
+                'value'=> utf8_encode($res->nombre),
+                'id'=> $res->id
+                );
+                array_push($productos,$producto);
+        }
+
+        
+        echo json_encode($productos);
+
+    }
+    
 }

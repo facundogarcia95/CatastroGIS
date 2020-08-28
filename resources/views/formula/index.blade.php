@@ -11,19 +11,23 @@
                     <div class="card-header">
 
                         <div class="col-sm-12">
-                            <h2>Listado de Catálogo</h2><br/>
+                            <h2>Listado de Fórmulas</h2><br/>
                       
-                             
-                            <a href="{{url('listarCatalogoPdf')}}" target="_blank">
+                            <a href="{{url('receta/create')}}" style="text-decoration: none" target="_blank">
+                                <button class="btn btn-primary btn-lg m-2 rounded" type="button" data-toggle="modal" data-target="#abrirmodal">
+                                    <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Fórmula
+                                </button>  
+                            </a>
+                            <a href="{{url('listarFormulaPdf')}}" style="text-decoration: none" target="_blank">
                                 <button type="button" class="btn btn-report btn-lg m-2 text-light rounded">
                                     <i class="fa fa-file fa-2x"></i>&nbsp;&nbsp;Reporte PDF
                                     
                                 </button>
                             </a>
                             @if($condicionProducto == 1)
-                                <input type="checkbox" checked id="tipo_condicion" data-toggle="toggle" data-on="Productos Activos" data-off="Productos Inactivos" data-onstyle="success rounded my-1" data-offstyle="danger rounded my-1" >                    
+                                <input type="checkbox" checked id="tipo_condicion" data-toggle="toggle" data-on="Fórmulas Activas" data-off="Fórmulas Inactivas" data-onstyle="success rounded font-btn my-3" data-offstyle="danger rounded font-btn my-3" >                    
                             @else
-                                <input type="checkbox" checked id="tipo_condicion" data-toggle="toggle" data-on="Productos Inactivos" data-off="Productos Activos" data-onstyle="danger rounded my-1" data-offstyle="success rounded my-1" >                    
+                                <input type="checkbox" checked id="tipo_condicion" data-toggle="toggle" data-on="Fórmulas Inactivas" data-off="Fórmulas Activas" data-onstyle="danger rounded font-btn my-3" data-offstyle="success rounded font-btn my-3" >                    
                             @endif
                          
                            
@@ -51,11 +55,11 @@
                         <div class="form-group row">
                          
                             <div class="col-md-6">
-                            {!!Form::open(array('url'=>'catalogo','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!} 
+                            {!!Form::open(array('url'=>'formula','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!} 
                                 <div class="input-group">
                                     
                                     <input type="text" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
-                                    <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button> &nbsp;<a href={{url('catalogo')}}  class="btn btn-primary">Limpiar</a>
+                                    <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button> &nbsp;<a href={{url('formula')}}  class="btn btn-primary">Limpiar</a>
                                 </div>
                             {{Form::close()}}
                             </div>
@@ -65,7 +69,7 @@
                             <thead>
                                 <tr class="bg-dark text-light">
                                     <th>
-                                         <a href="#" class="cabeceraTabla text-light" campo="tipo_producto" >Tipo</a>                             
+                                         <a href="#" class="cabeceraTabla text-light" campo="tipo_producto" ></a>                             
                                     </th>
                                     <th>
                                         <a href="#" class="cabeceraTabla text-light" campo="idcategoria" >Categoria</a>                             
@@ -98,13 +102,12 @@
                                @foreach($productos as $prod)
                                
                                 <tr>
-                                    <td><b>{{$prod->tipoProducto}}</b>
+                                    <td>
                                         @if($prod->idreceta)
-                                        <br/>
                                         <a style="text-decoration:none" href="{{ action('RecetaController@show', ['id' => $prod->idreceta]) }}" class="btn btn-detalle text-light rounded btn-sm">
-                                            <i class="fa fa-eye "></i> RECETA
+                                            <i class="fa fa-eye "></i> VER FÓRMULA
                                         </a>
-                                    @endif
+                                        @endif
                                     </td>
                                    <td>{{$prod->categoria}}</td>
                                     <td>{{$prod->nombre}}</td>
@@ -189,69 +192,9 @@
                 </div>
                 <!-- Fin ejemplo de tabla Listado -->
             </div>
-            <!--Inicio del modal agregar-->
-            <div class="modal fade" id="abrirmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-dark modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Agregar producto</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true" class="text-light">×</span>
-                            </button>
-                        </div>
-                       
-                        <div class="modal-body">
-                             
-
-                            <form action="{{route('catalogo.store')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
-                               
-                                {{csrf_field()}}
-                                
-                                @include('catalogo.form')
-
-                            </form>
-                        </div>
-                        
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-            <!--Fin del modal-->
 
 
-             <!--Inicio del modal actualizar-->
-             <div class="modal fade" id="abrirmodalEditar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-dark modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Actualizar producto</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true" class="text-light">×</span>
-                            </button>
-                        </div>
-                       
-                        <div class="modal-body">
-                             
 
-                            <form action="{{route('catalogo.update','test')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
-                                
-                                {{method_field('patch')}}
-                                {{csrf_field()}}
-
-                                <input type="hidden" id="id_producto" name="idproducto" value="">
-                                
-                                @include('catalogo.form')
-
-                            </form>
-                        </div>
-                        
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-            <!--Fin del modal-->
 
 
              <!--Inicio del modal Cambiar Estado-->
@@ -268,7 +211,7 @@
                         <div class="modal-body">
                              
 
-                            <form action="{{route('catalogo.destroy','test')}}" method="post" class="form-horizontal">
+                            <form action="{{route('formula.destroy','test')}}" method="post" class="form-horizontal">
                                 
                                 {{method_field('delete')}}
                                 {{csrf_field()}}
@@ -295,14 +238,14 @@
             <!--Fin del modal-->
            
             <!-- FORMULARIO PARA SORTER TABLA-->
-            {!!Form::open(array('url'=>'catalogo','method'=>'GET','id'=>'orderTipo','autocomplete'=>'off','role'=>'search'))!!} 
+            {!!Form::open(array('url'=>'formula','method'=>'GET','id'=>'orderTipo','autocomplete'=>'off','role'=>'search'))!!} 
                     <input type="hidden" id="orderBy" name="orderby" value="">
                     <input type="hidden" name="page" value="{{$page}}">
                     <input type="hidden" name="orden" value="{{$orden}}">
             {{Form::close()}}
 
             <!-- FORMULARIO CONDICION PRODUCTO-->
-            {!!Form::open(array('url'=>'catalogo','id'=>'filtrar_condicion','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!}                                      
+            {!!Form::open(array('url'=>'formula','id'=>'filtrar_condicion','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!}                                      
                 <input type="hidden" name="condicionProducto" id="condicionProducto" value="{{$condicionProducto}}">    
             {{Form::close()}}
             
@@ -352,23 +295,6 @@
         })
 
 
-        function tipoProducto(tipo) {
-
-            if(tipo == "1"){
-                window.location.href = "../receta/create";
-            }
-            if(tipo == "2"){
-                $("#precio_venta").prop('required',true);
-                $(".collapsePrecioVenta").collapse('show');
-                $(".collapseDatosProducto").collapse('show'); 
-            }
-            if(tipo == "3"){
-                $("#precio_venta").removeAttr('required');
-                $(".collapsePrecioVenta").collapse('hide');
-                $(".collapseDatosProducto").collapse('show'); 
-            }
-
-          }
     </script>
 
 

@@ -35,7 +35,7 @@ class ProductoController extends Controller
                     ->join('categorias as c','p.idcategoria','=','c.id')
                     ->join('tipo_productos as t','p.tipo_producto','=','t.id')
                     ->join('unidad_medidas as uni','p.unidad_medida','=','uni.id')
-                    ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
+                    ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','p.enventa','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
                     ->where('p.condicion','=',$condicion) 
                     ->where('p.tipo_producto','!=',1) 
                     ->where('p.nombre','LIKE','%'.$sql.'%')
@@ -50,7 +50,7 @@ class ProductoController extends Controller
                     ->join('categorias as c','p.idcategoria','=','c.id')
                     ->join('tipo_productos as t','p.tipo_producto','=','t.id')
                     ->join('unidad_medidas as uni','p.unidad_medida','=','uni.id')
-                    ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
+                    ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','p.enventa','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
                     ->where('p.condicion','=',$condicion) 
                     ->where('p.tipo_producto','!=',1) 
                     ->orderBy('p.'.$request->orderby,$request->orden)
@@ -79,7 +79,7 @@ class ProductoController extends Controller
                     ->join('categorias as c','p.idcategoria','=','c.id')
                     ->join('tipo_productos as t','p.tipo_producto','=','t.id')
                     ->join('unidad_medidas as uni','p.unidad_medida','=','uni.id')
-                    ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
+                    ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','p.enventa','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
                     ->where('p.condicion','=',$condicion) 
                     ->where('p.tipo_producto','!=',1) 
                     ->where('p.nombre','LIKE','%'.$sql.'%')
@@ -94,7 +94,7 @@ class ProductoController extends Controller
                     ->join('categorias as c','p.idcategoria','=','c.id')
                     ->join('tipo_productos as t','p.tipo_producto','=','t.id')
                     ->join('unidad_medidas as uni','p.unidad_medida','=','uni.id')
-                    ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
+                    ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','p.enventa','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
                     ->where('p.condicion','=',$condicion) 
                     ->where('p.tipo_producto','!=',1) 
                     ->orderBy('p.id','desc')
@@ -112,6 +112,7 @@ class ProductoController extends Controller
 
             /*Listar tipo de productos */
             $tipoProductos = DB::table('tipo_productos')
+            ->where('nombre','!=','PRODUCTO ELABORADO')
             ->get();
 
             $unidades = DB::table('unidad_medidas')
@@ -253,7 +254,11 @@ class ProductoController extends Controller
 
             if (!isset($existencia[0])){
 
-                    if($request->idTipoProductos == 3){$request->precio_venta = null;}
+                    if($request->idTipoProductos == 3){
+                        $request->precio_venta = null;
+                        $request->enventa = 0;
+                    }
+
                     $producto= new Producto();
                     $producto->idcategoria = $request->idcategoria;
                     $producto->codigo = $request->codigo;
@@ -263,6 +268,7 @@ class ProductoController extends Controller
                     $producto->idreceta = $request->id_receta??null;
                     $producto->unidad_medida = $request->unidad_medida;
                     $producto->condicion = '1';
+                    $producto->enventa = $request->enventa;
 
                     //Handle File Upload
                     if($request->hasFile('imagen')){
@@ -352,6 +358,7 @@ class ProductoController extends Controller
                 $producto->idreceta = $request->id_receta??null;
                 $producto->unidad_medida = $request->unidad_medida;
                 $producto->condicion = '1';
+                $producto->enventa = $request->enventa;
 
                 //Handle File Upload
             

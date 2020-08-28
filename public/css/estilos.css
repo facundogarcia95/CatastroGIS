@@ -5,6 +5,10 @@
     border-color: #6b81ff !important;
 }
 
+.font-btn{
+    font-size: 19px !important; 
+}
+
 .btn-warning:hover{
     background-color: #4661ff !important;
 }

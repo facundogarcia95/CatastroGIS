@@ -200,6 +200,7 @@
         var id_categoria = button.data('id_categoria')
         var unidad_medida = button.data('unidad_medida')
         var id_tipoproductos = button.data('id_tipoproductos')
+        var en_venta = button.data('enventa')
         var modal = $(this)
         // modal.find('.modal-title').text('New message to ' + recipient)
         /*los # son los id que se encuentran en el formulario*/
@@ -211,6 +212,7 @@
         modal.find('.modal-body #id_tipoproductos').val(id_tipoproductos);
         modal.find('.modal-body #id_categoria').val(id_categoria);
         modal.find('.modal-body #unidad_medida').val(unidad_medida);
+        modal.find('.modal-body #enventa').val(en_venta);
        // modal.find('.modal-body #subirImagen').html("<img src="img/producto/imagen_modal_editar">");
         modal.find('.modal-body #id_producto').val(id_producto);
         tipoProducto(id_tipoproductos);

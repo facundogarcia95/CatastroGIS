@@ -31,9 +31,9 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('catalogo')}}" onclick="event.preventDefault(); document.getElementById('catalogo-form').submit();"><i class="fa text-light fa fa-book"></i> Catálogo</a>
+                        <a class="nav-link" href="{{url('formula')}}" onclick="event.preventDefault(); document.getElementById('formula-form').submit();"><i class="fa text-light fa fa-book"></i> Fórmulas</a>
                             
-                            <form id="catalogo-form" action="{{url('catalogo')}}" method="GET" style="display: none;">
+                            <form id="formula-form" action="{{url('formula')}}" method="GET" style="display: none;">
                             @csrf
                             </form>
                     </li>                    

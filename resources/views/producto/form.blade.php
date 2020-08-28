@@ -94,7 +94,20 @@
                             <input type="number" id="precio_venta" value="{{old('precio_venta')}}" name="precio_venta" class="form-control" placeholder="Ingrese el precio venta" pattern="^{0,100}$">
                         </div>
                 </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 form-control-label" for="titulo">Mostrar en Ventas</label>                    
+                    <div class="col-md-9" >  
+                        <select class="form-control" name="enventa" id="enventa" required>                                                    
+                            <option value="1">SI</option>
+                            <option value="0">NO</option>
+                        </select>
+                    </div>                                
+                </div>
+    
             </div>
+
+          
 
             <div class="form-group row">
                         <label class="col-md-3 form-control-label" for="imagen">Imagen</label>

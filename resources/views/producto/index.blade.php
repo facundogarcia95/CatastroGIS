@@ -16,16 +16,16 @@
                             <button class="btn btn-primary btn-lg m-2 rounded" type="button" data-toggle="modal" data-target="#abrirmodal">
                                 <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Producto
                             </button>  
-                            <a href="{{url('listarProductoPdf')}}" target="_blank">
+                            <a href="{{url('listarProductoPdf')}}" style="text-decoration: none" target="_blank">
                                 <button type="button" class="btn btn-report btn-lg m-2 text-light rounded">
                                     <i class="fa fa-file fa-2x"></i>&nbsp;&nbsp;Reporte PDF
                                     
                                 </button>
                             </a>
                             @if($condicionProducto == 1)
-                                <input type="checkbox" checked id="tipo_condicion" data-toggle="toggle" data-on="Productos Activos" data-off="Productos Inactivos" data-onstyle="success rounded my-1" data-offstyle="danger rounded my-1" >                    
+                                <input type="checkbox" checked id="tipo_condicion" data-toggle="toggle" data-on="Productos Activos" data-off="Productos Inactivos" data-onstyle="success rounded font-btn my-3"  data-offstyle="danger rounded font-btn my-3" >                    
                             @else
-                                <input type="checkbox" checked id="tipo_condicion" data-toggle="toggle" data-on="Productos Inactivos" data-off="Productos Activos" data-onstyle="danger rounded my-1" data-offstyle="success rounded my-1" >                    
+                                <input type="checkbox" checked id="tipo_condicion" data-toggle="toggle" data-on="Productos Inactivos" data-off="Productos Activos" data-onstyle="danger rounded font-btn my-3" data-offstyle="success rounded font-btn my-3" >                    
                             @endif
                          
                            
@@ -100,14 +100,7 @@
                                @foreach($productos as $prod)
                                
                                 <tr>
-                                    <td><b>{{$prod->tipoProducto}}</b>
-                                        @if($prod->idreceta)
-                                        <br/>
-                                        <a style="text-decoration:none" href="{{ action('RecetaController@show', ['id' => $prod->idreceta]) }}" class="btn btn-detalle text-light rounded btn-sm">
-                                            <i class="fa fa-eye "></i> RECETA
-                                        </a>
-                                    @endif
-                                    </td>
+                                    <td><b>{{$prod->tipoProducto}}</b> </td>
                                    <td>{{$prod->categoria}}</td>
                                     <td>{{$prod->nombre}}</td>
                                     <td>{{$prod->codigo}}</td>
@@ -128,40 +121,23 @@
                                         @endif
                                        
                                     </td>
-                                <td> 
-
-                                    @if($prod->idreceta)
-
-                                    {{round($prod->stock,2)}}  {{$prod->unidad}}<br/> (Según Insumos)
-
-                                    @else
-
-                                    {{round($prod->stock,2)}} {{$prod->unidad}}
-
-                                    @endif
-                                </td>
+                                    <td> 
+                                        {{round($prod->stock,2)}} {{$prod->unidad}}         
+                                    </td>
 
                                     <td>
                                          <img src="{{asset('storage/img/producto/'.$prod->imagen)}}" id="imagen1" alt="{{$prod->nombre}}" class="img-responsive" width="100px" height="100px">
                                     </td>
             
                             
-                                    <td class="">
-                                        @if($prod->idreceta)
-                                            <a href="{{ action('RecetaController@edit', ['id' => $prod->id]) }}" class="btn btn-warning rounded btn-sm">
-                                                <i class="fa fa-edit fa-2x"></i> EDITAR
-                                            </a>
-                                        @else
-                                        <button type="button" class="btn rounded btn-warning btn-sm" data-id_producto="{{$prod->id}}" data-id_categoria="{{$prod->idcategoria}}" data-id_tipoproductos="{{$prod->idtipoproductos}}" data-codigo="{{$prod->codigo}}" data-stock="{{$prod->stock}}" data-nombre="{{$prod->nombre}}" data-precio_venta="{{$prod->precio_venta}}" data-unidad_medida="{{$prod->id_unidad}}"  data-toggle="modal" data-target="#abrirmodalEditar">
-                                            <i class="fa fa-edit fa-2x"></i> EDITAR</button>
-
-                                        @endif
-                                        
-                                      
+                                    <td>
+                                    <button type="button" class="btn rounded btn-warning btn-sm" data-id_producto="{{$prod->id}}" data-id_categoria="{{$prod->idcategoria}}" data-id_tipoproductos="{{$prod->idtipoproductos}}" data-codigo="{{$prod->codigo}}" data-stock="{{$prod->stock}}" data-nombre="{{$prod->nombre}}" data-precio_venta="{{$prod->precio_venta}}" data-unidad_medida="{{$prod->id_unidad}}" data-enventa="{{$prod->enventa}}"  data-toggle="modal" data-target="#abrirmodalEditar">
+                                            <i class="fa fa-edit fa-2x"></i> EDITAR
+                                        </button>
                                     </td>
 
                                     
-                                    <td class="">
+                                    <td>
 
                                        @if($prod->condicion)
 
@@ -356,18 +332,17 @@
 
         function tipoProducto(tipo) {
 
-            if(tipo == "1"){
-                window.location.href = "../receta/create";
-            }
             if(tipo == "2"){
                 $("#precio_venta").prop('required',true);
                 $(".collapsePrecioVenta").collapse('show');
-                $(".collapseDatosProducto").collapse('show'); 
+                $(".collapseDatosProducto").collapse('show');
+                $("#enventa").val(1); 
             }
             if(tipo == "3"){
                 $("#precio_venta").removeAttr('required');
                 $(".collapsePrecioVenta").collapse('hide');
                 $(".collapseDatosProducto").collapse('show'); 
+                $("#enventa").val(0); 
             }
 
           }

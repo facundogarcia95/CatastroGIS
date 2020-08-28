@@ -163,6 +163,7 @@ class RecetaController extends Controller
                 $producto->idreceta =  $idreceta;
                 $producto->unidad_medida = $request->unidad_medida;
                 $producto->condicion = 1;
+                $producto->enventa = $request->enventa;
 
                 //Handle File Upload
                 if($request->hasFile('imagen')){
@@ -210,7 +211,7 @@ class RecetaController extends Controller
 
         }
 
-         return Redirect::to("catalogo")->with('mensaje', 'Producto Agregado!');
+         return Redirect::to("formula")->with('mensaje', 'Producto Agregado!');
     }
 
     /**
@@ -306,6 +307,7 @@ class RecetaController extends Controller
                     $producto->idreceta = $request->id_receta??null;
                     $producto->unidad_medida = $request->unidad_medida;
                     $producto->condicion = '1';
+                    $producto->enventa = $request->enventa;
     
                     //Handle File Upload
                 
@@ -350,19 +352,14 @@ class RecetaController extends Controller
     
             }
                     
-         return Redirect::to("catalogo")->with('mensaje', 'Producto Modificado!');   
+         return Redirect::to("formula")->with('mensaje', 'Producto Modificado!');   
 
     }
 
    
     public function destroy(Request $request){
  
-     
-        $compra = Receta::findOrFail($request->id_receta);
-        $compra->condicion = 0;
-        $compra->save();
-        
-        return Redirect::to('receta');
+     //
 
     }
 }

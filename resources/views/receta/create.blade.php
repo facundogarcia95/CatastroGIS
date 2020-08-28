@@ -6,7 +6,7 @@
 @include('breadcrumb.bread')
  <div class="card-body">
 
- <h2>Agregar Producto Elaborado</h2><br/>
+ <h2>Agregar Fórmula</h2><br/>
 
  <div class="col-sm-12 mt-4">
     @if ( session('error') )
@@ -58,18 +58,22 @@
                         @isset($productoEditar[0])
                         
                             <input type="text" id="nombre" value="{{$productoEditar[0]->nombre}}" name="nombre" class="form-control text-uppercase" placeholder="Ingrese Nombre" pattern="^[a-zA-Z0-9_áéíóúñ\s]{0,100}$">
-
                         @else
-
                             <input type="text" id="nombre" name="nombre" class="form-control text-uppercase" placeholder="Ingrese Nombre" pattern="^[a-zA-Z0-9_áéíóúñ\s]{0,100}$">
 
                         @endisset
-                            
-                       
-                        
 
+                </div>
 
-                        
+                <div class="col-md-4 mt-3">  
+
+                    <label class="form-control-label" for="nombre">Mostrar en Venta</label>
+
+                        <select class="form-control selectpicker" name="enventa" id="enventa" data-live-search="true" required>                                               
+                            <option value="1">SI</option>
+                            <option value="0">NO</option>                     
+                        </select>
+
                 </div>
 
             </div>
@@ -192,9 +196,9 @@
 
         </div>   
 
-            <div class="form-group row mt-2">
+            <div class="form-group row mt-4">
 
-                <div class="col-md-9 mb-2">
+                <div class="col-md-9 mb-2 ">
 
                     <h4 class="text-left mt-1">Cargar Insumos</h4>
                 
@@ -253,7 +257,7 @@
 
            <div class="form-group row ">
 
-              <h3 class="ml-1">Lista de Insumos del Producto</h3>
+              <h3 class="ml-1">Lista de Insumos de la Fórmula</h3>
 
               <div class="mt-1 col-md-12">
                 <table id="detalles" class="table table-bordered  table-respinsive table-striped table-sm">
@@ -321,7 +325,16 @@
          agregar();
      });
 
-     autoCompleteProductosRecetas();
+     @isset($productoEditar[0])
+        autoCompleteProductosRecetasEditar({{"".$productoEditar[0]->id.""}});
+     @else
+        autoCompleteProductosRecetas();
+     @endisset
+     
+
+     @isset($productoEditar[0])
+        $("#enventa").val({{"".$productoEditar[0]->enventa.""}});
+     @endisset
 
   });
 
