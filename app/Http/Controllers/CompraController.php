@@ -16,29 +16,25 @@ class CompraController extends Controller
 
     public function index(Request $request){
       
-        if($request){
-        
-            $sql=trim($request->get('buscarTexto'));
+
             $compras=Compra::join('proveedores','compras.idproveedor','=','proveedores.id')
             ->join('users','compras.idusuario','=','users.id')
             ->join('detalle_compras','compras.id','=','detalle_compras.idcompra')
              ->select('compras.id','compras.tipo_identificacion',
              'compras.num_compra','compras.created_at as fecha_compra','compras.impuesto',
              'compras.estado','compras.total','proveedores.nombre as proveedor','users.nombre')
-            ->where('compras.num_compra','LIKE','%'.$sql.'%')
-            ->orWhere('compras.created_at','LIKE','%'.$sql.'%')
             ->orderBy('compras.id','desc')
             ->groupBy('compras.id','compras.tipo_identificacion',
             'compras.num_compra','compras.created_at','compras.impuesto',
             'compras.estado','compras.total','proveedores.nombre','users.nombre','users.idrol')
-            ->paginate(10);
+            ->paginate(50);
              
             $usuarioRol = \Auth::user()->idrol;
  
-            return view('compra.index',["compras"=>$compras,"usuarioRol"=>$usuarioRol,"buscarTexto"=>$sql]);
+            return view('compra.index',["compras"=>$compras,"usuarioRol"=>$usuarioRol]);
             
             //return $compras;
-        }
+        
       
  
      }

@@ -23,28 +23,11 @@ class ProductoController extends Controller
         
         if($request){
 
-            $sql=trim($request->get('buscarTexto'));
             $condicion= $request->get('condicionProducto')??1;
 
             
             if(isset($request->orderby) && ($request->orden == "ASC" || $request->orden == "DESC")){
                 
-                if($sql != ""){
-
-                    $productos=DB::table('productos as p')
-                    ->join('categorias as c','p.idcategoria','=','c.id')
-                    ->join('tipo_productos as t','p.tipo_producto','=','t.id')
-                    ->join('unidad_medidas as uni','p.unidad_medida','=','uni.id')
-                    ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','p.enventa','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
-                    ->where('p.condicion','=',$condicion) 
-                    ->where('p.tipo_producto','!=',1) 
-                    ->where('p.nombre','LIKE','%'.$sql.'%')
-                    ->orwhere('p.codigo','LIKE','%'.$sql.'%')
-                    ->orwhere('c.nombre','LIKE','%'.$sql.'%')
-                    ->orderBy('p.'.$request->orderby,$request->orden)
-                    ->paginate($paginate);
-
-                }else{
 
                     $productos=DB::table('productos as p')
                     ->join('categorias as c','p.idcategoria','=','c.id')
@@ -56,9 +39,7 @@ class ProductoController extends Controller
                     ->orderBy('p.'.$request->orderby,$request->orden)
                     ->paginate($paginate);
 
-                }
-           
-
+                
                 if($request->orden == "ASC"){
                     
                     $orden = "DESC";
@@ -73,23 +54,6 @@ class ProductoController extends Controller
 
                 $orden = "DESC";
 
-                if($sql != ""){
-
-                    $productos=DB::table('productos as p')
-                    ->join('categorias as c','p.idcategoria','=','c.id')
-                    ->join('tipo_productos as t','p.tipo_producto','=','t.id')
-                    ->join('unidad_medidas as uni','p.unidad_medida','=','uni.id')
-                    ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.imagen','p.condicion', 'p.idreceta','p.enventa','c.nombre as categoria', 't.nombre as tipoProducto', 't.id as idtipoproductos', 'uni.id as id_unidad', 'uni.unidad')
-                    ->where('p.condicion','=',$condicion) 
-                    ->where('p.tipo_producto','!=',1) 
-                    ->where('p.nombre','LIKE','%'.$sql.'%')
-                    ->orwhere('p.codigo','LIKE','%'.$sql.'%')
-                    ->orwhere('c.nombre','LIKE','%'.$sql.'%')
-                    ->orderBy('p.id','desc')
-                    ->paginate($paginate);
-
-                }else{
-
                     $productos=DB::table('productos as p')
                     ->join('categorias as c','p.idcategoria','=','c.id')
                     ->join('tipo_productos as t','p.tipo_producto','=','t.id')
@@ -98,9 +62,7 @@ class ProductoController extends Controller
                     ->where('p.condicion','=',$condicion) 
                     ->where('p.tipo_producto','!=',1) 
                     ->orderBy('p.id','desc')
-                    ->paginate($paginate);
-
-                }
+                    ->paginate($paginate);    
 
             }
            
@@ -139,7 +101,7 @@ class ProductoController extends Controller
             }
 
 
-            return view('producto.index',["productos"=>$productos,"categorias"=>$categorias,"buscarTexto"=>$sql,"tipoProductos"=>$tipoProductos, "unidades" => $unidades,"orden"=>$orden,'page'=>$request->page??1,'condicionProducto'=>$condicion]);
+            return view('producto.index',["productos"=>$productos,"categorias"=>$categorias,"tipoProductos"=>$tipoProductos, "unidades" => $unidades,"orden"=>$orden,'page'=>$request->page??1,'condicionProducto'=>$condicion]);
      
             //return $productos;
         }

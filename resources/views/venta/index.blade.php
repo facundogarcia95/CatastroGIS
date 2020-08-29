@@ -22,20 +22,20 @@
 
                         <div class="form-group row">
                             <div class="col-md-6">
-                            {!! Form::open(array('url'=>'venta','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!} 
+                            
                                 <div class="input-group">
                                     <button type="button" class="btn btn-primary date">
                                         <i class="fa fa-calendar-check-o"></i>     
                                     </button>
-                                    <input id="buscarPorTexto" type="text" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
+                                    <input id="buscarPorTexto" type="text" class="form-control" placeholder="Buscar texto" value="">
                                     <input id="fecha" type="date"  class="form-control d-none" >
-                                    <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>&nbsp;
-                                    <a href={{url('venta')}}  class="btn btn-primary">Limpiar</a>
+                                    <button disabled class="btn btn-primary"><i class="fa fa-search"></i> Buscador</button>
+                                    
                                 </div>
-                            {{Form::close()}}
+
                             </div>
                         </div>
-                        <table class="table table-bordered table-striped table-sm table-responsive ">
+                        <table id="tablaventa" class="table table-bordered table-striped table-sm table-responsive ">
                             <thead>
                                 <tr class="bg-dark text-light" >
                                     
@@ -201,27 +201,31 @@
         }else{
             $("#fecha").addClass("d-none");
             $("#buscarPorTexto").removeClass("d-none");
+            $("#buscarPorTexto").val("");
+            $("#buscarPorTexto").keyup();
             booleanoDate = false;
         }
            
     })
 
     $('#fecha').on("change",function(){
-       if(booleanoDate){
-            var fecha = GetFormattedDate($(this).val());
-            console.log(fecha);
-            $("#buscarPorTexto").val(fecha);
-       }
-    })
+               if(booleanoDate){
+                    $("#buscarPorTexto").val($(this).val());
+                    $("#buscarPorTexto").keyup();
+               }
+            })
 
-    
-    function GetFormattedDate(fecha) {
-            fecha = fecha.split("-")
-        var year = fecha[0];
-        var month = fecha[1];
-        var day = fecha[2]
-        return year + "-" + month + "-" + day;
-    }
+
+    $("#buscarPorTexto").keyup(function(){
+        _this = this;
+                // Show only matching TR, hide rest of them
+        $.each($("#tablaventa tbody tr"), function() {    
+             if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+                $(this).hide();
+            else
+                $(this).show();
+         });
+    });
 
 </script>
 @endpush

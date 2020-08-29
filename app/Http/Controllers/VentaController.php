@@ -27,29 +27,25 @@ class VentaController extends Controller
 
         }
       
-        if($request){
 
 
-            $sql=trim($request->get('buscarTexto'));
             $ventas=Venta::join('clientes','ventas.idcliente','=','clientes.id')
             ->join('users','ventas.idusuario','=','users.id')
             ->join('detalle_ventas','ventas.id','=','detalle_ventas.idventa')
              ->select('ventas.id','ventas.tipo_identificacion',
              'ventas.num_venta','ventas.created_at as fecha_venta','ventas.impuesto',
              'ventas.estado','ventas.total','clientes.nombre as cliente','users.nombre')
-            ->where('ventas.num_venta','LIKE','%'.$sql.'%')
-            ->orWhere('ventas.created_at','LIKE','%'.$sql.'%')
             ->orderBy('ventas.id','desc')
             ->groupBy('ventas.id','ventas.tipo_identificacion',
             'ventas.num_venta','ventas.created_at','ventas.impuesto',
             'ventas.estado','ventas.total','clientes.nombre','users.nombre')
-            ->paginate(10);
+            ->paginate(50);
 
             $usuarioRol = \Auth::user()->idrol;
  
-            return view('venta.index',["ventas"=>$ventas,"usuarioRol"=>$usuarioRol,"buscarTexto"=>$sql]);
+            return view('venta.index',["ventas"=>$ventas,"usuarioRol"=>$usuarioRol]);
             //return $ventas;
-        }
+        
       
  
      }
@@ -63,6 +59,7 @@ class VentaController extends Controller
              $productos= DB::table('productos as prod')
              ->select(DB::raw('CONCAT(prod.codigo," ",prod.nombre) AS producto'),'prod.id','prod.stock','prod.precio_venta', 'prod.idreceta','prod.idcategoria')
              ->where('prod.condicion','=','1')
+             ->where('prod.enventa','=','1')
              ->where('prod.stock','>','0')
              ->where('prod.tipo_producto','!=','3')
              ->groupBy('producto','prod.id','prod.stock','prod.precio_venta','prod.idreceta','prod.idcategoria')

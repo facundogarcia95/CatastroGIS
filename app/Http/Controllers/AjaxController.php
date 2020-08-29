@@ -109,6 +109,7 @@ class AjaxController extends Controller
         ->select('p.id', 'p.nombre')
         ->where('p.tipo_producto','!=',3)
         ->where('p.condicion','=',1)
+        ->where('p.enventa','=',1)
         ->where('p.stock','>',0)
         ->orderBy('p.nombre','ASC')
         ->get();

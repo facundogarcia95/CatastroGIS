@@ -1,3 +1,4 @@
+
 @extends('principal')
 @section('contenido')
 <main class="main">
@@ -22,20 +23,19 @@
 
                         <div class="form-group row">
                             <div class="col-md-6">
-                            {!! Form::open(array('url'=>'compra','method'=>'GET','autocomplete'=>'off','role'=>'search')) !!} 
                                 <div class="input-group">
                                     <button type="button" class="btn btn-primary date">
                                         <i class="fa fa-calendar-check-o"></i>     
                                     </button>
                                     <input id="fecha" type="date"  class="form-control d-none" >
-                                    <input type="text" id="buscarPorTexto" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
-                                    <button type="submit"  class="btn btn-primary "><i class="fa fa-search"></i> Buscar</button> &nbsp;
-                                    <a href={{url('compra')}}  class="btn btn-primary">Limpiar</a>
+                                    <input type="text" id="buscarPorTexto" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="">
+                                    <button disabled class="btn btn-primary "><i class="fa fa-search"></i> Buscador</button> &nbsp;
+                                 
                                 </div>
-                            {{Form::close()}}
+                            
                             </div>
                         </div>
-                        <table class="table table-bordered table-striped table-sm table-responsive">
+                        <table id="tablacompra" class="table table-bordered table-striped table-sm table-responsive">
                             <thead>
                                 <tr class="bg-dark text-light">
                                     
@@ -197,6 +197,8 @@
                 }else{
                     $("#fecha").addClass("d-none");
                     $("#buscarPorTexto").removeClass("d-none");
+                    $("#buscarPorTexto").val("");
+                    $("#buscarPorTexto").keyup();
                     booleanoDate = false;
                 }
                    
@@ -204,20 +206,27 @@
         
             $('#fecha').on("change",function(){
                if(booleanoDate){
-                    var fecha = GetFormattedDate($(this).val());
-                    console.log(fecha);
-                    $("#buscarPorTexto").val(fecha);
+                    $("#buscarPorTexto").val($(this).val());
+                    $("#buscarPorTexto").keyup();
                }
             })
+
+
+            $("#buscarPorTexto").keyup(function(){
+            _this = this;
+                // Show only matching TR, hide rest of them
+            $.each($("#tablacompra tbody tr"), function() {
+                
+                if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+                    $(this).hide();
+                else
+                    $(this).show();
+
+            });
+          });
         
             
-            function GetFormattedDate(fecha) {
-                    fecha = fecha.split("-")
-                var year = fecha[0];
-                var month = fecha[1];
-                var day = fecha[2]
-                return year + "-" + month + "-" + day;
-            }
+
         
         </script>
         @endpush

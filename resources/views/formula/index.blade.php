@@ -1,3 +1,4 @@
+
 @extends('principal')
 @section('contenido')
 @inject('productoControlador', 'App\Http\Controllers\ProductoController')
