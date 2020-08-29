@@ -26,6 +26,9 @@ class CreateNegociosTable extends Migration
             $table->string('Telefono')->nullable();
             $table->string('web')->nullable();
             $table->string('logo')->nullable();
+            $table->float('hora_extra')->nullable();
+            $table->float('hora_domingo')->nullable();
+            $table->float('hora_feriado')->nullable();
             $table->timestamps();
         });
         

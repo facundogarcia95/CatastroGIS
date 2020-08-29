@@ -74,7 +74,13 @@
                          </form>
                     </li>
                         
-                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('empleado')}}" onclick="event.preventDefault(); document.getElementById('empleado-form').submit();"><i class="fa text-light fa-user"></i> Empleados</a>
+                        <form id="empleado-form" action="{{url('empleado')}}" method="GET" style="display: none;">
+                            @csrf
+                         </form> 
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('user')}}" onclick="event.preventDefault(); document.getElementById('user-form').submit();"><i class="fa text-light fa-user"></i> Usuarios</a>
                         <form id="user-form" action="{{url('user')}}" method="GET" style="display: none;">
