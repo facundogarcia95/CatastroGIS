@@ -19,18 +19,12 @@ class ClienteController extends Controller
     {
         //
 
-        if($request){
-
-            $sql=trim($request->get('buscarTexto'));
             $clientes=DB::table('clientes')
-            ->where('nombre','LIKE','%'.$sql.'%')
-            ->orwhere('num_documento','LIKE','%'.$sql.'%')
             ->orderBy('id','desc')
-            ->paginate(20);
-            return view('cliente.index',["clientes"=>$clientes,"buscarTexto"=>$sql]);
+            ->paginate(25);
+            return view('cliente.index',["clientes"=>$clientes]);
             //return $clientes;
-        }
-       
+        
     }
 
     

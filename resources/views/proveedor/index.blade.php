@@ -16,17 +16,14 @@
                     <div class="card-body">
                         <div class="form-group row">
                             <div class="col-md-6">
-                            {!!Form::open(array('url'=>'proveedor','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!} 
                                 <div class="input-group">
-                                   
-                                    <input type="text" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
-                                    <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>&nbsp;
-                                    <a href={{url('proveedor')}}  class="btn btn-primary">Limpiar</a>
+                                    <input type="text" id="buscarTexto" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="">
+                                    <button  class="btn btn-primary"><i class="fa fa-search"></i> Buscador</button>
                                 </div>
-                            {{Form::close()}}
                             </div>
                         </div>
-                        <table class="table table-bordered table-striped table-sm table-responsive">
+
+                        <table id="tablaProveedores" class="table table-bordered table-striped table-sm table-responsive">
                             <thead>
                                 <tr class="bg-dark text-light">
                                    
@@ -139,5 +136,23 @@
            
             
         </main>
+@push('scripts')
 
+    <script>
+
+        $("#buscarTexto").keyup(function(){
+                    _this = this;
+                        // Show only matching TR, hide rest of them
+                    $.each($("#tablaProveedores tbody tr"), function() {
+                        
+                        if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+                            $(this).hide();
+                        else
+                            $(this).show();
+
+                    });
+                });
+
+    </script>
+@endpush
 @endsection

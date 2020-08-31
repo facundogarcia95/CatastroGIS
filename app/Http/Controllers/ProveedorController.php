@@ -19,17 +19,11 @@ class ProveedorController extends Controller
     {
         //
 
-        if($request){
-
-            $sql=trim($request->get('buscarTexto'));
             $proveedores=DB::table('proveedores')
-            ->where('nombre','LIKE','%'.$sql.'%')
-            ->orwhere('num_documento','LIKE','%'.$sql.'%')
             ->orderBy('id','desc')
-            ->paginate(10);
-            return view('proveedor.index',["proveedores"=>$proveedores,"buscarTexto"=>$sql]);
+            ->paginate(25);
+            return view('proveedor.index',["proveedores"=>$proveedores]);
             //return $proveedores;
-        }
        
     }
 

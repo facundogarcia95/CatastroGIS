@@ -301,12 +301,12 @@
 
             <div class="modal-footer form-group row" id="guardar">
             
-            <div class="col-md">
-               <input type="hidden" name="_token" value="{{csrf_token()}}">
-              
-                <button type="submit" class="btn btn-success pull-right"><i class="fa fa-plus-square fa-2x"></i> Registrar</button>
-            
-            </div>
+                <div class="col-md">
+                <input type="hidden" name="_token" value="{{csrf_token()}}">
+                
+                    <button type="submit" class="btn btn-success pull-right"><i class="fa fa-plus-square fa-2x"></i> Registrar</button>
+                
+                </div>
 
             </div>
 

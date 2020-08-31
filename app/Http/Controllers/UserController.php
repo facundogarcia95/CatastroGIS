@@ -14,29 +14,25 @@ class UserController extends Controller
     public function index(Request $request)
     {
         //
-        if($request){
-
-            $sql=trim($request->get('buscarTexto'));
+    
             $usuarios=DB::table('users')
             ->join('roles','users.idrol','=','roles.id')
             ->select('users.id','users.nombre','users.tipo_documento',
             'users.num_documento','users.direccion','users.telefono',
             'users.email','users.usuario','users.password',
             'users.condicion','users.idrol','users.imagen','roles.nombre as rol')
-            ->where('users.nombre','LIKE','%'.$sql.'%')
-            ->orwhere('users.num_documento','LIKE','%'.$sql.'%')
             ->orderBy('users.id','desc')
-            ->paginate(5);
+            ->paginate(25);
 
              /*listar los roles en ventana modal*/
             $roles=DB::table('roles')
             ->select('id','nombre','descripcion')
             ->where('condicion','=','1')->get(); 
 
-            return view('user.index',["usuarios"=>$usuarios,"roles"=>$roles,"buscarTexto"=>$sql]);
+            return view('user.index',["usuarios"=>$usuarios,"roles"=>$roles]);
         
             //return $usuarios;
-        }      
+             
 
        
     }

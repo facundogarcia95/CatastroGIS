@@ -348,7 +348,7 @@
 
      /*INICIO ventana modal para cambiar el estado del usuario*/
         
-        $('#cambiarEstado').on('show.bs.modal', function (event) {
+        $('#cambiarEstadoUsuario').on('show.bs.modal', function (event) {
         
         //console.log('modal abierto');
         
@@ -361,6 +361,23 @@
         })
          
         /*FIN ventana modal para cambiar estado del usuario*/
+
+
+        /*INICIO ventana modal para cambiar el estado del usuario*/
+        
+        $('#cambiarEstadoFicha').on('show.bs.modal', function (event) {
+        
+        //console.log('modal abierto');
+        
+        var button = $(event.relatedTarget) 
+        var id_ficha = button.data('id_ficha')
+        var modal = $(this)
+        // modal.find('.modal-title').text('New message to ' + recipient)
+        
+        modal.find('.modal-body #id_ficha').val(id_ficha);
+        })
+         
+        /*FIN ventana modal para cambiar estado de la ficha*/
 
          /*INICIO ventana modal para cambiar estado de Compra*/
         

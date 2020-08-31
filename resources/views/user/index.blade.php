@@ -16,17 +16,17 @@
                     <div class="card-body">
                         <div class="form-group row">
                             <div class="col-md-6">
-                            {!!Form::open(array('url'=>'user','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!} 
+                         
                                 <div class="input-group">
                                    
-                                    <input type="text" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
-                                    <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>&nbsp;
-                                    <a href={{url('usuario')}}  class="btn btn-primary">Limpiar</a>
+                                    <input type="text" id="buscarTexto" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="">
+                                    <button  class="btn btn-primary"><i class="fa fa-search"></i> Buscador</button>
+                                   
                                 </div>
-                            {{Form::close()}}
+                       
                             </div>
                         </div>
-                        <table class="table table-bordered table-striped table-sm table-responsive">
+                        <table id="tablaUsuarios" class="table table-bordered table-striped table-sm table-responsive">
                             <thead>
                                 <tr class="bg-dark text-light">
                                    
@@ -41,7 +41,7 @@
                                     <th>Imagen</th>
                                     <th>Estado</th>
                                     <th>Editar</th>
-                                    <th>Cambiar Estado</th>
+                                    <th>Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -93,7 +93,7 @@
 
                                        @if($user->condicion)
 
-                                        <button type="button" class="btn btn-danger rounded  btn-sm" data-id_usuario="{{$user->id}}" data-toggle="modal" data-target="#cambiarEstado">
+                                        <button type="button" class="btn btn-danger rounded  btn-sm" data-id_usuario="{{$user->id}}" data-toggle="modal" data-target="#cambiarEstadoUsuario">
                                             <i class="fa fa-times fa-2x"></i> Desactivar
                                         </button>
 
@@ -187,7 +187,7 @@
 
             
              <!-- Inicio del modal Cambiar Estado del usuario -->
-             <div class="modal fade" id="cambiarEstado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+             <div class="modal fade" id="cambiarEstadoUsuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-dark" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -224,5 +224,23 @@
            
             
         </main>
+@push('scripts')
 
+        <script>
+    
+            $("#buscarTexto").keyup(function(){
+                        _this = this;
+                            // Show only matching TR, hide rest of them
+                        $.each($("#tablaUsuarios tbody tr"), function() {
+                            
+                            if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+                                $(this).hide();
+                            else
+                                $(this).show();
+    
+                        });
+                    });
+    
+        </script>
+    @endpush
 @endsection

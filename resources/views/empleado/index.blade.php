@@ -40,12 +40,10 @@
                             <thead>
                                 <tr class="bg-dark text-light">
                                    
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
+                                    <th>Nombre y Apellido</th>
                                     <th>Número Documento</th>
                                     <th>Dirección</th>
-                                    <th>Teléfono</th>
-                                    <th>Email</th>
+                                  
                                     <th>Foto</th>
                                     <th>Editar</th>
                                     <th>Estado</th>
@@ -57,12 +55,10 @@
                                
                                 <tr>
                                     
-                                    <td>{{$empleado->nombre}}</td>
-                                    <td>{{$empleado->apellido}}</td>
+                                    <td><a href="{{ action('EmpleadoController@show', ['id' => $empleado->id]) }}">{{$empleado->nombre}} {{$empleado->apellido}}</a></td>
                                     <td>{{$empleado->num_documento}}</td>
                                     <td>{{$empleado->direccion}}</td>
-                                    <td>{{$empleado->telefono}}</td>
-                                    <td>{{$empleado->email}}</td>
+                                   
                                     <td><img src="{{asset('storage/img/empleados/'.$empleado->foto)}}" id="" alt="{{$empleado->nombre}}" class="img-responsive" width="100px" height="100px"></td>
                                     <td>
                                         <button type="button" class="btn btn-warning text-light btn-sm rounded" data-id_empleado="{{$empleado->id}}" data-nombre="{{$empleado->nombre}}"
