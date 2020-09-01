@@ -1,3 +1,4 @@
+
 @extends('principal')
 @section('contenido')
 
@@ -43,11 +44,19 @@
                     </div>
 
                     @if($empleado->direccion)
-                    <div class="col-md-12 border">
+                    
+                    <div class="col-md-8 border">
                       <label class="form-control-label m-1" for="dirección">Dirección</label>
                       
                       <p class="m-1 font-weight-bold">{{$empleado->direccion}}</p>
                     </div>
+
+                    <div class="col-md-4 border">
+                      <label class="form-control-label m-1" for="fecha">Fecha Nacimiento</label>
+                      
+                      <p class="m-1 font-weight-bold">{{$empleado->fecha_nacimiento}}</p>
+                    </div>
+
                     @endif
 
             </div>
@@ -57,10 +66,10 @@
 
            <div class="form-group row border m-1  bg-light">
 
-              <h3 class="m-2">Fichas del empleado</h3>
+              <h3 class="m-2">Novedades del empleado</h3>
 
-              <div class="col-md-12">
-                <table id="detalles" class="table table-responsive  table-bordered table-default table-sm">
+              <div class="col-sm-12">
+                <table id="detalles" class="table table-responsive table-bordered table-striped table-sm">
                 <thead>
                     <tr class="bg-dark text-light">
                         <th>Nombre de ficha</th>
@@ -70,16 +79,26 @@
 
                 <tbody>
                    
-                   @foreach($fichas as $ficha)
+                  @if(count($novedades) == 0)
+                    <tr>
+                      <td colspan="2">
+                        <p class="h5 text-danger"> No se encontraron novedades.</p>
+                      </td>
+                    </tr>
+                  @endif
+
+                   @foreach($novedades as $novedad)
 
                     <tr>
-                     
-                      <td>{{$ficha->nombre}}</td>
+      
+                      <td>
+                        <a href="{{ action('NovedadController@show', ['id' => $novedad->id]) }}">{{$novedad->nombre}}</a>
+                      </td>
                       <td>  
-                          <a href="{{ action('FichaController@show', ['id' => $ficha->id]) }}" class="btn btn-warning rounded text-light btn-sm" >
-                            <i class="fa fa-edit fa-2x"></i> Ver/Editar
-                          </a> &nbsp; 
-                          <button type="button" class="btn btn-danger rounded  btn-sm" data-id_ficha="{{$ficha->id}}" data-toggle="modal" data-target="#cambiarEstadoFicha">
+                          <button  class="btn btn-warning rounded text-light btn-sm" >
+                            <i class="fa fa-edit fa-2x"></i> Editar
+                          </button> &nbsp; 
+                          <button type="button" class="btn btn-danger rounded  btn-sm" data-id_novedad="{{$novedad->id}}" data-toggle="modal" data-target="#cambiarEstadoNovedad">
                             <i class="fa fa-times fa-2x"></i> Desactivar
                           </button>
                       </td>
@@ -90,6 +109,10 @@
                    @endforeach
                    
                 </tbody>
+
+                <tfoot>
+                  <th colspan="2"> <button class="btn btn-success pull-right"><i class="fa fa-plus-square fa-2x"></i> Agregar Novedad</button></th>
+                </tfoot>
                 
                 
                 </table>
@@ -97,36 +120,26 @@
             
             </div>
 
-            <div class="modal-footer form-group row">
-            
-              <div class="col-md">
-
-                  <a href="{{url('ficha/create',$empleado->id)}}" class="btn btn-success pull-right"><i class="fa fa-plus-square fa-2x"></i> Agregar ficha</button>
-              
-              </div>
-
-            </div>
-
 
     </div><!--fin del div card body-->
 
            <!-- Inicio del modal Cambiar Estado de Ficha -->
-        <div class="modal fade" id="cambiarEstadoFicha" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+        <div class="modal fade" id="cambiarEstadoNovedad" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-dark" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Cambiar Estado de la Ficha</h4>
+                        <h4 class="modal-title">Cambiar Estado de la Novedad</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true" class="text-light">×</span>
                         </button>
                     </div>
 
                 <div class="modal-body">
-                    <form action="{{route('ficha.destroy','test')}}" method="POST">
+                    <form action="{{route('novedad.destroy','test')}}" method="POST">
                      {{method_field('delete')}}
                      {{csrf_field()}} 
 
-                        <input type="hidden" id="id_ficha" name="id_ficha" value="">
+                        <input type="hidden" id="id_novedad" name="id_novedad" value="">
 
                             <p>¿Está seguro que desea cambiar el estado?</p>
     

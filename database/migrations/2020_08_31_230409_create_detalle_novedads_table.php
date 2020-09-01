@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class TiposLiquidaciones extends Migration
+class CreateDetalleNovedadsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class TiposLiquidaciones extends Migration
      */
     public function up()
     {
-       /* Schema::create('tipos_liquidaciones', function (Blueprint $table) {
+        Schema::create('detalle_novedades', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('descripcion');
+            $table->integer('idnovedad')->unsigned();
+            $table->text('detalle');
             $table->timestamps();
 
-        
-        });*/
+            $table->foreign('idnovedad')->references('id')->on('novedades');
+        });
     }
 
     /**
@@ -29,7 +30,6 @@ class TiposLiquidaciones extends Migration
      */
     public function down()
     {
-      //  Schema::dropIfExists('tipos_liquidaciones');
-
+        Schema::dropIfExists('detalle_novedades');
     }
 }

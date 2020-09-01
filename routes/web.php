@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth']], function () {
       Route::get('/listarFormulaPdf', 'FormulaController@listarPdf')->name('formula_pdf');
       
       Route::resource('empleado','EmpleadoController');
+      Route::resource('novedad','NovedadController');
 
     });
 

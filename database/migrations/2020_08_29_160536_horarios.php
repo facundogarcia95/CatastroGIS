@@ -13,7 +13,7 @@ class Horarios extends Migration
      */
     public function up()
     {
-        Schema::create('horarios', function (Blueprint $table) {
+      /*  Schema::create('horarios', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idempleado')->unsigned();
             $table->datetime('hora_entrada');
@@ -28,7 +28,7 @@ class Horarios extends Migration
             $table->timestamps();
 
             $table->foreign('idempleado')->references('id')->on('empleados');
-        });
+        });*/
     }
 
     /**
@@ -38,7 +38,7 @@ class Horarios extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('horarios');
+       // Schema::dropIfExists('horarios');
 
     }
 }

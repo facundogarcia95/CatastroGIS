@@ -15,22 +15,29 @@
             
         </div>
 </div>
-    
-    <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="direccion">Dirección</label>
-                <div class="col-md-9">
-                    <input type="text" id="direccion" name="direccion" class="form-control" placeholder="Ingrese la dirección" pattern="^[a-zA-Z0-9_áéíóúñ°\s]{0,200}$">
-                </div>
-    </div>
 
-    
-    
      <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="num_documento">Número documento</label>
                 <div class="col-md-9">
                     <input type="text" id="num_documento" name="num_documento" class="form-control" placeholder="Ingrese el número documento" pattern="[0-9]{0,15}">
                 </div>
     </div>
+
+    <div class="form-group row">
+        <label class="col-md-3 form-control-label" for="fecha_nacimiento">Fecha Nacimiento</label>
+        <div class="col-md-9">
+            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="form-control" placeholder="Ingrese la fecha de nacimiento">
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label class="col-md-3 form-control-label" for="direccion">Dirección</label>
+        <div class="col-md-9">
+            <input type="text" id="direccion" name="direccion" class="form-control" placeholder="Ingrese la dirección" pattern="^[a-zA-Z0-9_áéíóúñ°\s]{0,200}$">
+        </div>
+</div>
+
 
     <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="telefono">Telefono</label>
@@ -54,7 +61,7 @@
         <label class="col-md-3 form-control-label" for="imagen">Foto</label>
         <div class="col-md-9">
         
-            <input type="file" id="foto" name="foto" class="form-control">
+            <input type="file" id="imagen" name="imagen" class="form-control">
             
         </div>
     </div>

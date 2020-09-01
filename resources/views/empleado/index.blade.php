@@ -22,6 +22,23 @@
                             
                         </div>
 
+                        <div class="col-sm-12 mt-4">
+                            @if ( session('mensaje') )
+                                <div class="alert alert-success" role="alert">{{ session('mensaje') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                </div>
+                            @endif
+                            @if ( session('error') )
+                                <div class="alert alert-danger" role="alert">{{ session('error') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                </div>
+                            @endif
+                        </div>
+
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -45,8 +62,7 @@
                                     <th>Dirección</th>
                                   
                                     <th>Foto</th>
-                                    <th>Editar</th>
-                                    <th>Estado</th>
+                                    <th>Acción</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,23 +77,23 @@
                                    
                                     <td><img src="{{asset('storage/img/empleados/'.$empleado->foto)}}" id="" alt="{{$empleado->nombre}}" class="img-responsive" width="100px" height="100px"></td>
                                     <td>
+                                            
                                         <button type="button" class="btn btn-warning text-light btn-sm rounded" data-id_empleado="{{$empleado->id}}" data-nombre="{{$empleado->nombre}}"
-                                                data-apellido="{{$empleado->apellido}}" data-num_documento="{{$empleado->num_documento}}"
+                                                data-apellido="{{$empleado->apellido}}" data-num_documento="{{$empleado->num_documento}}" data-fecha_nacimiento="{{$empleado->fecha_nacimiento}}"
                                                 data-direccion="{{$empleado->direccion}}" data-telefono="{{$empleado->telefono}}" data-email="{{$empleado->email}}" 
                                                 data-toggle="modal" data-target="#abrirmodalEditarEmpleado">
                                             <i class="fa fa-edit fa-2x"></i> Editar
                                         </button> &nbsp;
-                                    </td>
-                                    <td>
+                                   
                                         @if($empleado->estado)
 
-                                            <button type="button" class="btn btn-danger rounded btn-sm" data-id_empleado="{{$empleado->id}}" data-toggle="modal" data-target="#cambiarEstado">
+                                            <button type="button" class="btn btn-danger rounded btn-sm" data-id_empleado="{{$empleado->id}}" data-toggle="modal" data-target="#cambiarEstadoEmpleado">
                                                 <i class="fa fa-times fa-2x"></i> DESACTIVAR
                                             </button>
 
-                                            @else
+                                        @else
 
-                                            <button type="button" class="btn btn-success rounded btn-sm" data-id_empleado="{{$empleado->id}}" data-toggle="modal" data-target="#cambiarEstado">
+                                            <button type="button" class="btn btn-success rounded btn-sm" data-id_empleado="{{$empleado->id}}" data-toggle="modal" data-target="#cambiarEstadoEmpleado">
                                                 <i class="fa fa-check fa-2x "></i> ACTIVAR
                                             </button>
 
@@ -113,7 +129,7 @@
                         <div class="modal-body">
                              
 
-                            <form action="{{route('empleado.store')}}" method="post" class="form-horizontal">
+                            <form action="{{route('empleado.store')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
                                
                                 {{csrf_field()}}
                                 
@@ -144,7 +160,7 @@
                         <div class="modal-body">
                              
 
-                            <form action="{{route('empleado.update','test')}}" method="post" class="form-horizontal">
+                            <form action="{{route('empleado.update','test')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
                                 
                                 {{method_field('patch')}}
                                 {{csrf_field()}}
@@ -163,11 +179,49 @@
             </div>
             <!--Fin del modal-->
 
+
+        <!-- Inicio del modal cambiar estado de empleado -->
+        <div class="modal fade" id="cambiarEstadoEmpleado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-danger" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h4 class="modal-title">Cambiar Estado del Empleado</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                      </div>
+
+                      <form action="{{route('empleado.destroy','test')}}" method="POST">
+                        {{method_field('delete')}}
+                        {{csrf_field()}} 
+                        
+                        <div class="modal-body">
+                    
+                          <input type="hidden" id="idempleado" name="id_empleado" value="">
+
+                              <p>¿Está seguro que desea cambiar el estado?</p>
+
+                        </div>
+                        <div class="modal-footer">
+                              <button type="submit" class="btn btn-success">Aceptar</button>
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+
+                        </div>
+
+                      </form>
+                </div>
+                  <!-- /.modal-content -->
+            </div>
+              <!-- /.modal-dialog -->
+        </div>
+          <!-- Fin del modal Eliminar -->
+         
+
            
               <!-- FORMULARIO CONDICION EMPLEADO-->
               {!!Form::open(array('url'=>'empleado','id'=>'filtrar_condicion','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!}                                      
-              <input type="hidden" name="condicionEmpleado" id="condicionEmpleado" value="">    
-            {{Form::close()}}
+                <input type="hidden" name="c" id="condicionEmpleado" value="">    
+             {{Form::close()}}
             
         </main>
 
@@ -194,11 +248,11 @@
             @else
                 
                 if($(this).prop('checked')){
-                    $("#condicionProducto").val(0)
+                    $("#condicionEmpleado").val(0)
                     $("#filtrar_condicion").submit();
 
                 }else{
-                    $("#condicionProducto").val(1)
+                    $("#condicionEmpleado").val(1)
                         $("#filtrar_condicion").submit();
                     
                 }
@@ -221,6 +275,26 @@
 
                 });
             });
+
+
+$(document).ready(function () {
+    
+    var hoy = new Date();
+    let anio = parseInt(hoy.getFullYear()) - 18;
+    let mes = parseInt(hoy.getMonth()) + 1;
+    let dia = parseInt(hoy.getDate());
+
+    if(dia<10){
+        dia='0'+dia
+    } 
+    if(mes<10){
+        mes='0'+mes
+    } 
+
+    $("#fecha_nacimiento").attr("max",anio+"-"+mes+"-"+dia);
+
+});
+           
 
     </script>
 

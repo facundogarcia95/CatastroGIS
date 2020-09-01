@@ -15,12 +15,13 @@ class Empleados extends Migration
     {
         Schema::create('empleados', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre',50);
+            $table->string('nombre',80);
             $table->string('apellido',50);
             $table->string('num_documento',20)->unique();
+            $table->date('fecha_nacimiento');
             $table->string('direccion',120)->nullable();
             $table->string('telefono',20);
-            $table->string('email',50)->nullable();
+            $table->string('email',50)->unique()->nullable();
             $table->string('foto')->nullable();
             $table->boolean('estado')->default(1);
             $table->timestamps();

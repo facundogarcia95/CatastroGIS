@@ -13,7 +13,7 @@ class IngresosSalidas extends Migration
      */
     public function up()
     {
-        Schema::create('ingresos_salidas', function (Blueprint $table) {
+    /*    Schema::create('ingresos_salidas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('idempleado')->unsigned();
             $table->datetime('hora_entrada');
@@ -21,7 +21,7 @@ class IngresosSalidas extends Migration
 
             $table->foreign('idempleado')->references('id')->on('empleados');
 
-        });
+        });*/
     }
 
     /**
@@ -31,7 +31,7 @@ class IngresosSalidas extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ingresos_salidas');
+       // Schema::dropIfExists('ingresos_salidas');
 
     }
 }

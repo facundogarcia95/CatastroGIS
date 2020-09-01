@@ -297,6 +297,7 @@
         var apellido_modal_editar = button.data('apellido')
         var num_documento_modal_editar = button.data('num_documento')
         var direccion_modal_editar = button.data('direccion')
+        var nacimiento_modal_editar = button.data('fecha_nacimiento')
         var telefono_modal_editar = button.data('telefono')
         var email_modal_editar = button.data('email')
         var id_empleado = button.data('id_empleado')
@@ -306,6 +307,7 @@
         modal.find('.modal-body #nombre').val(nombre_modal_editar);
         modal.find('.modal-body #apellido').val(apellido_modal_editar);
         modal.find('.modal-body #num_documento').val(num_documento_modal_editar);
+        modal.find('.modal-body #fecha_nacimiento').val(nacimiento_modal_editar);
         modal.find('.modal-body #direccion').val(direccion_modal_editar);
         modal.find('.modal-body #telefono').val(telefono_modal_editar);
         modal.find('.modal-body #email').val(email_modal_editar);
@@ -365,16 +367,33 @@
 
         /*INICIO ventana modal para cambiar el estado del usuario*/
         
-        $('#cambiarEstadoFicha').on('show.bs.modal', function (event) {
+        $('#cambiarEstadoNovedad').on('show.bs.modal', function (event) {
         
         //console.log('modal abierto');
         
         var button = $(event.relatedTarget) 
-        var id_ficha = button.data('id_ficha')
+        var id_novedad = button.data('id_novedad')
         var modal = $(this)
         // modal.find('.modal-title').text('New message to ' + recipient)
         
-        modal.find('.modal-body #id_ficha').val(id_ficha);
+        modal.find('.modal-body #id_novedad').val(id_novedad);
+        })
+         
+        /*FIN ventana modal para cambiar estado de la ficha*/
+
+
+        /*INICIO ventana modal para cambiar el estado del empleado*/
+        
+          $('#cambiarEstadoEmpleado').on('show.bs.modal', function (event) {
+        
+        //console.log('modal abierto');
+        
+        var button = $(event.relatedTarget) 
+        var id_empleado = button.data('id_empleado')
+        var modal = $(this)
+        // modal.find('.modal-title').text('New message to ' + recipient)
+        
+        modal.find('.modal-body #idempleado').val(id_empleado);
         })
          
         /*FIN ventana modal para cambiar estado de la ficha*/

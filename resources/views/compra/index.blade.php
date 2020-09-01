@@ -180,7 +180,7 @@
                     <!-- /.modal-content -->
               </div>
                 <!-- /.modal-dialog -->
-          </div>
+        </div>
             <!-- Fin del modal Eliminar -->
            
             
