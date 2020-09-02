@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Contracts\Encryption\DecryptException;
+
 use App\Empleado;
+use App;
 use DB;
 
 class EmpleadoController extends Controller
@@ -100,17 +105,29 @@ class EmpleadoController extends Controller
      */
     public function show($id)
     {
-        $novedades = Empleado::join('novedades', 'empleados.id','=','novedades.idempleado')
-        ->join('detalle_novedades','novedades.id','=','detalle_novedades.idnovedad')
-        ->select('novedades.*','detalle_novedades.*')
-        ->where('empleados.id','=',$id)
-        ->orderBy('novedades.id','DESC')
-        ->get();
 
-        $empleado = Empleado::findOrFail($id);
+        try{
+                
+            $id = Crypt::decrypt($id);
 
+            $empleado = Empleado::findOrFail($id);
 
-        return view('empleado.show',['empleado' => $empleado,'novedades' =>$novedades]);
+            $novedades = Empleado::join('novedades', 'empleados.id','=','novedades.idempleado')
+            ->join('tipos_novedades','novedades.idtiponovedad','=','tipos_novedades.id')
+            ->select('novedades.id','tipos_novedades.denominacion')
+            ->where('empleados.id','=',$id)
+            ->orderBy('tipos_novedades.denominacion','ASC')
+            ->get();
+
+            $cantidad = DB::table('tipos_novedades')->get()->count();
+
+        } catch (DecryptException $e) {
+            
+            App::abort(403, 'Manipulación en la URL.');
+
+        }
+
+        return view('empleado.show',['empleado' => $empleado,'novedades' =>$novedades,'cantidad' => $cantidad]);
 
     }
 

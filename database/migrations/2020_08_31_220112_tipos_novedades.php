@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use DB;
+
 
 class TiposNovedades extends Migration
 {
@@ -17,18 +17,17 @@ class TiposNovedades extends Migration
         Schema::create('tipos_novedades', function (Blueprint $table) {
             $table->increments('id');
             $table->string('denominacion',200);
-            $table->text('cabecera');
             $table->timestamps();
         });
 
         $tipos = [
-                    ['denominacion' => 'FAMILIARES', 'cabecera' => ""],
-                    ['denominacion' => 'AUSENCIAS', 'cabecera' => ""],
-                    ['denominacion' => 'APERCEBIMIENTOS', 'cabecera' => ""],
-                    ['denominacion' => 'PREMIOS', 'cabecera' => ""],
-                    ['denominacion' => 'VACACIONES', 'cabecera' => ""]
+                    ['denominacion' => 'FAMILIARES'],
+                    ['denominacion' => 'AUSENCIAS'],
+                    ['denominacion' => 'APERCEBIMIENTOS'],
+                    ['denominacion' => 'PREMIOS'],
+                    ['denominacion' => 'VACACIONES']
                  ];
-            $db = DB::table('tipos_novedades')->insert($tipos);
+        DB::table('tipos_novedades')->insert($tipos);
     }
 
     /**

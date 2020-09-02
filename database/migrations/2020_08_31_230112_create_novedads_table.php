@@ -15,7 +15,6 @@ class CreateNovedadsTable extends Migration
     {
         Schema::create('novedades', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre');
             $table->integer('idempleado')->unsigned();
             $table->integer('idtiponovedad')->unsigned();
             $table->boolean('estado')->default(1);

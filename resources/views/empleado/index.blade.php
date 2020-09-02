@@ -71,7 +71,7 @@
                                
                                 <tr>
                                     
-                                    <td><a href="{{ action('EmpleadoController@show', ['id' => $empleado->id]) }}">{{$empleado->nombre}} {{$empleado->apellido}}</a></td>
+                                    <td><a class="h5 text-primary" href="{{ action('EmpleadoController@show', ['id' => Crypt::encrypt($empleado->id)]) }}">{{$empleado->nombre}} {{$empleado->apellido}} &nbsp; <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i></a></td>
                                     <td>{{$empleado->num_documento}}</td>
                                     <td>{{$empleado->direccion}}</td>
                                    

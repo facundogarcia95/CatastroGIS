@@ -92,12 +92,9 @@
                     <tr>
       
                       <td>
-                        <a href="{{ action('NovedadController@show', ['id' => $novedad->id]) }}">{{$novedad->nombre}}</a>
+                        <a class="h5 text-primary"  href="{{ action('NovedadController@show', ['id' => Crypt::encrypt($novedad->id)]) }}">{{$novedad->denominacion}}</a>
                       </td>
                       <td>  
-                          <button  class="btn btn-warning rounded text-light btn-sm" >
-                            <i class="fa fa-edit fa-2x"></i> Editar
-                          </button> &nbsp; 
                           <button type="button" class="btn btn-danger rounded  btn-sm" data-id_novedad="{{$novedad->id}}" data-toggle="modal" data-target="#cambiarEstadoNovedad">
                             <i class="fa fa-times fa-2x"></i> Desactivar
                           </button>
@@ -110,10 +107,11 @@
                    
                 </tbody>
 
+                @if(count($novedades) < $cantidad)
                 <tfoot>
-                  <th colspan="2"> <button class="btn btn-success pull-right"><i class="fa fa-plus-square fa-2x"></i> Agregar Novedad</button></th>
+                  <th colspan="2"> <a href="{{ action('NovedadController@create', ['empleado' => Crypt::encrypt($empleado->id)]) }}" class="btn btn-success pull-right"><i class="fa fa-plus-square fa-2x"></i> Agregar Novedad</a></th>
                 </tfoot>
-                
+                @endif
                 
                 </table>
               </div>

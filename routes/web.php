@@ -61,6 +61,7 @@ Route::group(['middleware' => ['auth']], function () {
       
       Route::resource('empleado','EmpleadoController');
       Route::resource('novedad','NovedadController');
+      Route::get('detalleNovedad','NovedadController@detalleNovedad');
 
     });
 

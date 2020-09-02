@@ -2,7 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Closure;
+
+use App\Empleado;
+use App\TipoNovedad;
+
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Redirect;
+
+use App;
+use DB;
+
 
 class NovedadController extends Controller
 {
@@ -23,7 +35,38 @@ class NovedadController extends Controller
      */
     public function create(Request $request)
     {
-        return view('novedad.create');
+        try{
+
+            $idempleado = Crypt::decrypt($request->get("empleado"));
+            $empleado = Empleado::findOrFail($idempleado);
+            
+            $tipoNovedadesUsadas = DB::table('novedades')
+            ->select('idtiponovedad')
+            ->where('idempleado','=',$empleado->id)
+            ->where('estado','=',1)
+            ->groupBy('idtiponovedad')
+            ->get();
+
+            $tiposNovedades = DB::table('tipos_novedades')
+            ->get();
+
+
+            foreach($tiposNovedades as $key => $tipo){
+                foreach($tipoNovedadesUsadas as $tiposUsadas){
+                    if($tipo->id == $tiposUsadas->idtiponovedad){
+                        unset($tiposNovedades[$key]);
+                    }
+                }
+            }
+
+        } catch (DecryptException $e) {
+            
+            App::abort(403, 'Manipulación en la URL.');
+
+        }
+
+
+        return view('novedad.create',['empleado' => $empleado,'tiposNovedades' =>$tiposNovedades]);
     }
 
     /**
@@ -32,6 +75,27 @@ class NovedadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function detalleNovedad(Request $request){
+
+        try{
+            $idEmpleado = Crypt::decrypt($request->get('empleado'));
+            $empleado = Empleado::findOrFail($idEmpleado);
+
+            $idTipo = Crypt::decrypt($request->get('tipo'));
+            $tipoNovedad = TipoNovedad::findOrFail($idTipo);
+
+
+        } catch (DecryptException $e) {
+                
+            App::abort(403, 'Manipulación en la URL.');
+            
+        }
+
+        return view('novedad.detalle',["empleado"=>$empleado,"tipoNovedad"=>($tipoNovedad)]);
+    }
+
+
     public function store(Request $request)
     {
         //
@@ -81,4 +145,6 @@ class NovedadController extends Controller
     {
         //
     }
+
+   
 }
