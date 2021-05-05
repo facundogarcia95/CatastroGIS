@@ -50,7 +50,14 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => public_path('storage/img'),
+            'root' => public_path('storage/archivos'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'noticias' => [
+            'driver' => 'local',
+            'root' => public_path('storage'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
@@ -62,6 +69,13 @@ return [
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
+        ],
+
+        'parceladocs' => [
+            'driver' => 'local',
+            'root' => public_path('storage/archivos/parceladocs'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
         ],
 
     ],

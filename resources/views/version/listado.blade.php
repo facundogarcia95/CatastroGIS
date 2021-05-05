@@ -1,9 +1,12 @@
 @extends('principal')
+
+@section('breadcrumb')
+    {{ Breadcrumbs::render('versiones') }}
+@endsection
+
 @section('contenido')
-<main class="main">
-    @include('breadcrumb.bread')
     <div class="container-fluid" >
-        <!-- Ejemplo de tabla Listado -->
+        
         <div class="card" >
             <div class="card-body">
                 <table class="table table-bordered table-striped table-sm table-responsive">
@@ -32,5 +35,4 @@
         <!-- Fin ejemplo de tabla Listado -->
     </div>
 
-</main>
 @endsection

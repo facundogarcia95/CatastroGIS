@@ -25,24 +25,24 @@ return [
     | Session Lifetime
     |--------------------------------------------------------------------------
     |
-    | Here you may specify the number of minutes that you wish the session
-    | to be allowed to remain idle before it expires. If you want them
-    | to immediately expire on the browser closing, set that option.
+    | Aquí puede especificar la cantidad de minutos que desea que la sesión
+    | que se le permita permanecer inactivo antes de que expire. Si los quieres
+    | para caducar inmediatamente al cerrar el navegador, configure esa opción
     |
     */
 
     'lifetime' => env('SESSION_LIFETIME', 120),
 
-    'expire_on_close' => false,
+    'expire_on_close' => true,
 
     /*
     |--------------------------------------------------------------------------
     | Session Encryption
     |--------------------------------------------------------------------------
     |
-    | This option allows you to easily specify that all of your session data
-    | should be encrypted before it is stored. All encryption will be run
-    | automatically by Laravel and you can use the Session like normal.
+    | Esta opción le permite especificar fácilmente que todos los datos de su sesión
+     | debe estar encriptado antes de ser almacenado. Se ejecutará todo el cifrado
+     | automáticamente por Laravel y puede usar la sesión como de costumbre.
     |
     */
 
@@ -92,9 +92,9 @@ return [
     | Session Cache Store
     |--------------------------------------------------------------------------
     |
-    | When using the "apc", "memcached", or "dynamodb" session drivers you may
-    | list a cache store that should be used for these sessions. This value
-    | must match with one of the application's configured cache "stores".
+    | Cuando utilice los controladores de sesión "apc", "memcached" o "dynamodb", puede
+    | enumere un almacén de caché que debe usarse para estas sesiones. Este valor
+    | debe coincidir con uno de los "almacenes" de caché configurados de la aplicación.
     |
     */
 
@@ -105,9 +105,9 @@ return [
     | Session Sweeping Lottery
     |--------------------------------------------------------------------------
     |
-    | Some session drivers must manually sweep their storage location to get
-    | rid of old sessions from storage. Here are the chances that it will
-    | happen on a given request. By default, the odds are 2 out of 100.
+    | Algunos controladores de sesión deben barrer manualmente su ubicación de almacenamiento para obtener
+     | deshacerse de las sesiones antiguas del almacenamiento. Aquí están las posibilidades de que lo haga
+     | suceder en una solicitud determinada. De forma predeterminada, las probabilidades son 2 sobre 100.
     |
     */
 
@@ -147,9 +147,9 @@ return [
     | Session Cookie Domain
     |--------------------------------------------------------------------------
     |
-    | Here you may change the domain of the cookie used to identify a session
-    | in your application. This will determine which domains the cookie is
-    | available to in your application. A sensible default has been set.
+    | Aquí puede cambiar el dominio de la cookie utilizada para identificar una sesión.
+     | en su aplicación. Esto determinará en qué dominios se encuentra la cookie.
+     | disponible en su aplicación. Se ha establecido un valor predeterminado razonable.
     |
     */
 
@@ -173,9 +173,9 @@ return [
     | HTTP Access Only
     |--------------------------------------------------------------------------
     |
-    | Setting this value to true will prevent JavaScript from accessing the
-    | value of the cookie and the cookie will only be accessible through
-    | the HTTP protocol. You are free to modify this option if needed.
+    | Establecer este valor en verdadero evitará que JavaScript acceda al
+     | valor de la cookie y la cookie solo será accesible a través de
+     | el protocolo HTTP. Puede modificar esta opción si es necesario.
     |
     */
 

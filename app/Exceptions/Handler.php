@@ -3,7 +3,13 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\PostTooLargeException;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
+use Symfony\Component\Translation\Translator;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +52,20 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof PostTooLargeException) {
+                
+            return back();
+        }
+
+        if ($exception instanceof QueryException) {
+
+            Log::error($exception);
+           
+                return back()->with('error' ,$exception->errorInfo[2]);
+        }
+
+    
+
         return parent::render($request, $exception);
     }
 }

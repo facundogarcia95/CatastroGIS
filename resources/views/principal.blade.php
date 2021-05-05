@@ -1,4 +1,11 @@
 @inject('versionController', 'App\Http\Controllers\VersionController')
+@inject('requesPendientes', 'App\Http\Controllers\RequerimientoController')
+@inject('bloqueo', 'App\Http\Controllers\BloqueoController')
+@php
+  $cantidadRequerimientos =  $requesPendientes->cantidadRequesPendiente()->count();
+  $URLBASE = str_replace(Request::path(),null,URL::current());
+
+@endphp
 <!DOCTYPE html>
 <html lang="es">
 
@@ -6,485 +13,410 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Sistema Compras-Ventas">
-    <meta name="keyword" content="Sistema Compras-Ventas">
+    <meta name="description" content="Sistema ">
+    <meta name="keyword" content="Sistema">
     <meta name="csrf-token" content="{{csrf_token()}}">
-    <title>Sistema COVE</title>
+    @stack('header')
+
+    <title>CATASTRO GUAYMALLÉN</title>
 
     @stack('css')
     <!-- Icons -->
-    <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
-    <link href="{{asset('css/simple-line-icons.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/librerias/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/librerias/simple-line-icons.min.css')}}" rel="stylesheet">
     <!-- Main styles for this application -->
-    <link href="{{asset('css/jquery-ui.css')}}" rel="stylesheet"/>
-    <link href="{{asset('css/style.css')}}" rel="stylesheet">
-    <link href="{{asset('css/estilos.css')}}" rel="stylesheet">
-   
-
-
-     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js">-->
-
+    <link href="{{asset('css/librerias/jquery-ui.css')}}" rel="stylesheet"/>
+    <link href="{{asset('css/librerias/style.css')}}" rel="stylesheet">
+    <link href="{{asset('css/librerias/estilos.css')}}" rel="stylesheet">
+    <link href="{{asset('css/librerias/jquery.dataTables.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/librerias/responsive.bootstrap.min.css')}}" rel="stylesheet">
 
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
-<header class="app-header navbar">
+    <header class="app-header navbar">
         <button class="navbar-toggler mobile-sidebar-toggler d-lg-none mr-auto" type="button">
           <span class="navbar-toggler-icon"></span>
         </button>
         <!--PONER LOGO-->
-        <!--<a class="navbar-brand" href="#"></a>-->
         <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">
           <span class="navbar-toggler-icon"></span>
         </button>
         <ul class="nav navbar-nav d-md-down-none">
             <li class="nav-item px-3">
-                <a class="nav-link" href="#">Menu</a>
+                <a class="nav-link" href="#">Menu </a>
             </li>
            
         </ul>
+        <label class="text-lasheras ml-auto h4 font-weight-bold" >
+            @if(env('APP_MANTENIMIENTO'))
+                <label class="f-20 text-danger animacion mantenimiento pointer d-sm-none">SISTEMA EN MANTENIMIENTO</label>
+            @else
+                <a href="https://www.guaymallen.gob.ar//" target="_blank"><img src="{{asset('img')."/".env('ICONO_LOGO')}}" width="100"></a>
+            @endif
+        </label>
+
         <ul class="nav navbar-nav ml-auto">
 
+            <li class="nav-item">
+                <a href="#modalBusquedaParcela" data-toggle="modal">
+                    <i class="fa fa-search fa-2x text-primary" aria-hidden="true"></i>
+                </a>
+            </li>
+
+            @if($bloqueo->mi_bloqueo())
+            <li class="nav-item">
+                <a href="#modalBloqueo" data-toggle="modal" data-id_usuario="{{Auth::user()->usuario_id}}">
+                        <i class="fa fa-exclamation-triangle fa-2x text-danger animacion" aria-hidden="true"></i>
+                </a>
+            </li>
+            @endif
+
+            @if($cantidadRequerimientos > 0)
+                <li class="nav-item " >
+                    <a href="#modalRequerimientosPendientes"  data-toggle="modal" data-id_usuario="{{Auth::user()->usuario_id}}" class="mr-2">
+                        <i class="fa fa-bell-o fa-2x  @php if($cantidadRequerimientos < 5 ){ echo 'text-info '; }else if($cantidadRequerimientos <10 && $cantidadRequerimientos >=5){ echo 'text-warning'; }else{ echo 'text-danger'; }@endphp" aria-hidden="true"></i>
+                        <span class="notificaciones  @php if($cantidadRequerimientos < 5 ){ echo 'bg-info '; }else if($cantidadRequerimientos <10 && $cantidadRequerimientos >=5){ echo 'bg-warning'; }else{ echo 'bg-danger'; } @endphp text-light font-weight-bold">{{$cantidadRequerimientos}}</span>
+                    </a>
+                </li>  
+            @endif          
+
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle nav-link mr-4" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img src="{{asset('storage/img/usuario/'.Auth::user()->imagen)}}" class="img-avatar" class="img-avatar" alt="admin@bootstrapmaster.com">
-                    <span class="d-md-down-none">{{Auth::user()->usuario}}</span>
+                <a class="nav-link nav-link mr-4" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <img src="{{asset('storage/archivos/usuario/'.Auth::user()->imagen)}}" class="img-avatar" class="img-avatar" alt="{{Auth::user()->email}}">
+                    <span class="d-md-down-none">{{Auth::user()->usuario_login}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <div class="dropdown-header text-center">
                         <strong>Cuenta</strong>
-                    </div>
-
-                    @if(Auth::check())
-                        @if (Auth::user()->idrol == 1)
-                            @include('negocio.boton')
-                        @endif
-                    @endif    
+                    </div>  
 
                     <a class="dropdown-item" href="{{route('logout')}}" 
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fa fa-lock"></i> Cerrar sesión</a>
 
-                    <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
+                    <form  id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
                     {{ csrf_field() }} 
                     </form>
                 </div>
             </li>
         </ul>
+       
+            
+       
     </header>
-
+  
     <div class="app-body">
+   
         
-       @if(Auth::check())
-            @if (Auth::user()->idrol == 1)
+        @if(Auth::check())
+           
+            @if (Auth::user()->idrol == 1 || Auth::user()->idrol == 4 )
                 @include('navbar.sidebaradministrador')
             @elseif (Auth::user()->idrol == 2)
-                @include('navbar.sidebarvendedor')
+                @include('navbar.sidebaroperador')
             @elseif (Auth::user()->idrol == 3)
-                @include('navbar.sidebarcomprador')
-            @else
-                @include('navbar.sidebarvendedorcomprador')
+                @include('navbar.sidebarconsulta')
             @endif
-
-        @endif
+       
       
-        @if ($errors->any())
-                <script>
-                        var text = "";
-                    @foreach ($errors->all() as $error)
-                        text = text + "<li>"+ {{ $error }} + "</li> <br/>"
-                    @endforeach
+            @if ($errors->any())
+                    <script>
+                            var text = "";
+                        @foreach ($errors->all() as $error)
+                            text = text + "<li>"+ {{ $error }} + "</li> <br/>"
+                        @endforeach
 
-                        Swal.fire({
-                        type: 'error',
-                        //title: 'Oops...',
-                        html: text,
-                    
-                        })
+                            Swal.fire({
+                            type: 'error',
+                            //title: 'Oops...',
+                            html: text,
+                        
+                            })
 
-                </script>
-            <div class="alert alert-danger">
-                <ul>
-                    
-                </ul>
-            </div>
+                    </script>
+                <div class="alert alert-danger">
+                    <ul>
+                        
+                    </ul>
+                </div>
+            @endif
+            <!-- Contenido Principal -->
+            
+            <main class="main"> 
+                
+                @yield('breadcrumb')
+                
+                @yield('contenido')
+                
+                <!---------------------------------------------------
+                    Procesando
+                ------------------------------------------------------->
+                <div class="modal fade " id="procesando" style="z-index: 9999 !important;" tabindex="-1" role="dialog" aria-labelledby="procesando" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                        <div class="modal-content  rounded">
+                            <div class="modal-body">
+                                <div class="col-12 text-center">
+                                    <img src="{{asset('css/librerias/images/loader.gif')}}" style="max-width: 300px;">
+                                    <h4 >Cargando: <span id="porcentaje-procesado"></span></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!---------------------------------------------------
+                    REQUERIMIENTOS PENDIENTES
+                ------------------------------------------------------->
+                <div class="modal fade" id="modalRequerimientosPendientes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-dark modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header bg-catastro">
+                                <h4 class="modal-title">Requerimientos Pendientes</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="text-light">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <table id="tablaRequerimientos" class="table table-bordered table-striped table-sm table-responsive w-100">
+                                    <thead>
+                                        <tr class="bg-dark text-light">   
+                                            <th>#</th>
+                                            <th>Titulo</th>
+                                            <th>Estado</th>
+                                            <th>Ult. Actividad</th>
+                                        </tr>
+                                    </thead>
+                                
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary rounded" data-dismiss="modal">Cerrar</button>
+                            </div>
+                    </div>
+                    </div>
+                </div>
+
+                <!---------------------------------------------------
+                    BLOQUEO DE PADRON
+                ------------------------------------------------------->
+                @if($bloqueo->mi_bloqueo() != null)
+                <div class="modal fade" id="modalBloqueo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-dark  modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Padrón Bloqueado</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="text-light">×</span>
+                                </button>
+                            </div>
+                            <form method="POST" action="{{url('liberarBloqueo')}}">
+                                @csrf
+                                <div class="modal-body m-3">
+                                    <input type="hidden" name="parcela_id" value="{{$bloqueo->mi_bloqueo()->parcela_id}}">
+                                    @if($bloqueo->mi_bloqueo()->parcela)
+                                        <h5>Usted tiene bloqueado el padrón N° <a href="{{url('gestion/padron',$bloqueo->mi_bloqueo()->parcela_id)}}" class="text-catastro">{{$bloqueo->mi_bloqueo()->parcela->parcela_padron}}</a></h5>
+                                    @else
+                                    <h5>El padrón que usted tiene bloqueado no existe en la Base de Datos</h5>
+                                    @endif
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary rounded" >Liberar Padrón</button>
+                                    <button type="button" class="btn btn-danger rounded" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </form>
+                    </div>
+                    </div>
+                </div>
+                @endif
+
+
+                <div class="modal fade" id="modalBusquedaParcela" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-dark  modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Búsqueda de Parcela</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="text-light">×</span>
+                                </button>
+                            </div>
+                            <form method="GET" action="{{action('ParcelaController@index') }}">
+                                <input type="hidden" name="search" value="true"> 
+                                <div class="modal-body m-3">
+                                    <div class="form-row mb-3">
+                                        <div class="col-md-12 col-lg-6"> <input type="number" id="buscarPadronPrincipal" name="parcela_padron" class="form-control rounded" placeholder="Padrón" value="{{app('request')->input('parcela_padron')}}"></div>
+                                        <div class="col-md-12 col-lg-6"> <input type="text" id="buscarNomenclaturaPrincipal" name="parcela_nomenclatura" class="form-control rounded" placeholder="Nomenclatura" value="{{app('request')->input('parcela_nomenclatura')}}"></div>
+                                </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary rounded" >Buscar</button>
+                                    <button type="button" class="btn btn-success rounded buscarCarto" ><i class="fa fa-map" aria-hidden="true"></i> Cartografía</button>
+                                    <button type="button" class="btn btn-danger rounded" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </form>
+                            <form method="GET" action="{{action('CartografiaController@index') }}" id="busquedaCarto">
+                                <input type="hidden" id="buscarCarto" name="buscarCarto" value="false"> 
+                                <input type="hidden" id="buscarCartoPadron" name="parcela_padron" value=""> 
+                                <input type="hidden" id="buscarCartoNomenclatura" name="parcela_nomenclatura" value=""> 
+                            </form>
+                    </div>
+                    </div>
+                </div>
+
+            </main>
+     
         @endif
-        <!-- Contenido Principal -->
-           
-           @yield('contenido')
-
-           @include('negocio.modal')
         <!-- /Fin del contenido principal -->
 
     </div>   
 
+
     <footer class="app-footer">
-    <span class="">Versión: <a href="{{url('version')}}"> {{ $versionController->version()}} </a></span>
-        <span class="ml-auto"><a href="#">SISTEMA COVE</a> &copy; 2020</span>
+        <span class="">Versión: <a href="{{url('version')}}"> {{ $versionController->version()}} </a> - <a href="{{asset('storage/manuales/manual.pdf')}}" target="_blank"> Manual de uso </a></span>
+        <span class="ml-auto"><a href="https://divisiongis.com" target="_blank">DivisionGIS</a> &copy; 2021</span>
     </footer>
 
-    
     <!-- Bootstrap and necessary plugins -->
-    <script src="{{asset('js/jquery.min.js')}}"></script>
-    <script src="{{asset('js/jquery-ui.js')}}"></script>
-    <script src="{{asset('js/moment.min.js')}}"></script>
-    <script src="{{asset('js/jquery-migrate-3.0.0.min.js')}}"></script>
-    @stack('scripts')
-    <script src="{{asset('js/solicitudesAjax.js')}}"></script>
-    <script src="{{asset('js/popper.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/pace.min.js')}}"></script>
+    <script>const RUTA = "{{Request::route()->getName()}}";</script>
+    <script  src="{{asset('js/librerias/jquery.min.js')}}"></script>
+    <script  src="{{asset('js/librerias/jquery-ui.js')}}"></script>
+    <script  src="{{asset('js/librerias/jquery-migrate-3.0.0.min.js')}}"></script>
+    <script src="{{asset('js/librerias/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('js/librerias/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('js/librerias/moment.min.js')}}"></script>
+    <script src="{{asset('js/librerias/popper.min.js')}}"></script>
+    <script src="{{asset('js/librerias/bootstrap.min.js')}}"></script>
+
+    <script src="{{asset('js/librerias/pace.min.js')}}"></script>
     <!-- Plugins and scripts required by all views -->
-    <script src="{{asset('js/Chart.min.js')}}"></script>
-    <script src="{{asset('js/util.js')}}"></script>
+    <script src="{{asset('js/librerias/Chart.min.js')}}"></script>
+    <script src="{{asset('js/librerias/util.js')}}"></script>
     <!-- GenesisUI main scripts -->
-    <script src="{{asset('js/template.js')}}"></script>
-    <script src="{{asset('js/sweetalert2.all.min.js')}}"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{asset('js/librerias/template.js')}}"></script>
+    <script src="{{asset('js/librerias/sweetalert2.all.min.js')}}"></script>
+     
+    <script src="{{asset('js/librerias/inputmask.js')}}"></script>
+    <script src="{{asset('js/librerias/inputmask.extensions.js')}}"></script>   
+    <script src="{{asset('js/librerias/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('js/principal.js')}}"></script>
     <script>
+    /*========================================
+        VARIABLES FIJAS PARA NOMENCLATURA Y CARTOGRAFIA DE .ENV
+    =========================================*/
+    var FIJO_COORDENADA_X="{{env('FIJO_COORDENADA_X')}}";
+    var FIJO_COORDENADA_Y="{{env('FIJO_COORDENADA_Y')}}";
+    var FIJO_DEPARTAMENTO="{{env('FIJO_DEPARTAMENTO')}}";
+    var FIJO_DEPARTAMENTO_PROVISORIO="{{env('FIJO_DEPARTAMENTO_PROVISORIO')}}";
+    var URLBASE = "{{str_replace(Request::path(),null,URL::current())}}";
+    var PATH = "{{Request::path()}}";
+    var CENTER_X = {{env('CENTER_X')}};
+    var CENTER_Y = {{env('CENTER_Y')}};;
     
-         /*EDITAR CATEGORIA EN VENTANA MODAL*/
-         $('#abrirmodalEditarCat').on('show.bs.modal', function (event) {
-        
-        //console.log('modal abierto');
-        
-        var button = $(event.relatedTarget) 
-        var nombre_modal_editar = button.data('nombre')
-        var descripcion_modal_editar = button.data('descripcion')
-        var id_categoria = button.data('id_categoria')
-        //var id_tipoproductos = button.data('id_tipoproductos')
-        var unidad_medida = button.data('unidad_medida')
-        var id_receta = button.data('id_receta')
-        var modal = $(this)
-        // modal.find('.modal-title').text('New message to ' + recipient)
-        modal.find('.modal-body #nombre').val(nombre_modal_editar);
-        modal.find('.modal-body #descripcion').val(descripcion_modal_editar);
-        modal.find('.modal-body #id_categoria').val(id_categoria);
-        modal.find('.modal-body #unidad_medida').val(unidad_medida);
-        modal.find('.modal-body #id_receta').val(id_receta);
-           // tipoProducto(id_tipoproductos);
-        })
+    $(document).ready(function () {
+            
+                
+            $(".buscarCarto").on("click",function(){
+                $("#buscarCarto").val("true");
+                $("#buscarCartoPadron").val($("#buscarPadronPrincipal").val())
+                $("#buscarCartoNomenclatura").val($("#buscarNomenclaturaPrincipal").val())
+                $("#busquedaCarto").submit();
+            });
 
 
-         /******************************************************/
-        /*INICIO ventana modal para cambiar estado de Categoria*/
-        
-        $('#cambiarEstado').on('show.bs.modal', function (event) {
-        
-        //console.log('modal abierto');
-        
-        var button = $(event.relatedTarget) 
-        var id_categoria = button.data('id_categoria')
-        var modal = $(this)
-        // modal.find('.modal-title').text('New message to ' + recipient)
-        
-        modal.find('.modal-body #id_categoria').val(id_categoria);
-        })
-         
-        /*FIN ventana modal para cambiar estado de la categoria*/
+            olTable = $('#tablaRequerimientos').DataTable({
+                    "ajax":"{{url('tabla_requerimientos')}}",
+                    "deferRender": true,
+                    "retrieve": true,
+                    "processing": true,
+                    "language": {
+                    "sProcessing":     "Procesando...",
+                    "sLengthMenu":     "Mostrar _MENU_ registros",
+                    "sZeroRecords":    "No se encontraron resultados",
+                    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0",
+                    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix":    "",
+                    "sSearch":         "Buscar:",
+                    "sUrl":            "",
+                    "sInfoThousands":  ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
 
-         /*EDITAR PRODUCTO EN VENTANA MODAL*/
-         $('#abrirmodalEditar').on('show.bs.modal', function (event) {
-        
-        //console.log('modal abierto');
-        /*el button.data es lo que está en el button de editar*/
-        var button = $(event.relatedTarget)
-        /*este id_categoria_modal_editar selecciona la categoria*/
-        var id_categoria_modal_editar = button.data('id_categoria')
-        var nombre_modal_editar = button.data('nombre')
-        var precio_venta_modal_editar = button.data('precio_venta')
-        var codigo_modal_editar = button.data('codigo')
-        var stock_modal_editar = button.data('stock')
-        //var imagen_modal_editar = button.data('imagen1')
-        var id_producto = button.data('id_producto')
-        var id_categoria = button.data('id_categoria')
-        var unidad_medida = button.data('unidad_medida')
-        var id_tipoproductos = button.data('id_tipoproductos')
-        var en_venta = button.data('enventa')
-        var modal = $(this)
-        // modal.find('.modal-title').text('New message to ' + recipient)
-        /*los # son los id que se encuentran en el formulario*/
-        modal.find('.modal-body #id').val(id_categoria_modal_editar);
-        modal.find('.modal-body #nombre').val(nombre_modal_editar);
-        modal.find('.modal-body #precio_venta').val(precio_venta_modal_editar);
-        modal.find('.modal-body #codigo').val(codigo_modal_editar);
-        modal.find('.modal-body #stock').val(stock_modal_editar);
-        modal.find('.modal-body #id_tipoproductos').val(id_tipoproductos);
-        modal.find('.modal-body #id_categoria').val(id_categoria);
-        modal.find('.modal-body #unidad_medida').val(unidad_medida);
-        modal.find('.modal-body #enventa').val(en_venta);
-       // modal.find('.modal-body #subirImagen').html("<img src="img/producto/imagen_modal_editar">");
-        modal.find('.modal-body #id_producto').val(id_producto);
-        tipoProducto(id_tipoproductos);
-        })
+                },
+                columns: [
+                    
+                        {data: 'noticia_id'},
+                        {data: 'asunto'},
+                        {data: 'estado',"searchable": false},
+                        {data: 'ultima_actividad'}
+                    ]
+                }).order( [ 3, 'asc' ]);
 
-        /*INICIO ventana modal para cambiar el estado del producto*/
-        
-        $('#cambiarEstado').on('show.bs.modal', function (event) {
-        
-        //console.log('modal abierto');
-        
-        var button = $(event.relatedTarget) 
-        var id_producto = button.data('id_producto')
-        var modal = $(this)
-        // modal.find('.modal-title').text('New message to ' + recipient)
-        
-        modal.find('.modal-body #id_producto').val(id_producto);
-        })
-         
-        /*FIN ventana modal para cambiar estado del producto*/
+                var count = 0;
+                $(".nav-collapse").on('show.bs.collapse', function () {
+                    
+                    $padre = $(this).prev().data('parent');
+                    $actual = $(this).attr('id');
 
-         /*EDITAR PROVEEDOR EN VENTANA MODAL*/
-         $('#abrirmodalEditarProveedor').on('show.bs.modal', function (event) {
-        
-        //console.log('modal abierto');
-        /*el button.data es lo que está en el button de editar*/
-        var button = $(event.relatedTarget)
-        
-        var nombre_modal_editar = button.data('nombre')
-        var tipo_documento_modal_editar = button.data('tipo_documento')
-        var num_documento_modal_editar = button.data('num_documento')
-        var direccion_modal_editar = button.data('direccion')
-        var telefono_modal_editar = button.data('telefono')
-        var email_modal_editar = button.data('email')
-        var id_proveedor = button.data('id_proveedor')
-        var modal = $(this)
-        // modal.find('.modal-title').text('New message to ' + recipient)
-        /*los # son los id que se encuentran en el formulario*/
-        modal.find('.modal-body #nombre').val(nombre_modal_editar);
-        modal.find('.modal-body #tipo_documento').val(tipo_documento_modal_editar);
-        modal.find('.modal-body #num_documento').val(num_documento_modal_editar);
-        modal.find('.modal-body #direccion').val(direccion_modal_editar);
-        modal.find('.modal-body #telefono').val(telefono_modal_editar);
-        modal.find('.modal-body #email').val(email_modal_editar);
-        modal.find('.modal-body #id_proveedor').val(id_proveedor);
-        })
+                    $('.nav-collapse.show').each(function(){ 
+                        if($(this).attr('id') != $padre && $(this).attr('id') != $actual)
+                            $(this).collapse('hide');         
+                    });
+               
 
-         /*EDITAR CLIENTE EN VENTANA MODAL*/
-         $('#abrirmodalEditarCliente').on('show.bs.modal', function (event) {
-        
-        //console.log('modal abierto');
-        /*el button.data es lo que está en el button de editar*/
-        var button = $(event.relatedTarget)
-        
-        var nombre_modal_editar = button.data('nombre')
-        var tipo_documento_modal_editar = button.data('tipo_documento')
-        var num_documento_modal_editar = button.data('num_documento')
-        var direccion_modal_editar = button.data('direccion')
-        var telefono_modal_editar = button.data('telefono')
-        var email_modal_editar = button.data('email')
-        var id_cliente = button.data('id_cliente')
-        var modal = $(this)
-        // modal.find('.modal-title').text('New message to ' + recipient)
-        /*los # son los id que se encuentran en el formulario*/
-        modal.find('.modal-body #nombre').val(nombre_modal_editar);
-        modal.find('.modal-body #tipo_documento').val(tipo_documento_modal_editar);
-        modal.find('.modal-body #num_documento').val(num_documento_modal_editar);
-        modal.find('.modal-body #direccion').val(direccion_modal_editar);
-        modal.find('.modal-body #telefono').val(telefono_modal_editar);
-        modal.find('.modal-body #email').val(email_modal_editar);
-        modal.find('.modal-body #id_cliente').val(id_cliente);
-        })
-
-           /*EDITAR CLIENTE EN VENTANA MODAL*/
-           $('#abrirmodalEditarEmpleado').on('show.bs.modal', function (event) {
-        
-        //console.log('modal abierto');
-        /*el button.data es lo que está en el button de editar*/
-        var button = $(event.relatedTarget)
-        
-        var nombre_modal_editar = button.data('nombre')
-        var apellido_modal_editar = button.data('apellido')
-        var num_documento_modal_editar = button.data('num_documento')
-        var direccion_modal_editar = button.data('direccion')
-        var nacimiento_modal_editar = button.data('fecha_nacimiento')
-        var telefono_modal_editar = button.data('telefono')
-        var email_modal_editar = button.data('email')
-        var id_empleado = button.data('id_empleado')
-        var modal = $(this)
-        // modal.find('.modal-title').text('New message to ' + recipient)
-        /*los # son los id que se encuentran en el formulario*/
-        modal.find('.modal-body #nombre').val(nombre_modal_editar);
-        modal.find('.modal-body #apellido').val(apellido_modal_editar);
-        modal.find('.modal-body #num_documento').val(num_documento_modal_editar);
-        modal.find('.modal-body #fecha_nacimiento').val(nacimiento_modal_editar);
-        modal.find('.modal-body #direccion').val(direccion_modal_editar);
-        modal.find('.modal-body #telefono').val(telefono_modal_editar);
-        modal.find('.modal-body #email').val(email_modal_editar);
-        modal.find('.modal-body #id_empleado').val(id_empleado);
-        })
+                });
 
 
-         /*EDITAR USUARIO EN VENTANA MODAL*/
-         $('#abrirmodalEditarUsuario').on('show.bs.modal', function (event) {
-        
-        //console.log('modal abierto');
-        /*el button.data es lo que está en el button de editar*/
-        var button = $(event.relatedTarget)
-        
-        var nombre_modal_editar = button.data('nombre')
-        var tipo_documento_modal_editar = button.data('tipo_documento')
-        var num_documento_modal_editar = button.data('num_documento')
-        var direccion_modal_editar = button.data('direccion')
-        var telefono_modal_editar = button.data('telefono')
-        var email_modal_editar = button.data('email')
-        /*este id_rol_modal_editar selecciona la categoria*/
-        var id_rol_modal_editar = button.data('id_rol')
-        var usuario_modal_editar = button.data('usuario')
-        //var password_modal_editar = button.data('password')
-        var id_usuario = button.data('id_usuario')
-        var modal = $(this)
-        // modal.find('.modal-title').text('New message to ' + recipient)
-        /*los # son los id que se encuentran en el formulario*/
-        modal.find('.modal-body #nombre').val(nombre_modal_editar);
-        modal.find('.modal-body #tipo_documento').val(tipo_documento_modal_editar);
-        modal.find('.modal-body #num_documento').val(num_documento_modal_editar);
-        modal.find('.modal-body #direccion').val(direccion_modal_editar);
-        modal.find('.modal-body #telefono').val(telefono_modal_editar);
-        modal.find('.modal-body #email').val(email_modal_editar);
-        modal.find('.modal-body #id_rol').val(id_rol_modal_editar);
-        modal.find('.modal-body #usuario').val(usuario_modal_editar);
-        //modal.find('.modal-body #password').val(password_modal_editar);
-        modal.find('.modal-body #id_usuario').val(id_usuario);
-        })
 
-     /*INICIO ventana modal para cambiar el estado del usuario*/
-        
-        $('#cambiarEstadoUsuario').on('show.bs.modal', function (event) {
-        
-        //console.log('modal abierto');
-        
-        var button = $(event.relatedTarget) 
-        var id_usuario = button.data('id_usuario')
-        var modal = $(this)
-        // modal.find('.modal-title').text('New message to ' + recipient)
-        
-        modal.find('.modal-body #id_usuario').val(id_usuario);
-        })
-         
-        /*FIN ventana modal para cambiar estado del usuario*/
-
-
-        /*INICIO ventana modal para cambiar el estado del usuario*/
-        
-        $('#cambiarEstadoNovedad').on('show.bs.modal', function (event) {
-        
-        //console.log('modal abierto');
-        
-        var button = $(event.relatedTarget) 
-        var id_novedad = button.data('id_novedad')
-        var modal = $(this)
-        // modal.find('.modal-title').text('New message to ' + recipient)
-        
-        modal.find('.modal-body #id_novedad').val(id_novedad);
-        })
-         
-        /*FIN ventana modal para cambiar estado de la ficha*/
-
-
-        /*INICIO ventana modal para cambiar el estado del empleado*/
-        
-          $('#cambiarEstadoEmpleado').on('show.bs.modal', function (event) {
-        
-        //console.log('modal abierto');
-        
-        var button = $(event.relatedTarget) 
-        var id_empleado = button.data('id_empleado')
-        var modal = $(this)
-        // modal.find('.modal-title').text('New message to ' + recipient)
-        
-        modal.find('.modal-body #idempleado').val(id_empleado);
-        })
-         
-        /*FIN ventana modal para cambiar estado de la ficha*/
-
-         /*INICIO ventana modal para cambiar estado de Compra*/
-        
-        $('#cambiarEstadoCompra').on('show.bs.modal', function (event) {
-       
-       //console.log('modal abierto');
-       
-       var button = $(event.relatedTarget) 
-       var id_compra = button.data('id_compra')
-       var modal = $(this)
-       // modal.find('.modal-title').text('New message to ' + recipient)
-       
-       modal.find('.modal-body #id_compra').val(id_compra);
-       })
-        
-
-         /*INICIO ventana modal para cambiar estado de Compra*/
-        
-         $('#cambiarEstadoAjuste').on('show.bs.modal', function (event) {
-       
-       //console.log('modal abierto');
-       
-       var button = $(event.relatedTarget) 
-       var idajuste = button.data('idajuste')
-       var modal = $(this)
-       // modal.find('.modal-title').text('New message to ' + recipient)
-       
-       modal.find('.modal-body #idajuste').val(idajuste);
-       })
-
-       /*FIN ventana modal para cambiar estado de la compra*/
-
-       /*INICIO ventana modal para cambiar estado de Venta*/
-        
-       $('#cambiarEstadoVenta').on('show.bs.modal', function (event) {
-        
-        //console.log('modal abierto');
-        
-        var button = $(event.relatedTarget) 
-        var id_venta = button.data('id_venta')
-        var modal = $(this)
-        // modal.find('.modal-title').text('New message to ' + recipient)
-        
-        modal.find('.modal-body #id_venta').val(id_venta);
-        })
-         
-        /*FIN ventana modal para cambiar estado de la venta*/
     
+                $.ajax({
+                    type: "GET",
+                    url: "{{url('verificarSession')}}",
+                    success: function (response) {
+                        if(!response.session){
+                            window.location.reload();
+                        }
+                    },error: function(response){
+                        window.location.reload();
+                    }
+                });
 
-  /*EDITAR NEGOCIO EN VENTANA MODAL*/
-  $('#abrirmodalEditarNegocio').on('show.bs.modal', function (event) {
-        
-        //console.log('modal abierto');
-        /*el button.data es lo que está en el button de editar*/
-        var button = $(event.relatedTarget)
-        /*este id_categoria_modal_editar selecciona la categoria*/
-        var negocio_id = button.data('id')
-        var negocio_nombre = button.data('nombre')
-        var negocio_cuil = button.data('cuil')
-        var negocio_email = button.data('email')
-        var negocio_instagram = button.data('instagram')
-        var negocio_facebook = button.data('facebook')
-        //var imagen_modal_editar = button.data('imagen1')
-        var negocio_impuesto = button.data('impuesto')
-        var negocio_direccion = button.data('direccion')
-        var negocio_telefono = button.data('telefono')
-        var negocio_web = button.data('web')
-        var modal = $(this)
+                // Reload
+                setTimeout(() => {
+                    window.location.reload();                    
+                }, 3610000); // 7800000
 
-        // modal.find('.modal-title').text('New message to ' + recipient)
-        /*los # son los id que se encuentran en el formulario*/
-        modal.find('.modal-body #negocio_id').val(negocio_id);
-        modal.find('.modal-body #negocio_nombre').val(negocio_nombre);
-        modal.find('.modal-body #negocio_cuil').val(negocio_cuil);
-        modal.find('.modal-body #negocio_email').val(negocio_email);
-        modal.find('.modal-body #negocio_instagram').val(negocio_instagram);
-        modal.find('.modal-body #negocio_facebook').val(negocio_facebook);
-        modal.find('.modal-body #negocio_impuesto').val(negocio_impuesto);
-        modal.find('.modal-body #negocio_direccion').val(negocio_direccion);
-        modal.find('.modal-body #negocio_telefono').val(negocio_telefono);
-        modal.find('.modal-body #negocio_web').val(negocio_web);
-       // modal.find('.modal-body #subirImagen').html("<img src="img/producto/imagen_modal_editar">");
-        modal.find('.modal-body #negocio_id').val(negocio_id);
-        
-        })
-        
-    
+
+                $(".mantenimiento").on("click",function(){
+                    Swal.fire({
+                        position: 'center',
+                        type: 'warning',
+                        title: 'Sistema en mantenimiento',
+                        html:'Algunas funciones del sistema pueden ser afectadas temporalmente.',
+                        showConfirmButton: true
+                    })
+                })
+
+
+            });
+
+            $("form").on("submit",function(){
+                formulario = $(this);
+                formulario.find(':submit').attr("disabled",true);
+            })
     </script>
+  
+ @stack('scripts')
 
 
 </body>

@@ -15,8 +15,24 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    protected $table='usuarios';
+
+    protected $primaryKey = 'usuario_id';
+
+    protected $connection = 'mysql';
+
     protected $fillable = [
-        'id','nombre','tipo_documento','num_documento','direccion','telefono','email', 'usuario', 'password','condicion','idrol','imagen'
+        'usuario_nombre',
+        'tipo_documento',
+        'num_documento',
+        'email', 
+        'usuario_login',
+        'password',
+        'condicion',
+        'idrol',
+        'idseccion',
+        'imagen'
     ];
 
     /**
@@ -30,7 +46,22 @@ class User extends Authenticatable
 
     public function rol(){
 
-        return $this->belongsTo('App\Rol');
+        return $this->belongsTo('App\Rol','idrol');
+    }
+
+    public function seccion(){
+
+        return $this->belongsTo('App\Seccion','idseccion');
+    }
+
+    public function bloqueos(){
+
+        return $this->hasMany('App\Bloqueo');
+    }
+
+    public function hilos(){
+
+        return $this->hasMany('App\HiloRequerimiento','usuario_id');
     }
 
     /**

@@ -22,7 +22,7 @@ class Versiones extends Migration
         });
 
         $versiones = [
-            ['version' => '1.2.2', 'descripcion' => 'La versión 1.2.2 presenta nuevas funcionalidades, se agregó búsqueda por fecha, junto con la función de modificación de datos de la empresa.', 'fecha' => now()]
+            ['version' => '1.2.2', 'descripcion' => 'La versión 1.2.1 presenta nuevas funcionalidades, se agregó módulo de usuarios y breadcrumbs dinámico.', 'fecha' => now()]
         ];
         DB::table('versiones')->insert($versiones);
     }

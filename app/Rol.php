@@ -7,13 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Rol extends Model
 {
     //
-    protected $table='roles';
-    protected $fillable=['nombre','descripcion','condicion'];
+    protected $table='grupos';
+
+    protected  $primaryKey = 'grupo_id';
+
+    protected $fillable=['grupo_nombre','tipo_estado_id'];
+    
     public $timestamps=false;
 
     public function users(){
 
-        return $this->hasMany('App\User');
+        return $this->hasMany('App\User','idrol');
     }
 
 }

@@ -36,7 +36,7 @@ return [
 
         'database' => [
             'driver' => 'database',
-            'table' => 'jobs',
+            'table' => 'cola_de_tareas',
             'queue' => 'default',
             'retry_after' => 90,
         ],

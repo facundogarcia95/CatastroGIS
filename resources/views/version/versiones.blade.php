@@ -1,7 +1,10 @@
 @extends('principal')
+
+@section('breadcrumb')
+    {{ Breadcrumbs::render('versionado', $version) }}
+@endsection
+
 @section('contenido')
-<main class="main">
-    @include('breadcrumb.bread')
 
     <div class="card-body">
        
@@ -76,8 +79,6 @@
         </div>
         @endisset
     </div>
-
-</main>
     
     
 @endsection

@@ -18,6 +18,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \App\Http\Middleware\Cors::class, 
         \App\Http\Middleware\TrustProxies::class,
     ];
 
@@ -60,10 +61,12 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'Compras' => \App\Http\Middleware\Compras::class, 
-        'Ventas' => \App\Http\Middleware\Ventas::class,
-        'VendedorComprador' => \App\Http\Middleware\VendedorComprador::class,
+        'Cors' => \App\Http\Middleware\Cors::class, 
+        'Operador' => \App\Http\Middleware\Operador::class,
+        'Consulta' => \App\Http\Middleware\Consulta::class, 
+        'Script' => \App\Http\Middleware\Script::class, 
         'Administrador' => \App\Http\Middleware\Administrador::class,
+        'query' => \App\Http\Middleware\Query::class,
     ];
 
     /**

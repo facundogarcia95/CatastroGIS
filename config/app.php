@@ -46,9 +46,9 @@ return [
     | Application URL
     |--------------------------------------------------------------------------
     |
-    | This URL is used by the console to properly generate URLs when using
-    | the Artisan command line tool. You should set this to the root of
-    | your application so that it is used when running Artisan tasks.
+    | La consola utiliza esta URL para generar correctamente las URL cuando se utiliza
+     | la herramienta de línea de comandos Artisan. Debería establecer esto en la raíz de
+     | su aplicación para que se utilice al ejecutar tareas de Artisan.
     |
     */
 
@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'America/Argentina/Mendoza'),
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -106,7 +106,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -128,9 +128,9 @@ return [
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
-    | The service providers listed here will be automatically loaded on the
-    | request to your application. Feel free to add your own services to
-    | this array to grant expanded functionality to your applications.
+    | Los proveedores de servicios enumerados aquí se cargarán automáticamente en el
+     | solicitud a su aplicación. Siéntase libre de agregar sus propios servicios a
+     | esta matriz para otorgar funcionalidad ampliada a sus aplicaciones.
     |
     */
 
@@ -161,6 +161,9 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
+        Todstoychev\TableSorter\ServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -176,6 +179,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+     
     ],
 
     /*
@@ -183,9 +188,9 @@ return [
     | Class Aliases
     |--------------------------------------------------------------------------
     |
-    | This array of class aliases will be registered when this application
-    | is started. However, feel free to register as many as you wish as
-    | the aliases are "lazy" loaded so they don't hinder performance.
+    | Esta matriz de alias de clase se registrará cuando esta aplicación
+     | Está empezado. Sin embargo, siéntase libre de registrar tantos como desee
+     | los alias se cargan "perezosamente" para que no obstaculicen el rendimiento.
     |
     */
 
@@ -229,6 +234,12 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'TableSorter' => Todstoychev\TableSorter\TableSorter::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'SnappyPDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+	    'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
+      
        
     ],
 

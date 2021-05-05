@@ -8,6 +8,12 @@ use DB;
 
 class VersionController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -56,7 +62,7 @@ class VersionController extends Controller
     public function show($id)
     {
         $version = DB::table('versiones')
-        ->select('version','descripcion','fecha')
+        ->select('id','version','descripcion','fecha')
         ->where('id','=',$id)
         ->orderBy('fecha','DESC')
         ->first();

@@ -21,8 +21,6 @@ class CreateUsersTable extends Migration
                 $table->string('nombre',100);
                 $table->string('tipo_documento',20)->nullable();
                 $table->string('num_documento',20)->nullable();
-                $table->string('direccion',70)->nullable();
-                $table->string('telefono',20)->nullable();
                 $table->string('email',50)->nullable();
                 $table->string('usuario')->unique();
                 $table->string('password');
@@ -36,7 +34,7 @@ class CreateUsersTable extends Migration
 
 
             $user = [
-                    ['nombre' => 'Administrador', 'tipo_documento' => 'DNI', 'num_documento' => '12345567', 'direccion' => 'SIN CALLE', 'telefono' => '2612288191','email' => 'administrador@gmail.com', 'usuario' => 'administrador', 'password' => bcrypt('administrador2315'), 'condicion' => 1, 'idrol' => 1, 'imagen' => '1556656697.jpeg']
+                    ['nombre' => 'Administrador', 'tipo_documento' => 'DNI', 'num_documento' => '12345567', 'email' => 'administrador@gmail.com', 'usuario' => 'administrador', 'password' => bcrypt('administrador2315'), 'condicion' => 1, 'idrol' => 1, 'imagen' => '1556656697.jpeg']
                 ];
 		    $db = DB::table('users')->insert($user);
         

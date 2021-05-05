@@ -24,8 +24,8 @@ class DetalleVersiones extends Migration
         });
 
         $detalles = [
-            ['idversion'=> 1, 'titulo' => 'Modificación de Comercio', 'descripcion' => 'Permite la modificación de datos de la empresa. <br/> La misma se visualiza al hacer click sobre el nombre de usuario ubicado en la parte superior derecha.'],
-            ['idversion'=> 1,'titulo' => 'Búsqueda por fecha', 'descripcion' => 'Se encuentra disponible una nueva funcionalidad para búsqueda por fecha en módulos de Compras y Ventas.']
+            ['idversion'=> 1, 'titulo' => 'Modificación de BreadCrumbs', 'descripcion' => 'Permite gerarquizar la pocisión dentro de la página.'],
+            ['idversion'=> 1,'titulo' => 'Módulo de Usuarios', 'descripcion' => 'Se encuentra disponible para los usuarios administradores, en él gestionarán la creación y roles de accesos de los mismos.']
         ];
         DB::table('detalle_versiones')->insert($detalles);
     }

@@ -54,7 +54,26 @@ return [
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'prefix_indexes' => true,
-            'strict' => true,
+            'strict' => false,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
+        'mysql2' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST_DIRECCIONES', '127.0.0.1'),
+            'port' => env('DB_PORT_DIRECCIONES', '3306'),
+            'database' => env('DB_DATABASE_DIRECCIONES', 'forge'),
+            'username' => env('DB_USERNAME_DIRECCIONES', 'forge'),
+            'password' => env('DB_PASSWORD_DIRECCIONES', ''),
+            'unix_socket' => env('DB_SOCKET_DIRECCIONES', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => false,
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
@@ -63,11 +82,26 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => env('DB_HOST_PG_ESTATICO', '127.0.0.1'),
+            'port' => env('DB_PORT_PG_ESTATICO', '5432'),
+            'database' => env('DB_DATABASE_PG_ESTATICO', 'forge'),
+            'username' => env('DB_USERNAME_PG_ESTATICO', 'forge'),
+            'password' => env('DB_PASSWORD_PG_ESTATICO', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => false,
+            'schema' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
+        'pgsql2' => [
+            'driver' => 'pgsql',
+            'host' => env('DB_HOST_PG_DINAMICO', '127.0.0.1'),
+            'port' => env('DB_PORT_PG_DINAMICO', '5432'),
+            'database' => env('DB_DATABASE_PG_DINAMICO', 'forge'),
+            'username' => env('DB_USERNAME_PG_DINAMICO', 'forge'),
+            'password' => env('DB_PASSWORD_PG_DINAMICO', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
@@ -115,7 +149,7 @@ return [
 
     'redis' => [
 
-        'client' => env('REDIS_CLIENT', 'predis'),
+        'client' => env('REDIS_CLIENT', 'phpredis'),
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'predis'),
