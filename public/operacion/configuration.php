@@ -3,7 +3,7 @@
 ----------------------------------------------------------------------------- */
 $postgres = array(
     'user' => 'postgres',
-    'pass' => '615u53r',
+    'pass' => '',
     'port' => '5432',
     'host' => 'localhost',
     'database' => 'catastro_GLLEN',
@@ -12,7 +12,7 @@ $postgres = array(
 
 $postgres2 = array(
     'user' => 'postgres',
-    'pass' => '615u53r',
+    'pass' => '',
     'port' => '5432',
     'host' => 'localhost',
     'database' => 'catastro_GLLEN',
@@ -21,7 +21,7 @@ $postgres2 = array(
 
 $mysql = array(
     'user' => 'root',
-    'pass' => '4dm1nG15',
+    'pass' => '',
     'port' => '3306',
     'host' => 'localhost',
     'database' => 'catastro_guaymallen'
@@ -29,23 +29,14 @@ $mysql = array(
 
 $mysql2 = array(
     'user' => 'root',
-    'pass' => '4dm1nG15',
+    'pass' => '',
     'port' => '3306',
     'host' => 'localhost',
     'database' => 'gestion_direcciones_gllen'
 );
 
 $IP = $_SERVER['REMOTE_ADDR'];
-/*
-function protocolo(){
-	if(isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
-		return 'https://';
-	}else{
-		return 'http://';
-	}
-}
-*/
-//$protocolo = protocolo();
+
 $protocolo = 'http://';
 
 $url = array(
